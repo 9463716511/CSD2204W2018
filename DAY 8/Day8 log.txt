@@ -1,0 +1,2167 @@
+MariaDB [csd2204w2018]> MariaDB [(none)]> use csd2204w2018;
+Database changed
+MariaDB [csd2204w2018]> select first_name,last_name,salary from employees where salary > (select salary from employees where lat_name ='bull');
+ERROR 1054 (42S22): Unknown column 'lat_name' in 'where clause'
+MariaDB [csd2204w2018]> select first_name,last_name,salary from employees where salary > (select salary from employees where last_name ='bull');
++-------------+------------+----------+
+| first_name  | last_name  | salary   |
++-------------+------------+----------+
+| Steven      | King       | 24000.00 |
+| Neena       | Kochhar    | 17000.00 |
+| Lex         | De Haan    | 17000.00 |
+| Alexander   | Hunold     |  9000.00 |
+| Bruce       | Ernst      |  6000.00 |
+| David       | Austin     |  4800.00 |
+| Valli       | Pataballa  |  4800.00 |
+| Diana       | Lorentz    |  4200.00 |
+| Nancy       | Greenberg  | 12000.00 |
+| Daniel      | Faviet     |  9000.00 |
+| John        | Chen       |  8200.00 |
+| Ismael      | Sciarra    |  7700.00 |
+| Jose Manuel | Urman      |  7800.00 |
+| Luis        | Popp       |  6900.00 |
+| Den         | Raphaely   | 11000.00 |
+| Matthew     | Weiss      |  8000.00 |
+| Adam        | Fripp      |  8200.00 |
+| Payam       | Kaufling   |  7900.00 |
+| Shanta      | Vollman    |  6500.00 |
+| Kevin       | Mourgos    |  5800.00 |
+| John        | Russell    | 14000.00 |
+| Karen       | Partners   | 13500.00 |
+| Alberto     | Errazuriz  | 12000.00 |
+| Gerald      | Cambrault  | 11000.00 |
+| Eleni       | Zlotkey    | 10500.00 |
+| Peter       | Tucker     | 10000.00 |
+| David       | Bernstein  |  9500.00 |
+| Peter       | Hall       |  9000.00 |
+| Christopher | Olsen      |  8000.00 |
+| Nanette     | Cambrault  |  7500.00 |
+| Oliver      | Tuvault    |  7000.00 |
+| Janette     | King       | 10000.00 |
+| Patrick     | Sully      |  9500.00 |
+| Allan       | McEwen     |  9000.00 |
+| Lindsey     | Smith      |  8000.00 |
+| Louise      | Doran      |  7500.00 |
+| Sarath      | Sewall     |  7000.00 |
+| Clara       | Vishney    | 10500.00 |
+| Danielle    | Greene     |  9500.00 |
+| Mattea      | Marvins    |  7200.00 |
+| David       | Lee        |  6800.00 |
+| Sundar      | Ande       |  6400.00 |
+| Amit        | Banda      |  6200.00 |
+| Lisa        | Ozer       | 11500.00 |
+| Harrison    | Bloom      | 10000.00 |
+| Tayler      | Fox        |  9600.00 |
+| William     | Smith      |  7400.00 |
+| Elizabeth   | Bates      |  7300.00 |
+| Sundita     | Kumar      |  6100.00 |
+| Ellen       | Abel       | 11000.00 |
+| Alyssa      | Hutton     |  8800.00 |
+| Jonathon    | Taylor     |  8600.00 |
+| Jack        | Livingston |  8400.00 |
+| Kimberely   | Grant      |  7000.00 |
+| Charles     | Johnson    |  6200.00 |
+| Nandita     | Sarchand   |  4200.00 |
+| Jennifer    | Whalen     |  4400.00 |
+| Michael     | Hartstein  | 13000.00 |
+| Pat         | Fay        |  6000.00 |
+| Susan       | Mavris     |  6500.00 |
+| Hermann     | Baer       | 10000.00 |
+| Shelley     | Higgins    | 12000.00 |
+| William     | Gietz      |  8300.00 |
++-------------+------------+----------+
+63 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,salary from employees where salary > (select salary from employees where first_name ="Bull");
+Empty set (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,salary from employees where salary > (select salary from employees where first_name ='Bull');
+Empty set (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,salary from employees where salary > (select salary from employees where last_name ="Bull");
++-------------+------------+----------+
+| first_name  | last_name  | salary   |
++-------------+------------+----------+
+| Steven      | King       | 24000.00 |
+| Neena       | Kochhar    | 17000.00 |
+| Lex         | De Haan    | 17000.00 |
+| Alexander   | Hunold     |  9000.00 |
+| Bruce       | Ernst      |  6000.00 |
+| David       | Austin     |  4800.00 |
+| Valli       | Pataballa  |  4800.00 |
+| Diana       | Lorentz    |  4200.00 |
+| Nancy       | Greenberg  | 12000.00 |
+| Daniel      | Faviet     |  9000.00 |
+| John        | Chen       |  8200.00 |
+| Ismael      | Sciarra    |  7700.00 |
+| Jose Manuel | Urman      |  7800.00 |
+| Luis        | Popp       |  6900.00 |
+| Den         | Raphaely   | 11000.00 |
+| Matthew     | Weiss      |  8000.00 |
+| Adam        | Fripp      |  8200.00 |
+| Payam       | Kaufling   |  7900.00 |
+| Shanta      | Vollman    |  6500.00 |
+| Kevin       | Mourgos    |  5800.00 |
+| John        | Russell    | 14000.00 |
+| Karen       | Partners   | 13500.00 |
+| Alberto     | Errazuriz  | 12000.00 |
+| Gerald      | Cambrault  | 11000.00 |
+| Eleni       | Zlotkey    | 10500.00 |
+| Peter       | Tucker     | 10000.00 |
+| David       | Bernstein  |  9500.00 |
+| Peter       | Hall       |  9000.00 |
+| Christopher | Olsen      |  8000.00 |
+| Nanette     | Cambrault  |  7500.00 |
+| Oliver      | Tuvault    |  7000.00 |
+| Janette     | King       | 10000.00 |
+| Patrick     | Sully      |  9500.00 |
+| Allan       | McEwen     |  9000.00 |
+| Lindsey     | Smith      |  8000.00 |
+| Louise      | Doran      |  7500.00 |
+| Sarath      | Sewall     |  7000.00 |
+| Clara       | Vishney    | 10500.00 |
+| Danielle    | Greene     |  9500.00 |
+| Mattea      | Marvins    |  7200.00 |
+| David       | Lee        |  6800.00 |
+| Sundar      | Ande       |  6400.00 |
+| Amit        | Banda      |  6200.00 |
+| Lisa        | Ozer       | 11500.00 |
+| Harrison    | Bloom      | 10000.00 |
+| Tayler      | Fox        |  9600.00 |
+| William     | Smith      |  7400.00 |
+| Elizabeth   | Bates      |  7300.00 |
+| Sundita     | Kumar      |  6100.00 |
+| Ellen       | Abel       | 11000.00 |
+| Alyssa      | Hutton     |  8800.00 |
+| Jonathon    | Taylor     |  8600.00 |
+| Jack        | Livingston |  8400.00 |
+| Kimberely   | Grant      |  7000.00 |
+| Charles     | Johnson    |  6200.00 |
+| Nandita     | Sarchand   |  4200.00 |
+| Jennifer    | Whalen     |  4400.00 |
+| Michael     | Hartstein  | 13000.00 |
+| Pat         | Fay        |  6000.00 |
+| Susan       | Mavris     |  6500.00 |
+| Hermann     | Baer       | 10000.00 |
+| Shelley     | Higgins    | 12000.00 |
+| William     | Gietz      |  8300.00 |
++-------------+------------+----------+
+63 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,salary from employees where salary > (select salary from employees where first_name ='N%');
+Empty set (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,salary from employees where salary > (select salary from employees where first_name like 'N%');
+ERROR 1242 (21000): Subquery returns more than 1 row
+MariaDB [csd2204w2018]> select * from departments;
++---------------+----------------------+------------+-------------+
+| DEPARTMENT_ID | DEPARTMENT_NAME      | MANAGER_ID | LOCATION_ID |
++---------------+----------------------+------------+-------------+
+|            10 | Administration       |        200 |        1700 |
+|            20 | Marketing            |        201 |        1800 |
+|            30 | Purchasing           |        114 |        1700 |
+|            40 | Human Resources      |        203 |        2400 |
+|            50 | Shipping             |        121 |        1500 |
+|            60 | IT                   |        103 |        1400 |
+|            70 | Public Relations     |        204 |        2700 |
+|            80 | Sales                |        145 |        2500 |
+|            90 | Executive            |        100 |        1700 |
+|           100 | Finance              |        108 |        1700 |
+|           110 | Accounting           |        205 |        1700 |
+|           120 | Treasury             |          0 |        1700 |
+|           130 | Corporate Tax        |          0 |        1700 |
+|           140 | Control And Credit   |          0 |        1700 |
+|           150 | Shareholder Services |          0 |        1700 |
+|           160 | Benefits             |          0 |        1700 |
+|           170 | Manufacturing        |          0 |        1700 |
+|           180 | Construction         |          0 |        1700 |
+|           190 | Contracting          |          0 |        1700 |
+|           200 | Operations           |          0 |        1700 |
+|           210 | IT Support           |          0 |        1700 |
+|           220 | NOC                  |          0 |        1700 |
+|           230 | IT Helpdesk          |          0 |        1700 |
+|           240 | Government Sales     |          0 |        1700 |
+|           250 | Retail Sales         |          0 |        1700 |
+|           260 | Recruiting           |          0 |        1700 |
+|           270 | Payroll              |          0 |        1700 |
++---------------+----------------------+------------+-------------+
+27 rows in set (0.01 sec)
+
+MariaDB [csd2204w2018]> desc employees;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| EMPLOYEE_ID    | decimal(6,0) | NO   | PRI | 0       |       |
+| FIRST_NAME     | varchar(20)  | YES  |     | NULL    |       |
+| LAST_NAME      | varchar(25)  | NO   | MUL | NULL    |       |
+| EMAIL          | varchar(25)  | NO   | UNI | NULL    |       |
+| PHONE_NUMBER   | varchar(20)  | YES  |     | NULL    |       |
+| HIRE_DATE      | date         | NO   |     | NULL    |       |
+| JOB_ID         | varchar(10)  | NO   | MUL | NULL    |       |
+| SALARY         | decimal(8,2) | YES  |     | NULL    |       |
+| COMMISSION_PCT | decimal(2,2) | YES  |     | NULL    |       |
+| MANAGER_ID     | decimal(6,0) | YES  | MUL | NULL    |       |
+| DEPARTMENT_ID  | decimal(4,0) | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+11 rows in set (0.04 sec)
+
+MariaDB [csd2204w2018]> select first_name,lat_name from employees where department_id = (select department_id from departments where department_name like 'IT';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [csd2204w2018]> select first_name,lat_name from employees where department_id = (select department_id from departments where department_name like "IT";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [csd2204w2018]> select first_name,last_name from employees where department_id = (select department_id from departments where department_name like "IT";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [csd2204w2018]> select first_name,last_name from employees where department_id = (select department_id from departments where department_name like "IT");
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Alexander  | Hunold    |
+| Bruce      | Ernst     |
+| David      | Austin    |
+| Valli      | Pataballa |
+| Diana      | Lorentz   |
++------------+-----------+
+5 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name from employees where department_id = (select department_id from departments where department_name not like "IT";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [csd2204w2018]> select first_name,last_name from employees where department_id = (select department_id from departments where department_name not like "IT");
+ERROR 1242 (21000): Subquery returns more than 1 row
+MariaDB [csd2204w2018]> select first_name,last_name from employees where department_id <> (select department_id from departments where department_name not like "IT");
+ERROR 1242 (21000): Subquery returns more than 1 row
+MariaDB [csd2204w2018]> select first_name,last_name from employees where department_id <> (select department_id from departments where department_name like "IT");
++-------------+-------------+
+| first_name  | last_name   |
++-------------+-------------+
+| Steven      | King        |
+| Neena       | Kochhar     |
+| Lex         | De Haan     |
+| Nancy       | Greenberg   |
+| Daniel      | Faviet      |
+| John        | Chen        |
+| Ismael      | Sciarra     |
+| Jose Manuel | Urman       |
+| Luis        | Popp        |
+| Den         | Raphaely    |
+| Alexander   | Khoo        |
+| Shelli      | Baida       |
+| Sigal       | Tobias      |
+| Guy         | Himuro      |
+| Karen       | Colmenares  |
+| Matthew     | Weiss       |
+| Adam        | Fripp       |
+| Payam       | Kaufling    |
+| Shanta      | Vollman     |
+| Kevin       | Mourgos     |
+| Julia       | Nayer       |
+| Irene       | Mikkilineni |
+| James       | Landry      |
+| Steven      | Markle      |
+| Laura       | Bissot      |
+| Mozhe       | Atkinson    |
+| James       | Marlow      |
+| TJ          | Olson       |
+| Jason       | Mallin      |
+| Michael     | Rogers      |
+| Ki          | Gee         |
+| Hazel       | Philtanker  |
+| Renske      | Ladwig      |
+| Stephen     | Stiles      |
+| John        | Seo         |
+| Joshua      | Patel       |
+| Trenna      | Rajs        |
+| Curtis      | Davies      |
+| Randall     | Matos       |
+| Peter       | Vargas      |
+| John        | Russell     |
+| Karen       | Partners    |
+| Alberto     | Errazuriz   |
+| Gerald      | Cambrault   |
+| Eleni       | Zlotkey     |
+| Peter       | Tucker      |
+| David       | Bernstein   |
+| Peter       | Hall        |
+| Christopher | Olsen       |
+| Nanette     | Cambrault   |
+| Oliver      | Tuvault     |
+| Janette     | King        |
+| Patrick     | Sully       |
+| Allan       | McEwen      |
+| Lindsey     | Smith       |
+| Louise      | Doran       |
+| Sarath      | Sewall      |
+| Clara       | Vishney     |
+| Danielle    | Greene      |
+| Mattea      | Marvins     |
+| David       | Lee         |
+| Sundar      | Ande        |
+| Amit        | Banda       |
+| Lisa        | Ozer        |
+| Harrison    | Bloom       |
+| Tayler      | Fox         |
+| William     | Smith       |
+| Elizabeth   | Bates       |
+| Sundita     | Kumar       |
+| Ellen       | Abel        |
+| Alyssa      | Hutton      |
+| Jonathon    | Taylor      |
+| Jack        | Livingston  |
+| Kimberely   | Grant       |
+| Charles     | Johnson     |
+| Winston     | Taylor      |
+| Jean        | Fleaur      |
+| Martha      | Sullivan    |
+| Girard      | Geoni       |
+| Nandita     | Sarchand    |
+| Alexis      | Bull        |
+| Julia       | Dellinger   |
+| Anthony     | Cabrio      |
+| Kelly       | Chung       |
+| Jennifer    | Dilly       |
+| Timothy     | Gates       |
+| Randall     | Perkins     |
+| Sarah       | Bell        |
+| Britney     | Everett     |
+| Samuel      | McCain      |
+| Vance       | Jones       |
+| Alana       | Walsh       |
+| Kevin       | Feeney      |
+| Donald      | OConnell    |
+| Douglas     | Grant       |
+| Jennifer    | Whalen      |
+| Michael     | Hartstein   |
+| Pat         | Fay         |
+| Susan       | Mavris      |
+| Hermann     | Baer        |
+| Shelley     | Higgins     |
+| William     | Gietz       |
++-------------+-------------+
+102 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> desc departments;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| DEPARTMENT_ID   | decimal(4,0) | NO   | PRI | 0       |       |
+| DEPARTMENT_NAME | varchar(30)  | NO   |     | NULL    |       |
+| MANAGER_ID      | decimal(6,0) | YES  | MUL | NULL    |       |
+| LOCATION_ID     | decimal(4,0) | YES  | MUL | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> desc locations;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| LOCATION_ID    | decimal(4,0) | NO   | PRI | 0       |       |
+| STREET_ADDRESS | varchar(40)  | YES  |     | NULL    |       |
+| POSTAL_CODE    | varchar(12)  | YES  |     | NULL    |       |
+| CITY           | varchar(30)  | NO   | MUL | NULL    |       |
+| STATE_PROVINCE | varchar(25)  | YES  | MUL | NULL    |       |
+| COUNTRY_ID     | varchar(2)   | YES  | MUL | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> desc countries;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| COUNTRY_ID   | varchar(2)    | NO   | PRI | NULL    |       |
+| COUNTRY_NAME | varchar(40)   | YES  |     | NULL    |       |
+| REGION_ID    | decimal(10,0) | YES  | MUL | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> SELECT * FROM LOCATIONS;
++-------------+---------------------------+--------------+---------------------+-------------------+------------+
+| LOCATION_ID | STREET_ADDRESS            | POSTAL_CODE  | CITY                | STATE_PROVINCE    | COUNTRY_ID |
++-------------+---------------------------+--------------+---------------------+-------------------+------------+
+|        1000 | 1297 Via Cola di Rie      | 989          | Roma                |                   | IT         |
+|        1100 | 93091 Calle della Testa   | 10934        | Venice              |                   | IT         |
+|        1200 | 2017 Shinjuku-ku          | 1689         | Tokyo               | Tokyo Prefecture  | JP         |
+|        1300 | 9450 Kamiya-cho           | 6823         | Hiroshima           |                   | JP         |
+|        1400 | 2014 Jabberwocky Rd       | 26192        | Southlake           | Texas             | US         |
+|        1500 | 2011 Interiors Blvd       | 99236        | South San Francisco | California        | US         |
+|        1600 | 2007 Zagora St            | 50090        | South Brunswick     | New Jersey        | US         |
+|        1700 | 2004 Charade Rd           | 98199        | Seattle             | Washington        | US         |
+|        1800 | 147 Spadina Ave           | M5V 2L7      | Toronto             | Ontario           | CA         |
+|        1900 | 6092 Boxwood St           | YSW 9T2      | Whitehorse          | Yukon             | CA         |
+|        2000 | 40-5-12 Laogianggen       | 190518       | Beijing             |                   | CN         |
+|        2100 | 1298 Vileparle (E)        | 490231       | Bombay              | Maharashtra       | IN         |
+|        2200 | 12-98 Victoria Street     | 2901         | Sydney              | New South Wales   | AU         |
+|        2300 | 198 Clementi North        | 540198       | Singapore           |                   | SG         |
+|        2400 | 8204 Arthur St            |              | London              |                   | UK         |
+|        2500 | "Magdalen Centre          |  The Oxford  | OX9 9ZB             | Oxford            | Ox         |
+|        2600 | 9702 Chester Road         | 9629850293   | Stretford           | Manchester        | UK         |
+|        2700 | Schwanthalerstr. 7031     | 80925        | Munich              | Bavaria           | DE         |
+|        2800 | Rua Frei Caneca 1360      | 01307-002    | Sao Paulo           | Sao Paulo         | BR         |
+|        2900 | 20 Rue des Corps-Saints   | 1730         | Geneva              | Geneve            | CH         |
+|        3000 | Murtenstrasse 921         | 3095         | Bern                | BE                | CH         |
+|        3100 | Pieter Breughelstraat 837 | 3029SK       | Utrecht             | Utrecht           | NL         |
+|        3200 | Mariano Escobedo 9991     | 11932        | Mexico City         | "Distrito Federal | "          |
++-------------+---------------------------+--------------+---------------------+-------------------+------------+
+23 rows in set (0.02 sec)
+
+MariaDB [csd2204w2018]> SELECT location_id from locations where country_id = "US";
++-------------+
+| location_id |
++-------------+
+|        1400 |
+|        1500 |
+|        1600 |
+|        1700 |
++-------------+
+4 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> SELECT DEPARTMENT_ID FROM DEPARTMENTS WHERE LOCATION_ID = (SELECT location_id from locations where country_id = "US";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [csd2204w2018]> SELECT DEPARTMENT_ID FROM DEPARTMENTS WHERE LOCATION_ID = (SELECT location_id from locations where country_id = "US");
+ERROR 1242 (21000): Subquery returns more than 1 row
+MariaDB [csd2204w2018]> select first_name,last_name from employees where manager_id <> 0 and deoartment_id in (select department_id from departments where location_id in (SELECT location_ID  from  locations where country_id = "US");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [csd2204w2018]> select first_name,last_name from employees where manager_id <> 0 and deoartment_id in (select department_id from departments where location_id in (SELECT location_ID  from  locations where country_id = "US"));
+ERROR 1054 (42S22): Unknown column 'deoartment_id' in 'IN/ALL/ANY subquery'
+MariaDB [csd2204w2018]> select first_name,last_name from employees where manager_id <> 0 and department_id in (select department_id from departments where location_id in (SELECT location_ID  from  locations where country_id = "US"));
++-------------+-------------+
+| first_name  | last_name   |
++-------------+-------------+
+| Alexander   | Hunold      |
+| Bruce       | Ernst       |
+| David       | Austin      |
+| Valli       | Pataballa   |
+| Diana       | Lorentz     |
+| Matthew     | Weiss       |
+| Adam        | Fripp       |
+| Payam       | Kaufling    |
+| Shanta      | Vollman     |
+| Kevin       | Mourgos     |
+| Julia       | Nayer       |
+| Irene       | Mikkilineni |
+| James       | Landry      |
+| Steven      | Markle      |
+| Laura       | Bissot      |
+| Mozhe       | Atkinson    |
+| James       | Marlow      |
+| TJ          | Olson       |
+| Jason       | Mallin      |
+| Michael     | Rogers      |
+| Ki          | Gee         |
+| Hazel       | Philtanker  |
+| Renske      | Ladwig      |
+| Stephen     | Stiles      |
+| John        | Seo         |
+| Joshua      | Patel       |
+| Trenna      | Rajs        |
+| Curtis      | Davies      |
+| Randall     | Matos       |
+| Peter       | Vargas      |
+| Winston     | Taylor      |
+| Jean        | Fleaur      |
+| Martha      | Sullivan    |
+| Girard      | Geoni       |
+| Nandita     | Sarchand    |
+| Alexis      | Bull        |
+| Julia       | Dellinger   |
+| Anthony     | Cabrio      |
+| Kelly       | Chung       |
+| Jennifer    | Dilly       |
+| Timothy     | Gates       |
+| Randall     | Perkins     |
+| Sarah       | Bell        |
+| Britney     | Everett     |
+| Samuel      | McCain      |
+| Vance       | Jones       |
+| Alana       | Walsh       |
+| Kevin       | Feeney      |
+| Donald      | OConnell    |
+| Douglas     | Grant       |
+| Jennifer    | Whalen      |
+| Den         | Raphaely    |
+| Alexander   | Khoo        |
+| Shelli      | Baida       |
+| Sigal       | Tobias      |
+| Guy         | Himuro      |
+| Karen       | Colmenares  |
+| Neena       | Kochhar     |
+| Lex         | De Haan     |
+| Nancy       | Greenberg   |
+| Daniel      | Faviet      |
+| John        | Chen        |
+| Ismael      | Sciarra     |
+| Jose Manuel | Urman       |
+| Luis        | Popp        |
+| Shelley     | Higgins     |
+| William     | Gietz       |
++-------------+-------------+
+67 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select * frrom jobs;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'frrom jobs' at line 1
+MariaDB [csd2204w2018]> select * from jobs;
++------------+---------------------------------+------------+------------+
+| JOB_ID     | JOB_TITLE                       | MIN_SALARY | MAX_SALARY |
++------------+---------------------------------+------------+------------+
+| AD_PRES    | President                       |      20000 |      40000 |
+| AD_VP      | Administration Vice President   |      15000 |      30000 |
+| AD_ASST    | Administration Assistant        |       3000 |       6000 |
+| FI_MGR     | Finance Manager                 |       8200 |      16000 |
+| FI_ACCOUNT | Accountant                      |       4200 |       9000 |
+| AC_MGR     | Accounting Manager              |       8200 |      16000 |
+| AC_ACCOUNT | Public Accountant               |       4200 |       9000 |
+| SA_MAN     | Sales Manager                   |      10000 |      20000 |
+| SA_REP     | Sales Representative            |       6000 |      12000 |
+| PU_MAN     | Purchasing Manager              |       8000 |      15000 |
+| PU_CLERK   | Purchasing Clerk                |       2500 |       5500 |
+| ST_MAN     | Stock Manager                   |       5500 |       8500 |
+| ST_CLERK   | Stock Clerk                     |       2000 |       5000 |
+| SH_CLERK   | Shipping Clerk                  |       2500 |       5500 |
+| IT_PROG    | Programmer                      |       4000 |      10000 |
+| MK_MAN     | Marketing Manager               |       9000 |      15000 |
+| MK_REP     | Marketing Representative        |       4000 |       9000 |
+| HR_REP     | Human Resources Representative  |       4000 |       9000 |
+| PR_REP     | Public Relations Representative |       4500 |      10500 |
++------------+---------------------------------+------------+------------+
+19 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select distinct manager_id from managers;
+ERROR 1146 (42S02): Table 'csd2204w2018.managers' doesn't exist
+MariaDB [csd2204w2018]> select distinct manager_id from manager;
+ERROR 1146 (42S02): Table 'csd2204w2018.manager' doesn't exist
+MariaDB [csd2204w2018]> select distinct manager_id from employees;
++------------+
+| manager_id |
++------------+
+|          0 |
+|        100 |
+|        101 |
+|        102 |
+|        103 |
+|        108 |
+|        114 |
+|        120 |
+|        121 |
+|        122 |
+|        123 |
+|        124 |
+|        145 |
+|        146 |
+|        147 |
+|        148 |
+|        149 |
+|        201 |
+|        205 |
++------------+
+19 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select * frrom employees where lasy_name like 'king';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'frrom employees where lasy_name like 'king'' at line 1
+MariaDB [csd2204w2018]> select name,price from products where name = 'monitor' into outfile 'c;\xampp\result.txt';
+ERROR 1 (HY000): Can't create/write to file 'C:\xampp\mysql\data\csd2204w2018\c;xamppesult.txt' (Errcode: 22 "Invalid argument")
+MariaDB [csd2204w2018]> select employee_id,first_name,last_name,manager_id from employees; 
++-------------+-------------+-------------+------------+
+| employee_id | first_name  | last_name   | manager_id |
++-------------+-------------+-------------+------------+
+|         100 | Steven      | King        |          0 |
+|         101 | Neena       | Kochhar     |        100 |
+|         102 | Lex         | De Haan     |        100 |
+|         103 | Alexander   | Hunold      |        102 |
+|         104 | Bruce       | Ernst       |        103 |
+|         105 | David       | Austin      |        103 |
+|         106 | Valli       | Pataballa   |        103 |
+|         107 | Diana       | Lorentz     |        103 |
+|         108 | Nancy       | Greenberg   |        101 |
+|         109 | Daniel      | Faviet      |        108 |
+|         110 | John        | Chen        |        108 |
+|         111 | Ismael      | Sciarra     |        108 |
+|         112 | Jose Manuel | Urman       |        108 |
+|         113 | Luis        | Popp        |        108 |
+|         114 | Den         | Raphaely    |        100 |
+|         115 | Alexander   | Khoo        |        114 |
+|         116 | Shelli      | Baida       |        114 |
+|         117 | Sigal       | Tobias      |        114 |
+|         118 | Guy         | Himuro      |        114 |
+|         119 | Karen       | Colmenares  |        114 |
+|         120 | Matthew     | Weiss       |        100 |
+|         121 | Adam        | Fripp       |        100 |
+|         122 | Payam       | Kaufling    |        100 |
+|         123 | Shanta      | Vollman     |        100 |
+|         124 | Kevin       | Mourgos     |        100 |
+|         125 | Julia       | Nayer       |        120 |
+|         126 | Irene       | Mikkilineni |        120 |
+|         127 | James       | Landry      |        120 |
+|         128 | Steven      | Markle      |        120 |
+|         129 | Laura       | Bissot      |        121 |
+|         130 | Mozhe       | Atkinson    |        121 |
+|         131 | James       | Marlow      |        121 |
+|         132 | TJ          | Olson       |        121 |
+|         133 | Jason       | Mallin      |        122 |
+|         134 | Michael     | Rogers      |        122 |
+|         135 | Ki          | Gee         |        122 |
+|         136 | Hazel       | Philtanker  |        122 |
+|         137 | Renske      | Ladwig      |        123 |
+|         138 | Stephen     | Stiles      |        123 |
+|         139 | John        | Seo         |        123 |
+|         140 | Joshua      | Patel       |        123 |
+|         141 | Trenna      | Rajs        |        124 |
+|         142 | Curtis      | Davies      |        124 |
+|         143 | Randall     | Matos       |        124 |
+|         144 | Peter       | Vargas      |        124 |
+|         145 | John        | Russell     |        100 |
+|         146 | Karen       | Partners    |        100 |
+|         147 | Alberto     | Errazuriz   |        100 |
+|         148 | Gerald      | Cambrault   |        100 |
+|         149 | Eleni       | Zlotkey     |        100 |
+|         150 | Peter       | Tucker      |        145 |
+|         151 | David       | Bernstein   |        145 |
+|         152 | Peter       | Hall        |        145 |
+|         153 | Christopher | Olsen       |        145 |
+|         154 | Nanette     | Cambrault   |        145 |
+|         155 | Oliver      | Tuvault     |        145 |
+|         156 | Janette     | King        |        146 |
+|         157 | Patrick     | Sully       |        146 |
+|         158 | Allan       | McEwen      |        146 |
+|         159 | Lindsey     | Smith       |        146 |
+|         160 | Louise      | Doran       |        146 |
+|         161 | Sarath      | Sewall      |        146 |
+|         162 | Clara       | Vishney     |        147 |
+|         163 | Danielle    | Greene      |        147 |
+|         164 | Mattea      | Marvins     |        147 |
+|         165 | David       | Lee         |        147 |
+|         166 | Sundar      | Ande        |        147 |
+|         167 | Amit        | Banda       |        147 |
+|         168 | Lisa        | Ozer        |        148 |
+|         169 | Harrison    | Bloom       |        148 |
+|         170 | Tayler      | Fox         |        148 |
+|         171 | William     | Smith       |        148 |
+|         172 | Elizabeth   | Bates       |        148 |
+|         173 | Sundita     | Kumar       |        148 |
+|         174 | Ellen       | Abel        |        149 |
+|         175 | Alyssa      | Hutton      |        149 |
+|         176 | Jonathon    | Taylor      |        149 |
+|         177 | Jack        | Livingston  |        149 |
+|         178 | Kimberely   | Grant       |        149 |
+|         179 | Charles     | Johnson     |        149 |
+|         180 | Winston     | Taylor      |        120 |
+|         181 | Jean        | Fleaur      |        120 |
+|         182 | Martha      | Sullivan    |        120 |
+|         183 | Girard      | Geoni       |        120 |
+|         184 | Nandita     | Sarchand    |        121 |
+|         185 | Alexis      | Bull        |        121 |
+|         186 | Julia       | Dellinger   |        121 |
+|         187 | Anthony     | Cabrio      |        121 |
+|         188 | Kelly       | Chung       |        122 |
+|         189 | Jennifer    | Dilly       |        122 |
+|         190 | Timothy     | Gates       |        122 |
+|         191 | Randall     | Perkins     |        122 |
+|         192 | Sarah       | Bell        |        123 |
+|         193 | Britney     | Everett     |        123 |
+|         194 | Samuel      | McCain      |        123 |
+|         195 | Vance       | Jones       |        123 |
+|         196 | Alana       | Walsh       |        124 |
+|         197 | Kevin       | Feeney      |        124 |
+|         198 | Donald      | OConnell    |        124 |
+|         199 | Douglas     | Grant       |        124 |
+|         200 | Jennifer    | Whalen      |        101 |
+|         201 | Michael     | Hartstein   |        100 |
+|         202 | Pat         | Fay         |        201 |
+|         203 | Susan       | Mavris      |        101 |
+|         204 | Hermann     | Baer        |        101 |
+|         205 | Shelley     | Higgins     |        101 |
+|         206 | William     | Gietz       |        205 |
++-------------+-------------+-------------+------------+
+107 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name from employees where employees_id in (select employees_id from employees where employee_id in (select distinct manager_id from employees)); 
+ERROR 1054 (42S22): Unknown column 'employees_id' in 'IN/ALL/ANY subquery'
+MariaDB [csd2204w2018]> select first_name,last_name from employees where employee_id in (select employee_id from employees where employee_id in (select distinct manager_id from employees)); 
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Steven     | King      |
+| Neena      | Kochhar   |
+| Lex        | De Haan   |
+| Alexander  | Hunold    |
+| Nancy      | Greenberg |
+| Den        | Raphaely  |
+| Matthew    | Weiss     |
+| Adam       | Fripp     |
+| Payam      | Kaufling  |
+| Shanta     | Vollman   |
+| Kevin      | Mourgos   |
+| John       | Russell   |
+| Karen      | Partners  |
+| Alberto    | Errazuriz |
+| Gerald     | Cambrault |
+| Eleni      | Zlotkey   |
+| Michael    | Hartstein |
+| Shelley    | Higgins   |
++------------+-----------+
+18 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> SELECT AVG(SALARY) FROM EMPLOYEES;
++-------------+
+| AVG(SALARY) |
++-------------+
+| 6461.682243 |
++-------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES);
++-------------+------------+----------+
+| first_name  | last_name  | SALARY   |
++-------------+------------+----------+
+| Steven      | King       | 24000.00 |
+| Neena       | Kochhar    | 17000.00 |
+| Lex         | De Haan    | 17000.00 |
+| Alexander   | Hunold     |  9000.00 |
+| Nancy       | Greenberg  | 12000.00 |
+| Daniel      | Faviet     |  9000.00 |
+| John        | Chen       |  8200.00 |
+| Ismael      | Sciarra    |  7700.00 |
+| Jose Manuel | Urman      |  7800.00 |
+| Luis        | Popp       |  6900.00 |
+| Den         | Raphaely   | 11000.00 |
+| Matthew     | Weiss      |  8000.00 |
+| Adam        | Fripp      |  8200.00 |
+| Payam       | Kaufling   |  7900.00 |
+| Shanta      | Vollman    |  6500.00 |
+| John        | Russell    | 14000.00 |
+| Karen       | Partners   | 13500.00 |
+| Alberto     | Errazuriz  | 12000.00 |
+| Gerald      | Cambrault  | 11000.00 |
+| Eleni       | Zlotkey    | 10500.00 |
+| Peter       | Tucker     | 10000.00 |
+| David       | Bernstein  |  9500.00 |
+| Peter       | Hall       |  9000.00 |
+| Christopher | Olsen      |  8000.00 |
+| Nanette     | Cambrault  |  7500.00 |
+| Oliver      | Tuvault    |  7000.00 |
+| Janette     | King       | 10000.00 |
+| Patrick     | Sully      |  9500.00 |
+| Allan       | McEwen     |  9000.00 |
+| Lindsey     | Smith      |  8000.00 |
+| Louise      | Doran      |  7500.00 |
+| Sarath      | Sewall     |  7000.00 |
+| Clara       | Vishney    | 10500.00 |
+| Danielle    | Greene     |  9500.00 |
+| Mattea      | Marvins    |  7200.00 |
+| David       | Lee        |  6800.00 |
+| Lisa        | Ozer       | 11500.00 |
+| Harrison    | Bloom      | 10000.00 |
+| Tayler      | Fox        |  9600.00 |
+| William     | Smith      |  7400.00 |
+| Elizabeth   | Bates      |  7300.00 |
+| Ellen       | Abel       | 11000.00 |
+| Alyssa      | Hutton     |  8800.00 |
+| Jonathon    | Taylor     |  8600.00 |
+| Jack        | Livingston |  8400.00 |
+| Kimberely   | Grant      |  7000.00 |
+| Michael     | Hartstein  | 13000.00 |
+| Susan       | Mavris     |  6500.00 |
+| Hermann     | Baer       | 10000.00 |
+| Shelley     | Higgins    | 12000.00 |
+| William     | Gietz      |  8300.00 |
++-------------+------------+----------+
+51 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> ALTER TABLE Persons
+    -> ALTER COLUMN DateOfBirth year;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'year' at line 2
+MariaDB [csd2204w2018]> ALTER TABLE EMPLOYEES ALTER COLUMN SALARY  ANNUAL_SALARY;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ANNUAL_SALARY' at line 1
+MariaDB [csd2204w2018]> SELECT * FROM EMPLOYEES;
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME  | LAST_NAME   | EMAIL    | PHONE_NUMBER       | HIRE_DATE  | JOB_ID     | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+
+|         100 | Steven      | King        | SKING    | 515.123.4567       | 1987-06-17 | AD_PRES    | 24000.00 |           0.00 |          0 |            90 |
+|         101 | Neena       | Kochhar     | NKOCHHAR | 515.123.4568       | 1987-06-18 | AD_VP      | 17000.00 |           0.00 |        100 |            90 |
+|         102 | Lex         | De Haan     | LDEHAAN  | 515.123.4569       | 1987-06-19 | AD_VP      | 17000.00 |           0.00 |        100 |            90 |
+|         103 | Alexander   | Hunold      | AHUNOLD  | 590.423.4567       | 1987-06-20 | IT_PROG    |  9000.00 |           0.00 |        102 |            60 |
+|         104 | Bruce       | Ernst       | BERNST   | 590.423.4568       | 1987-06-21 | IT_PROG    |  6000.00 |           0.00 |        103 |            60 |
+|         105 | David       | Austin      | DAUSTIN  | 590.423.4569       | 1987-06-22 | IT_PROG    |  4800.00 |           0.00 |        103 |            60 |
+|         106 | Valli       | Pataballa   | VPATABAL | 590.423.4560       | 1987-06-23 | IT_PROG    |  4800.00 |           0.00 |        103 |            60 |
+|         107 | Diana       | Lorentz     | DLORENTZ | 590.423.5567       | 1987-06-24 | IT_PROG    |  4200.00 |           0.00 |        103 |            60 |
+|         108 | Nancy       | Greenberg   | NGREENBE | 515.124.4569       | 1987-06-25 | FI_MGR     | 12000.00 |           0.00 |        101 |           100 |
+|         109 | Daniel      | Faviet      | DFAVIET  | 515.124.4169       | 1987-06-26 | FI_ACCOUNT |  9000.00 |           0.00 |        108 |           100 |
+|         110 | John        | Chen        | JCHEN    | 515.124.4269       | 1987-06-27 | FI_ACCOUNT |  8200.00 |           0.00 |        108 |           100 |
+|         111 | Ismael      | Sciarra     | ISCIARRA | 515.124.4369       | 1987-06-28 | FI_ACCOUNT |  7700.00 |           0.00 |        108 |           100 |
+|         112 | Jose Manuel | Urman       | JMURMAN  | 515.124.4469       | 1987-06-29 | FI_ACCOUNT |  7800.00 |           0.00 |        108 |           100 |
+|         113 | Luis        | Popp        | LPOPP    | 515.124.4567       | 1987-06-30 | FI_ACCOUNT |  6900.00 |           0.00 |        108 |           100 |
+|         114 | Den         | Raphaely    | DRAPHEAL | 515.127.4561       | 1987-07-01 | PU_MAN     | 11000.00 |           0.00 |        100 |            30 |
+|         115 | Alexander   | Khoo        | AKHOO    | 515.127.4562       | 1987-07-02 | PU_CLERK   |  3100.00 |           0.00 |        114 |            30 |
+|         116 | Shelli      | Baida       | SBAIDA   | 515.127.4563       | 1987-07-03 | PU_CLERK   |  2900.00 |           0.00 |        114 |            30 |
+|         117 | Sigal       | Tobias      | STOBIAS  | 515.127.4564       | 1987-07-04 | PU_CLERK   |  2800.00 |           0.00 |        114 |            30 |
+|         118 | Guy         | Himuro      | GHIMURO  | 515.127.4565       | 1987-07-05 | PU_CLERK   |  2600.00 |           0.00 |        114 |            30 |
+|         119 | Karen       | Colmenares  | KCOLMENA | 515.127.4566       | 1987-07-06 | PU_CLERK   |  2500.00 |           0.00 |        114 |            30 |
+|         120 | Matthew     | Weiss       | MWEISS   | 650.123.1234       | 1987-07-07 | ST_MAN     |  8000.00 |           0.00 |        100 |            50 |
+|         121 | Adam        | Fripp       | AFRIPP   | 650.123.2234       | 1987-07-08 | ST_MAN     |  8200.00 |           0.00 |        100 |            50 |
+|         122 | Payam       | Kaufling    | PKAUFLIN | 650.123.3234       | 1987-07-09 | ST_MAN     |  7900.00 |           0.00 |        100 |            50 |
+|         123 | Shanta      | Vollman     | SVOLLMAN | 650.123.4234       | 1987-07-10 | ST_MAN     |  6500.00 |           0.00 |        100 |            50 |
+|         124 | Kevin       | Mourgos     | KMOURGOS | 650.123.5234       | 1987-07-11 | ST_MAN     |  5800.00 |           0.00 |        100 |            50 |
+|         125 | Julia       | Nayer       | JNAYER   | 650.124.1214       | 1987-07-12 | ST_CLERK   |  3200.00 |           0.00 |        120 |            50 |
+|         126 | Irene       | Mikkilineni | IMIKKILI | 650.124.1224       | 1987-07-13 | ST_CLERK   |  2700.00 |           0.00 |        120 |            50 |
+|         127 | James       | Landry      | JLANDRY  | 650.124.1334       | 1987-07-14 | ST_CLERK   |  2400.00 |           0.00 |        120 |            50 |
+|         128 | Steven      | Markle      | SMARKLE  | 650.124.1434       | 1987-07-15 | ST_CLERK   |  2200.00 |           0.00 |        120 |            50 |
+|         129 | Laura       | Bissot      | LBISSOT  | 650.124.5234       | 1987-07-16 | ST_CLERK   |  3300.00 |           0.00 |        121 |            50 |
+|         130 | Mozhe       | Atkinson    | MATKINSO | 650.124.6234       | 1987-07-17 | ST_CLERK   |  2800.00 |           0.00 |        121 |            50 |
+|         131 | James       | Marlow      | JAMRLOW  | 650.124.7234       | 1987-07-18 | ST_CLERK   |  2500.00 |           0.00 |        121 |            50 |
+|         132 | TJ          | Olson       | TJOLSON  | 650.124.8234       | 1987-07-19 | ST_CLERK   |  2100.00 |           0.00 |        121 |            50 |
+|         133 | Jason       | Mallin      | JMALLIN  | 650.127.1934       | 1987-07-20 | ST_CLERK   |  3300.00 |           0.00 |        122 |            50 |
+|         134 | Michael     | Rogers      | MROGERS  | 650.127.1834       | 1987-07-21 | ST_CLERK   |  2900.00 |           0.00 |        122 |            50 |
+|         135 | Ki          | Gee         | KGEE     | 650.127.1734       | 1987-07-22 | ST_CLERK   |  2400.00 |           0.00 |        122 |            50 |
+|         136 | Hazel       | Philtanker  | HPHILTAN | 650.127.1634       | 1987-07-23 | ST_CLERK   |  2200.00 |           0.00 |        122 |            50 |
+|         137 | Renske      | Ladwig      | RLADWIG  | 650.121.1234       | 1987-07-24 | ST_CLERK   |  3600.00 |           0.00 |        123 |            50 |
+|         138 | Stephen     | Stiles      | SSTILES  | 650.121.2034       | 1987-07-25 | ST_CLERK   |  3200.00 |           0.00 |        123 |            50 |
+|         139 | John        | Seo         | JSEO     | 650.121.2019       | 1987-07-26 | ST_CLERK   |  2700.00 |           0.00 |        123 |            50 |
+|         140 | Joshua      | Patel       | JPATEL   | 650.121.1834       | 1987-07-27 | ST_CLERK   |  2500.00 |           0.00 |        123 |            50 |
+|         141 | Trenna      | Rajs        | TRAJS    | 650.121.8009       | 1987-07-28 | ST_CLERK   |  3500.00 |           0.00 |        124 |            50 |
+|         142 | Curtis      | Davies      | CDAVIES  | 650.121.2994       | 1987-07-29 | ST_CLERK   |  3100.00 |           0.00 |        124 |            50 |
+|         143 | Randall     | Matos       | RMATOS   | 650.121.2874       | 1987-07-30 | ST_CLERK   |  2600.00 |           0.00 |        124 |            50 |
+|         144 | Peter       | Vargas      | PVARGAS  | 650.121.2004       | 1987-07-31 | ST_CLERK   |  2500.00 |           0.00 |        124 |            50 |
+|         145 | John        | Russell     | JRUSSEL  | 011.44.1344.429268 | 1987-08-01 | SA_MAN     | 14000.00 |           0.40 |        100 |            80 |
+|         146 | Karen       | Partners    | KPARTNER | 011.44.1344.467268 | 1987-08-02 | SA_MAN     | 13500.00 |           0.30 |        100 |            80 |
+|         147 | Alberto     | Errazuriz   | AERRAZUR | 011.44.1344.429278 | 1987-08-03 | SA_MAN     | 12000.00 |           0.30 |        100 |            80 |
+|         148 | Gerald      | Cambrault   | GCAMBRAU | 011.44.1344.619268 | 1987-08-04 | SA_MAN     | 11000.00 |           0.30 |        100 |            80 |
+|         149 | Eleni       | Zlotkey     | EZLOTKEY | 011.44.1344.429018 | 1987-08-05 | SA_MAN     | 10500.00 |           0.20 |        100 |            80 |
+|         150 | Peter       | Tucker      | PTUCKER  | 011.44.1344.129268 | 1987-08-06 | SA_REP     | 10000.00 |           0.30 |        145 |            80 |
+|         151 | David       | Bernstein   | DBERNSTE | 011.44.1344.345268 | 1987-08-07 | SA_REP     |  9500.00 |           0.25 |        145 |            80 |
+|         152 | Peter       | Hall        | PHALL    | 011.44.1344.478968 | 1987-08-08 | SA_REP     |  9000.00 |           0.25 |        145 |            80 |
+|         153 | Christopher | Olsen       | COLSEN   | 011.44.1344.498718 | 1987-08-09 | SA_REP     |  8000.00 |           0.20 |        145 |            80 |
+|         154 | Nanette     | Cambrault   | NCAMBRAU | 011.44.1344.987668 | 1987-08-10 | SA_REP     |  7500.00 |           0.20 |        145 |            80 |
+|         155 | Oliver      | Tuvault     | OTUVAULT | 011.44.1344.486508 | 1987-08-11 | SA_REP     |  7000.00 |           0.15 |        145 |            80 |
+|         156 | Janette     | King        | JKING    | 011.44.1345.429268 | 1987-08-12 | SA_REP     | 10000.00 |           0.35 |        146 |            80 |
+|         157 | Patrick     | Sully       | PSULLY   | 011.44.1345.929268 | 1987-08-13 | SA_REP     |  9500.00 |           0.35 |        146 |            80 |
+|         158 | Allan       | McEwen      | AMCEWEN  | 011.44.1345.829268 | 1987-08-14 | SA_REP     |  9000.00 |           0.35 |        146 |            80 |
+|         159 | Lindsey     | Smith       | LSMITH   | 011.44.1345.729268 | 1987-08-15 | SA_REP     |  8000.00 |           0.30 |        146 |            80 |
+|         160 | Louise      | Doran       | LDORAN   | 011.44.1345.629268 | 1987-08-16 | SA_REP     |  7500.00 |           0.30 |        146 |            80 |
+|         161 | Sarath      | Sewall      | SSEWALL  | 011.44.1345.529268 | 1987-08-17 | SA_REP     |  7000.00 |           0.25 |        146 |            80 |
+|         162 | Clara       | Vishney     | CVISHNEY | 011.44.1346.129268 | 1987-08-18 | SA_REP     | 10500.00 |           0.25 |        147 |            80 |
+|         163 | Danielle    | Greene      | DGREENE  | 011.44.1346.229268 | 1987-08-19 | SA_REP     |  9500.00 |           0.15 |        147 |            80 |
+|         164 | Mattea      | Marvins     | MMARVINS | 011.44.1346.329268 | 1987-08-20 | SA_REP     |  7200.00 |           0.10 |        147 |            80 |
+|         165 | David       | Lee         | DLEE     | 011.44.1346.529268 | 1987-08-21 | SA_REP     |  6800.00 |           0.10 |        147 |            80 |
+|         166 | Sundar      | Ande        | SANDE    | 011.44.1346.629268 | 1987-08-22 | SA_REP     |  6400.00 |           0.10 |        147 |            80 |
+|         167 | Amit        | Banda       | ABANDA   | 011.44.1346.729268 | 1987-08-23 | SA_REP     |  6200.00 |           0.10 |        147 |            80 |
+|         168 | Lisa        | Ozer        | LOZER    | 011.44.1343.929268 | 1987-08-24 | SA_REP     | 11500.00 |           0.25 |        148 |            80 |
+|         169 | Harrison    | Bloom       | HBLOOM   | 011.44.1343.829268 | 1987-08-25 | SA_REP     | 10000.00 |           0.20 |        148 |            80 |
+|         170 | Tayler      | Fox         | TFOX     | 011.44.1343.729268 | 1987-08-26 | SA_REP     |  9600.00 |           0.20 |        148 |            80 |
+|         171 | William     | Smith       | WSMITH   | 011.44.1343.629268 | 1987-08-27 | SA_REP     |  7400.00 |           0.15 |        148 |            80 |
+|         172 | Elizabeth   | Bates       | EBATES   | 011.44.1343.529268 | 1987-08-28 | SA_REP     |  7300.00 |           0.15 |        148 |            80 |
+|         173 | Sundita     | Kumar       | SKUMAR   | 011.44.1343.329268 | 1987-08-29 | SA_REP     |  6100.00 |           0.10 |        148 |            80 |
+|         174 | Ellen       | Abel        | EABEL    | 011.44.1644.429267 | 1987-08-30 | SA_REP     | 11000.00 |           0.30 |        149 |            80 |
+|         175 | Alyssa      | Hutton      | AHUTTON  | 011.44.1644.429266 | 1987-08-31 | SA_REP     |  8800.00 |           0.25 |        149 |            80 |
+|         176 | Jonathon    | Taylor      | JTAYLOR  | 011.44.1644.429265 | 1987-09-01 | SA_REP     |  8600.00 |           0.20 |        149 |            80 |
+|         177 | Jack        | Livingston  | JLIVINGS | 011.44.1644.429264 | 1987-09-02 | SA_REP     |  8400.00 |           0.20 |        149 |            80 |
+|         178 | Kimberely   | Grant       | KGRANT   | 011.44.1644.429263 | 1987-09-03 | SA_REP     |  7000.00 |           0.15 |        149 |             0 |
+|         179 | Charles     | Johnson     | CJOHNSON | 011.44.1644.429262 | 1987-09-04 | SA_REP     |  6200.00 |           0.10 |        149 |            80 |
+|         180 | Winston     | Taylor      | WTAYLOR  | 650.507.9876       | 1987-09-05 | SH_CLERK   |  3200.00 |           0.00 |        120 |            50 |
+|         181 | Jean        | Fleaur      | JFLEAUR  | 650.507.9877       | 1987-09-06 | SH_CLERK   |  3100.00 |           0.00 |        120 |            50 |
+|         182 | Martha      | Sullivan    | MSULLIVA | 650.507.9878       | 1987-09-07 | SH_CLERK   |  2500.00 |           0.00 |        120 |            50 |
+|         183 | Girard      | Geoni       | GGEONI   | 650.507.9879       | 1987-09-08 | SH_CLERK   |  2800.00 |           0.00 |        120 |            50 |
+|         184 | Nandita     | Sarchand    | NSARCHAN | 650.509.1876       | 1987-09-09 | SH_CLERK   |  4200.00 |           0.00 |        121 |            50 |
+|         185 | Alexis      | Bull        | ABULL    | 650.509.2876       | 1987-09-10 | SH_CLERK   |  4100.00 |           0.00 |        121 |            50 |
+|         186 | Julia       | Dellinger   | JDELLING | 650.509.3876       | 1987-09-11 | SH_CLERK   |  3400.00 |           0.00 |        121 |            50 |
+|         187 | Anthony     | Cabrio      | ACABRIO  | 650.509.4876       | 1987-09-12 | SH_CLERK   |  3000.00 |           0.00 |        121 |            50 |
+|         188 | Kelly       | Chung       | KCHUNG   | 650.505.1876       | 1987-09-13 | SH_CLERK   |  3800.00 |           0.00 |        122 |            50 |
+|         189 | Jennifer    | Dilly       | JDILLY   | 650.505.2876       | 1987-09-14 | SH_CLERK   |  3600.00 |           0.00 |        122 |            50 |
+|         190 | Timothy     | Gates       | TGATES   | 650.505.3876       | 1987-09-15 | SH_CLERK   |  2900.00 |           0.00 |        122 |            50 |
+|         191 | Randall     | Perkins     | RPERKINS | 650.505.4876       | 1987-09-16 | SH_CLERK   |  2500.00 |           0.00 |        122 |            50 |
+|         192 | Sarah       | Bell        | SBELL    | 650.501.1876       | 1987-09-17 | SH_CLERK   |  4000.00 |           0.00 |        123 |            50 |
+|         193 | Britney     | Everett     | BEVERETT | 650.501.2876       | 1987-09-18 | SH_CLERK   |  3900.00 |           0.00 |        123 |            50 |
+|         194 | Samuel      | McCain      | SMCCAIN  | 650.501.3876       | 1987-09-19 | SH_CLERK   |  3200.00 |           0.00 |        123 |            50 |
+|         195 | Vance       | Jones       | VJONES   | 650.501.4876       | 1987-09-20 | SH_CLERK   |  2800.00 |           0.00 |        123 |            50 |
+|         196 | Alana       | Walsh       | AWALSH   | 650.507.9811       | 1987-09-21 | SH_CLERK   |  3100.00 |           0.00 |        124 |            50 |
+|         197 | Kevin       | Feeney      | KFEENEY  | 650.507.9822       | 1987-09-22 | SH_CLERK   |  3000.00 |           0.00 |        124 |            50 |
+|         198 | Donald      | OConnell    | DOCONNEL | 650.507.9833       | 1987-09-23 | SH_CLERK   |  2600.00 |           0.00 |        124 |            50 |
+|         199 | Douglas     | Grant       | DGRANT   | 650.507.9844       | 1987-09-24 | SH_CLERK   |  2600.00 |           0.00 |        124 |            50 |
+|         200 | Jennifer    | Whalen      | JWHALEN  | 515.123.4444       | 1987-09-25 | AD_ASST    |  4400.00 |           0.00 |        101 |            10 |
+|         201 | Michael     | Hartstein   | MHARTSTE | 515.123.5555       | 1987-09-26 | MK_MAN     | 13000.00 |           0.00 |        100 |            20 |
+|         202 | Pat         | Fay         | PFAY     | 603.123.6666       | 1987-09-27 | MK_REP     |  6000.00 |           0.00 |        201 |            20 |
+|         203 | Susan       | Mavris      | SMAVRIS  | 515.123.7777       | 1987-09-28 | HR_REP     |  6500.00 |           0.00 |        101 |            40 |
+|         204 | Hermann     | Baer        | HBAER    | 515.123.8888       | 1987-09-29 | PR_REP     | 10000.00 |           0.00 |        101 |            70 |
+|         205 | Shelley     | Higgins     | SHIGGINS | 515.123.8080       | 1987-09-30 | AC_MGR     | 12000.00 |           0.00 |        101 |           110 |
+|         206 | William     | Gietz       | WGIETZ   | 515.123.8181       | 1987-10-01 | AC_ACCOUNT |  8300.00 |           0.00 |        205 |           110 |
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+
+107 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> ALTER TABLE EMPLOYEES ALTER COLUMN HIRE_YEAR  YEAR;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'YEAR' at line 1
+MariaDB [csd2204w2018]> ALTER TABLE EMPLOYEES ALTER COLUMN HIRE_DATE  YEAR;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'YEAR' at line 1
+MariaDB [csd2204w2018]> ALTER TABLE EMPLOYEES ADD COLUMN DATE_OF_BIRTH  YEAR;
+Query OK, 107 rows affected (0.11 sec)
+Records: 107  Duplicates: 0  Warnings: 0
+
+MariaDB [csd2204w2018]> SELECT * FROM EMPLOYEES;
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME  | LAST_NAME   | EMAIL    | PHONE_NUMBER       | HIRE_DATE  | JOB_ID     | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID | DATE_OF_BIRTH |
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+---------------+
+|         100 | Steven      | King        | SKING    | 515.123.4567       | 1987-06-17 | AD_PRES    | 24000.00 |           0.00 |          0 |            90 |          NULL |
+|         101 | Neena       | Kochhar     | NKOCHHAR | 515.123.4568       | 1987-06-18 | AD_VP      | 17000.00 |           0.00 |        100 |            90 |          NULL |
+|         102 | Lex         | De Haan     | LDEHAAN  | 515.123.4569       | 1987-06-19 | AD_VP      | 17000.00 |           0.00 |        100 |            90 |          NULL |
+|         103 | Alexander   | Hunold      | AHUNOLD  | 590.423.4567       | 1987-06-20 | IT_PROG    |  9000.00 |           0.00 |        102 |            60 |          NULL |
+|         104 | Bruce       | Ernst       | BERNST   | 590.423.4568       | 1987-06-21 | IT_PROG    |  6000.00 |           0.00 |        103 |            60 |          NULL |
+|         105 | David       | Austin      | DAUSTIN  | 590.423.4569       | 1987-06-22 | IT_PROG    |  4800.00 |           0.00 |        103 |            60 |          NULL |
+|         106 | Valli       | Pataballa   | VPATABAL | 590.423.4560       | 1987-06-23 | IT_PROG    |  4800.00 |           0.00 |        103 |            60 |          NULL |
+|         107 | Diana       | Lorentz     | DLORENTZ | 590.423.5567       | 1987-06-24 | IT_PROG    |  4200.00 |           0.00 |        103 |            60 |          NULL |
+|         108 | Nancy       | Greenberg   | NGREENBE | 515.124.4569       | 1987-06-25 | FI_MGR     | 12000.00 |           0.00 |        101 |           100 |          NULL |
+|         109 | Daniel      | Faviet      | DFAVIET  | 515.124.4169       | 1987-06-26 | FI_ACCOUNT |  9000.00 |           0.00 |        108 |           100 |          NULL |
+|         110 | John        | Chen        | JCHEN    | 515.124.4269       | 1987-06-27 | FI_ACCOUNT |  8200.00 |           0.00 |        108 |           100 |          NULL |
+|         111 | Ismael      | Sciarra     | ISCIARRA | 515.124.4369       | 1987-06-28 | FI_ACCOUNT |  7700.00 |           0.00 |        108 |           100 |          NULL |
+|         112 | Jose Manuel | Urman       | JMURMAN  | 515.124.4469       | 1987-06-29 | FI_ACCOUNT |  7800.00 |           0.00 |        108 |           100 |          NULL |
+|         113 | Luis        | Popp        | LPOPP    | 515.124.4567       | 1987-06-30 | FI_ACCOUNT |  6900.00 |           0.00 |        108 |           100 |          NULL |
+|         114 | Den         | Raphaely    | DRAPHEAL | 515.127.4561       | 1987-07-01 | PU_MAN     | 11000.00 |           0.00 |        100 |            30 |          NULL |
+|         115 | Alexander   | Khoo        | AKHOO    | 515.127.4562       | 1987-07-02 | PU_CLERK   |  3100.00 |           0.00 |        114 |            30 |          NULL |
+|         116 | Shelli      | Baida       | SBAIDA   | 515.127.4563       | 1987-07-03 | PU_CLERK   |  2900.00 |           0.00 |        114 |            30 |          NULL |
+|         117 | Sigal       | Tobias      | STOBIAS  | 515.127.4564       | 1987-07-04 | PU_CLERK   |  2800.00 |           0.00 |        114 |            30 |          NULL |
+|         118 | Guy         | Himuro      | GHIMURO  | 515.127.4565       | 1987-07-05 | PU_CLERK   |  2600.00 |           0.00 |        114 |            30 |          NULL |
+|         119 | Karen       | Colmenares  | KCOLMENA | 515.127.4566       | 1987-07-06 | PU_CLERK   |  2500.00 |           0.00 |        114 |            30 |          NULL |
+|         120 | Matthew     | Weiss       | MWEISS   | 650.123.1234       | 1987-07-07 | ST_MAN     |  8000.00 |           0.00 |        100 |            50 |          NULL |
+|         121 | Adam        | Fripp       | AFRIPP   | 650.123.2234       | 1987-07-08 | ST_MAN     |  8200.00 |           0.00 |        100 |            50 |          NULL |
+|         122 | Payam       | Kaufling    | PKAUFLIN | 650.123.3234       | 1987-07-09 | ST_MAN     |  7900.00 |           0.00 |        100 |            50 |          NULL |
+|         123 | Shanta      | Vollman     | SVOLLMAN | 650.123.4234       | 1987-07-10 | ST_MAN     |  6500.00 |           0.00 |        100 |            50 |          NULL |
+|         124 | Kevin       | Mourgos     | KMOURGOS | 650.123.5234       | 1987-07-11 | ST_MAN     |  5800.00 |           0.00 |        100 |            50 |          NULL |
+|         125 | Julia       | Nayer       | JNAYER   | 650.124.1214       | 1987-07-12 | ST_CLERK   |  3200.00 |           0.00 |        120 |            50 |          NULL |
+|         126 | Irene       | Mikkilineni | IMIKKILI | 650.124.1224       | 1987-07-13 | ST_CLERK   |  2700.00 |           0.00 |        120 |            50 |          NULL |
+|         127 | James       | Landry      | JLANDRY  | 650.124.1334       | 1987-07-14 | ST_CLERK   |  2400.00 |           0.00 |        120 |            50 |          NULL |
+|         128 | Steven      | Markle      | SMARKLE  | 650.124.1434       | 1987-07-15 | ST_CLERK   |  2200.00 |           0.00 |        120 |            50 |          NULL |
+|         129 | Laura       | Bissot      | LBISSOT  | 650.124.5234       | 1987-07-16 | ST_CLERK   |  3300.00 |           0.00 |        121 |            50 |          NULL |
+|         130 | Mozhe       | Atkinson    | MATKINSO | 650.124.6234       | 1987-07-17 | ST_CLERK   |  2800.00 |           0.00 |        121 |            50 |          NULL |
+|         131 | James       | Marlow      | JAMRLOW  | 650.124.7234       | 1987-07-18 | ST_CLERK   |  2500.00 |           0.00 |        121 |            50 |          NULL |
+|         132 | TJ          | Olson       | TJOLSON  | 650.124.8234       | 1987-07-19 | ST_CLERK   |  2100.00 |           0.00 |        121 |            50 |          NULL |
+|         133 | Jason       | Mallin      | JMALLIN  | 650.127.1934       | 1987-07-20 | ST_CLERK   |  3300.00 |           0.00 |        122 |            50 |          NULL |
+|         134 | Michael     | Rogers      | MROGERS  | 650.127.1834       | 1987-07-21 | ST_CLERK   |  2900.00 |           0.00 |        122 |            50 |          NULL |
+|         135 | Ki          | Gee         | KGEE     | 650.127.1734       | 1987-07-22 | ST_CLERK   |  2400.00 |           0.00 |        122 |            50 |          NULL |
+|         136 | Hazel       | Philtanker  | HPHILTAN | 650.127.1634       | 1987-07-23 | ST_CLERK   |  2200.00 |           0.00 |        122 |            50 |          NULL |
+|         137 | Renske      | Ladwig      | RLADWIG  | 650.121.1234       | 1987-07-24 | ST_CLERK   |  3600.00 |           0.00 |        123 |            50 |          NULL |
+|         138 | Stephen     | Stiles      | SSTILES  | 650.121.2034       | 1987-07-25 | ST_CLERK   |  3200.00 |           0.00 |        123 |            50 |          NULL |
+|         139 | John        | Seo         | JSEO     | 650.121.2019       | 1987-07-26 | ST_CLERK   |  2700.00 |           0.00 |        123 |            50 |          NULL |
+|         140 | Joshua      | Patel       | JPATEL   | 650.121.1834       | 1987-07-27 | ST_CLERK   |  2500.00 |           0.00 |        123 |            50 |          NULL |
+|         141 | Trenna      | Rajs        | TRAJS    | 650.121.8009       | 1987-07-28 | ST_CLERK   |  3500.00 |           0.00 |        124 |            50 |          NULL |
+|         142 | Curtis      | Davies      | CDAVIES  | 650.121.2994       | 1987-07-29 | ST_CLERK   |  3100.00 |           0.00 |        124 |            50 |          NULL |
+|         143 | Randall     | Matos       | RMATOS   | 650.121.2874       | 1987-07-30 | ST_CLERK   |  2600.00 |           0.00 |        124 |            50 |          NULL |
+|         144 | Peter       | Vargas      | PVARGAS  | 650.121.2004       | 1987-07-31 | ST_CLERK   |  2500.00 |           0.00 |        124 |            50 |          NULL |
+|         145 | John        | Russell     | JRUSSEL  | 011.44.1344.429268 | 1987-08-01 | SA_MAN     | 14000.00 |           0.40 |        100 |            80 |          NULL |
+|         146 | Karen       | Partners    | KPARTNER | 011.44.1344.467268 | 1987-08-02 | SA_MAN     | 13500.00 |           0.30 |        100 |            80 |          NULL |
+|         147 | Alberto     | Errazuriz   | AERRAZUR | 011.44.1344.429278 | 1987-08-03 | SA_MAN     | 12000.00 |           0.30 |        100 |            80 |          NULL |
+|         148 | Gerald      | Cambrault   | GCAMBRAU | 011.44.1344.619268 | 1987-08-04 | SA_MAN     | 11000.00 |           0.30 |        100 |            80 |          NULL |
+|         149 | Eleni       | Zlotkey     | EZLOTKEY | 011.44.1344.429018 | 1987-08-05 | SA_MAN     | 10500.00 |           0.20 |        100 |            80 |          NULL |
+|         150 | Peter       | Tucker      | PTUCKER  | 011.44.1344.129268 | 1987-08-06 | SA_REP     | 10000.00 |           0.30 |        145 |            80 |          NULL |
+|         151 | David       | Bernstein   | DBERNSTE | 011.44.1344.345268 | 1987-08-07 | SA_REP     |  9500.00 |           0.25 |        145 |            80 |          NULL |
+|         152 | Peter       | Hall        | PHALL    | 011.44.1344.478968 | 1987-08-08 | SA_REP     |  9000.00 |           0.25 |        145 |            80 |          NULL |
+|         153 | Christopher | Olsen       | COLSEN   | 011.44.1344.498718 | 1987-08-09 | SA_REP     |  8000.00 |           0.20 |        145 |            80 |          NULL |
+|         154 | Nanette     | Cambrault   | NCAMBRAU | 011.44.1344.987668 | 1987-08-10 | SA_REP     |  7500.00 |           0.20 |        145 |            80 |          NULL |
+|         155 | Oliver      | Tuvault     | OTUVAULT | 011.44.1344.486508 | 1987-08-11 | SA_REP     |  7000.00 |           0.15 |        145 |            80 |          NULL |
+|         156 | Janette     | King        | JKING    | 011.44.1345.429268 | 1987-08-12 | SA_REP     | 10000.00 |           0.35 |        146 |            80 |          NULL |
+|         157 | Patrick     | Sully       | PSULLY   | 011.44.1345.929268 | 1987-08-13 | SA_REP     |  9500.00 |           0.35 |        146 |            80 |          NULL |
+|         158 | Allan       | McEwen      | AMCEWEN  | 011.44.1345.829268 | 1987-08-14 | SA_REP     |  9000.00 |           0.35 |        146 |            80 |          NULL |
+|         159 | Lindsey     | Smith       | LSMITH   | 011.44.1345.729268 | 1987-08-15 | SA_REP     |  8000.00 |           0.30 |        146 |            80 |          NULL |
+|         160 | Louise      | Doran       | LDORAN   | 011.44.1345.629268 | 1987-08-16 | SA_REP     |  7500.00 |           0.30 |        146 |            80 |          NULL |
+|         161 | Sarath      | Sewall      | SSEWALL  | 011.44.1345.529268 | 1987-08-17 | SA_REP     |  7000.00 |           0.25 |        146 |            80 |          NULL |
+|         162 | Clara       | Vishney     | CVISHNEY | 011.44.1346.129268 | 1987-08-18 | SA_REP     | 10500.00 |           0.25 |        147 |            80 |          NULL |
+|         163 | Danielle    | Greene      | DGREENE  | 011.44.1346.229268 | 1987-08-19 | SA_REP     |  9500.00 |           0.15 |        147 |            80 |          NULL |
+|         164 | Mattea      | Marvins     | MMARVINS | 011.44.1346.329268 | 1987-08-20 | SA_REP     |  7200.00 |           0.10 |        147 |            80 |          NULL |
+|         165 | David       | Lee         | DLEE     | 011.44.1346.529268 | 1987-08-21 | SA_REP     |  6800.00 |           0.10 |        147 |            80 |          NULL |
+|         166 | Sundar      | Ande        | SANDE    | 011.44.1346.629268 | 1987-08-22 | SA_REP     |  6400.00 |           0.10 |        147 |            80 |          NULL |
+|         167 | Amit        | Banda       | ABANDA   | 011.44.1346.729268 | 1987-08-23 | SA_REP     |  6200.00 |           0.10 |        147 |            80 |          NULL |
+|         168 | Lisa        | Ozer        | LOZER    | 011.44.1343.929268 | 1987-08-24 | SA_REP     | 11500.00 |           0.25 |        148 |            80 |          NULL |
+|         169 | Harrison    | Bloom       | HBLOOM   | 011.44.1343.829268 | 1987-08-25 | SA_REP     | 10000.00 |           0.20 |        148 |            80 |          NULL |
+|         170 | Tayler      | Fox         | TFOX     | 011.44.1343.729268 | 1987-08-26 | SA_REP     |  9600.00 |           0.20 |        148 |            80 |          NULL |
+|         171 | William     | Smith       | WSMITH   | 011.44.1343.629268 | 1987-08-27 | SA_REP     |  7400.00 |           0.15 |        148 |            80 |          NULL |
+|         172 | Elizabeth   | Bates       | EBATES   | 011.44.1343.529268 | 1987-08-28 | SA_REP     |  7300.00 |           0.15 |        148 |            80 |          NULL |
+|         173 | Sundita     | Kumar       | SKUMAR   | 011.44.1343.329268 | 1987-08-29 | SA_REP     |  6100.00 |           0.10 |        148 |            80 |          NULL |
+|         174 | Ellen       | Abel        | EABEL    | 011.44.1644.429267 | 1987-08-30 | SA_REP     | 11000.00 |           0.30 |        149 |            80 |          NULL |
+|         175 | Alyssa      | Hutton      | AHUTTON  | 011.44.1644.429266 | 1987-08-31 | SA_REP     |  8800.00 |           0.25 |        149 |            80 |          NULL |
+|         176 | Jonathon    | Taylor      | JTAYLOR  | 011.44.1644.429265 | 1987-09-01 | SA_REP     |  8600.00 |           0.20 |        149 |            80 |          NULL |
+|         177 | Jack        | Livingston  | JLIVINGS | 011.44.1644.429264 | 1987-09-02 | SA_REP     |  8400.00 |           0.20 |        149 |            80 |          NULL |
+|         178 | Kimberely   | Grant       | KGRANT   | 011.44.1644.429263 | 1987-09-03 | SA_REP     |  7000.00 |           0.15 |        149 |             0 |          NULL |
+|         179 | Charles     | Johnson     | CJOHNSON | 011.44.1644.429262 | 1987-09-04 | SA_REP     |  6200.00 |           0.10 |        149 |            80 |          NULL |
+|         180 | Winston     | Taylor      | WTAYLOR  | 650.507.9876       | 1987-09-05 | SH_CLERK   |  3200.00 |           0.00 |        120 |            50 |          NULL |
+|         181 | Jean        | Fleaur      | JFLEAUR  | 650.507.9877       | 1987-09-06 | SH_CLERK   |  3100.00 |           0.00 |        120 |            50 |          NULL |
+|         182 | Martha      | Sullivan    | MSULLIVA | 650.507.9878       | 1987-09-07 | SH_CLERK   |  2500.00 |           0.00 |        120 |            50 |          NULL |
+|         183 | Girard      | Geoni       | GGEONI   | 650.507.9879       | 1987-09-08 | SH_CLERK   |  2800.00 |           0.00 |        120 |            50 |          NULL |
+|         184 | Nandita     | Sarchand    | NSARCHAN | 650.509.1876       | 1987-09-09 | SH_CLERK   |  4200.00 |           0.00 |        121 |            50 |          NULL |
+|         185 | Alexis      | Bull        | ABULL    | 650.509.2876       | 1987-09-10 | SH_CLERK   |  4100.00 |           0.00 |        121 |            50 |          NULL |
+|         186 | Julia       | Dellinger   | JDELLING | 650.509.3876       | 1987-09-11 | SH_CLERK   |  3400.00 |           0.00 |        121 |            50 |          NULL |
+|         187 | Anthony     | Cabrio      | ACABRIO  | 650.509.4876       | 1987-09-12 | SH_CLERK   |  3000.00 |           0.00 |        121 |            50 |          NULL |
+|         188 | Kelly       | Chung       | KCHUNG   | 650.505.1876       | 1987-09-13 | SH_CLERK   |  3800.00 |           0.00 |        122 |            50 |          NULL |
+|         189 | Jennifer    | Dilly       | JDILLY   | 650.505.2876       | 1987-09-14 | SH_CLERK   |  3600.00 |           0.00 |        122 |            50 |          NULL |
+|         190 | Timothy     | Gates       | TGATES   | 650.505.3876       | 1987-09-15 | SH_CLERK   |  2900.00 |           0.00 |        122 |            50 |          NULL |
+|         191 | Randall     | Perkins     | RPERKINS | 650.505.4876       | 1987-09-16 | SH_CLERK   |  2500.00 |           0.00 |        122 |            50 |          NULL |
+|         192 | Sarah       | Bell        | SBELL    | 650.501.1876       | 1987-09-17 | SH_CLERK   |  4000.00 |           0.00 |        123 |            50 |          NULL |
+|         193 | Britney     | Everett     | BEVERETT | 650.501.2876       | 1987-09-18 | SH_CLERK   |  3900.00 |           0.00 |        123 |            50 |          NULL |
+|         194 | Samuel      | McCain      | SMCCAIN  | 650.501.3876       | 1987-09-19 | SH_CLERK   |  3200.00 |           0.00 |        123 |            50 |          NULL |
+|         195 | Vance       | Jones       | VJONES   | 650.501.4876       | 1987-09-20 | SH_CLERK   |  2800.00 |           0.00 |        123 |            50 |          NULL |
+|         196 | Alana       | Walsh       | AWALSH   | 650.507.9811       | 1987-09-21 | SH_CLERK   |  3100.00 |           0.00 |        124 |            50 |          NULL |
+|         197 | Kevin       | Feeney      | KFEENEY  | 650.507.9822       | 1987-09-22 | SH_CLERK   |  3000.00 |           0.00 |        124 |            50 |          NULL |
+|         198 | Donald      | OConnell    | DOCONNEL | 650.507.9833       | 1987-09-23 | SH_CLERK   |  2600.00 |           0.00 |        124 |            50 |          NULL |
+|         199 | Douglas     | Grant       | DGRANT   | 650.507.9844       | 1987-09-24 | SH_CLERK   |  2600.00 |           0.00 |        124 |            50 |          NULL |
+|         200 | Jennifer    | Whalen      | JWHALEN  | 515.123.4444       | 1987-09-25 | AD_ASST    |  4400.00 |           0.00 |        101 |            10 |          NULL |
+|         201 | Michael     | Hartstein   | MHARTSTE | 515.123.5555       | 1987-09-26 | MK_MAN     | 13000.00 |           0.00 |        100 |            20 |          NULL |
+|         202 | Pat         | Fay         | PFAY     | 603.123.6666       | 1987-09-27 | MK_REP     |  6000.00 |           0.00 |        201 |            20 |          NULL |
+|         203 | Susan       | Mavris      | SMAVRIS  | 515.123.7777       | 1987-09-28 | HR_REP     |  6500.00 |           0.00 |        101 |            40 |          NULL |
+|         204 | Hermann     | Baer        | HBAER    | 515.123.8888       | 1987-09-29 | PR_REP     | 10000.00 |           0.00 |        101 |            70 |          NULL |
+|         205 | Shelley     | Higgins     | SHIGGINS | 515.123.8080       | 1987-09-30 | AC_MGR     | 12000.00 |           0.00 |        101 |           110 |          NULL |
+|         206 | William     | Gietz       | WGIETZ   | 515.123.8181       | 1987-10-01 | AC_ACCOUNT |  8300.00 |           0.00 |        205 |           110 |          NULL |
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+---------------+
+107 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> ALTER TABLE EMPLOYEES DROP COLUMN DATE_OF_BIRTH;
+Query OK, 107 rows affected (0.13 sec)
+Records: 107  Duplicates: 0  Warnings: 0
+
+MariaDB [csd2204w2018]> SELECT * FROM EMPLOYEES;
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME  | LAST_NAME   | EMAIL    | PHONE_NUMBER       | HIRE_DATE  | JOB_ID     | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+
+|         100 | Steven      | King        | SKING    | 515.123.4567       | 1987-06-17 | AD_PRES    | 24000.00 |           0.00 |          0 |            90 |
+|         101 | Neena       | Kochhar     | NKOCHHAR | 515.123.4568       | 1987-06-18 | AD_VP      | 17000.00 |           0.00 |        100 |            90 |
+|         102 | Lex         | De Haan     | LDEHAAN  | 515.123.4569       | 1987-06-19 | AD_VP      | 17000.00 |           0.00 |        100 |            90 |
+|         103 | Alexander   | Hunold      | AHUNOLD  | 590.423.4567       | 1987-06-20 | IT_PROG    |  9000.00 |           0.00 |        102 |            60 |
+|         104 | Bruce       | Ernst       | BERNST   | 590.423.4568       | 1987-06-21 | IT_PROG    |  6000.00 |           0.00 |        103 |            60 |
+|         105 | David       | Austin      | DAUSTIN  | 590.423.4569       | 1987-06-22 | IT_PROG    |  4800.00 |           0.00 |        103 |            60 |
+|         106 | Valli       | Pataballa   | VPATABAL | 590.423.4560       | 1987-06-23 | IT_PROG    |  4800.00 |           0.00 |        103 |            60 |
+|         107 | Diana       | Lorentz     | DLORENTZ | 590.423.5567       | 1987-06-24 | IT_PROG    |  4200.00 |           0.00 |        103 |            60 |
+|         108 | Nancy       | Greenberg   | NGREENBE | 515.124.4569       | 1987-06-25 | FI_MGR     | 12000.00 |           0.00 |        101 |           100 |
+|         109 | Daniel      | Faviet      | DFAVIET  | 515.124.4169       | 1987-06-26 | FI_ACCOUNT |  9000.00 |           0.00 |        108 |           100 |
+|         110 | John        | Chen        | JCHEN    | 515.124.4269       | 1987-06-27 | FI_ACCOUNT |  8200.00 |           0.00 |        108 |           100 |
+|         111 | Ismael      | Sciarra     | ISCIARRA | 515.124.4369       | 1987-06-28 | FI_ACCOUNT |  7700.00 |           0.00 |        108 |           100 |
+|         112 | Jose Manuel | Urman       | JMURMAN  | 515.124.4469       | 1987-06-29 | FI_ACCOUNT |  7800.00 |           0.00 |        108 |           100 |
+|         113 | Luis        | Popp        | LPOPP    | 515.124.4567       | 1987-06-30 | FI_ACCOUNT |  6900.00 |           0.00 |        108 |           100 |
+|         114 | Den         | Raphaely    | DRAPHEAL | 515.127.4561       | 1987-07-01 | PU_MAN     | 11000.00 |           0.00 |        100 |            30 |
+|         115 | Alexander   | Khoo        | AKHOO    | 515.127.4562       | 1987-07-02 | PU_CLERK   |  3100.00 |           0.00 |        114 |            30 |
+|         116 | Shelli      | Baida       | SBAIDA   | 515.127.4563       | 1987-07-03 | PU_CLERK   |  2900.00 |           0.00 |        114 |            30 |
+|         117 | Sigal       | Tobias      | STOBIAS  | 515.127.4564       | 1987-07-04 | PU_CLERK   |  2800.00 |           0.00 |        114 |            30 |
+|         118 | Guy         | Himuro      | GHIMURO  | 515.127.4565       | 1987-07-05 | PU_CLERK   |  2600.00 |           0.00 |        114 |            30 |
+|         119 | Karen       | Colmenares  | KCOLMENA | 515.127.4566       | 1987-07-06 | PU_CLERK   |  2500.00 |           0.00 |        114 |            30 |
+|         120 | Matthew     | Weiss       | MWEISS   | 650.123.1234       | 1987-07-07 | ST_MAN     |  8000.00 |           0.00 |        100 |            50 |
+|         121 | Adam        | Fripp       | AFRIPP   | 650.123.2234       | 1987-07-08 | ST_MAN     |  8200.00 |           0.00 |        100 |            50 |
+|         122 | Payam       | Kaufling    | PKAUFLIN | 650.123.3234       | 1987-07-09 | ST_MAN     |  7900.00 |           0.00 |        100 |            50 |
+|         123 | Shanta      | Vollman     | SVOLLMAN | 650.123.4234       | 1987-07-10 | ST_MAN     |  6500.00 |           0.00 |        100 |            50 |
+|         124 | Kevin       | Mourgos     | KMOURGOS | 650.123.5234       | 1987-07-11 | ST_MAN     |  5800.00 |           0.00 |        100 |            50 |
+|         125 | Julia       | Nayer       | JNAYER   | 650.124.1214       | 1987-07-12 | ST_CLERK   |  3200.00 |           0.00 |        120 |            50 |
+|         126 | Irene       | Mikkilineni | IMIKKILI | 650.124.1224       | 1987-07-13 | ST_CLERK   |  2700.00 |           0.00 |        120 |            50 |
+|         127 | James       | Landry      | JLANDRY  | 650.124.1334       | 1987-07-14 | ST_CLERK   |  2400.00 |           0.00 |        120 |            50 |
+|         128 | Steven      | Markle      | SMARKLE  | 650.124.1434       | 1987-07-15 | ST_CLERK   |  2200.00 |           0.00 |        120 |            50 |
+|         129 | Laura       | Bissot      | LBISSOT  | 650.124.5234       | 1987-07-16 | ST_CLERK   |  3300.00 |           0.00 |        121 |            50 |
+|         130 | Mozhe       | Atkinson    | MATKINSO | 650.124.6234       | 1987-07-17 | ST_CLERK   |  2800.00 |           0.00 |        121 |            50 |
+|         131 | James       | Marlow      | JAMRLOW  | 650.124.7234       | 1987-07-18 | ST_CLERK   |  2500.00 |           0.00 |        121 |            50 |
+|         132 | TJ          | Olson       | TJOLSON  | 650.124.8234       | 1987-07-19 | ST_CLERK   |  2100.00 |           0.00 |        121 |            50 |
+|         133 | Jason       | Mallin      | JMALLIN  | 650.127.1934       | 1987-07-20 | ST_CLERK   |  3300.00 |           0.00 |        122 |            50 |
+|         134 | Michael     | Rogers      | MROGERS  | 650.127.1834       | 1987-07-21 | ST_CLERK   |  2900.00 |           0.00 |        122 |            50 |
+|         135 | Ki          | Gee         | KGEE     | 650.127.1734       | 1987-07-22 | ST_CLERK   |  2400.00 |           0.00 |        122 |            50 |
+|         136 | Hazel       | Philtanker  | HPHILTAN | 650.127.1634       | 1987-07-23 | ST_CLERK   |  2200.00 |           0.00 |        122 |            50 |
+|         137 | Renske      | Ladwig      | RLADWIG  | 650.121.1234       | 1987-07-24 | ST_CLERK   |  3600.00 |           0.00 |        123 |            50 |
+|         138 | Stephen     | Stiles      | SSTILES  | 650.121.2034       | 1987-07-25 | ST_CLERK   |  3200.00 |           0.00 |        123 |            50 |
+|         139 | John        | Seo         | JSEO     | 650.121.2019       | 1987-07-26 | ST_CLERK   |  2700.00 |           0.00 |        123 |            50 |
+|         140 | Joshua      | Patel       | JPATEL   | 650.121.1834       | 1987-07-27 | ST_CLERK   |  2500.00 |           0.00 |        123 |            50 |
+|         141 | Trenna      | Rajs        | TRAJS    | 650.121.8009       | 1987-07-28 | ST_CLERK   |  3500.00 |           0.00 |        124 |            50 |
+|         142 | Curtis      | Davies      | CDAVIES  | 650.121.2994       | 1987-07-29 | ST_CLERK   |  3100.00 |           0.00 |        124 |            50 |
+|         143 | Randall     | Matos       | RMATOS   | 650.121.2874       | 1987-07-30 | ST_CLERK   |  2600.00 |           0.00 |        124 |            50 |
+|         144 | Peter       | Vargas      | PVARGAS  | 650.121.2004       | 1987-07-31 | ST_CLERK   |  2500.00 |           0.00 |        124 |            50 |
+|         145 | John        | Russell     | JRUSSEL  | 011.44.1344.429268 | 1987-08-01 | SA_MAN     | 14000.00 |           0.40 |        100 |            80 |
+|         146 | Karen       | Partners    | KPARTNER | 011.44.1344.467268 | 1987-08-02 | SA_MAN     | 13500.00 |           0.30 |        100 |            80 |
+|         147 | Alberto     | Errazuriz   | AERRAZUR | 011.44.1344.429278 | 1987-08-03 | SA_MAN     | 12000.00 |           0.30 |        100 |            80 |
+|         148 | Gerald      | Cambrault   | GCAMBRAU | 011.44.1344.619268 | 1987-08-04 | SA_MAN     | 11000.00 |           0.30 |        100 |            80 |
+|         149 | Eleni       | Zlotkey     | EZLOTKEY | 011.44.1344.429018 | 1987-08-05 | SA_MAN     | 10500.00 |           0.20 |        100 |            80 |
+|         150 | Peter       | Tucker      | PTUCKER  | 011.44.1344.129268 | 1987-08-06 | SA_REP     | 10000.00 |           0.30 |        145 |            80 |
+|         151 | David       | Bernstein   | DBERNSTE | 011.44.1344.345268 | 1987-08-07 | SA_REP     |  9500.00 |           0.25 |        145 |            80 |
+|         152 | Peter       | Hall        | PHALL    | 011.44.1344.478968 | 1987-08-08 | SA_REP     |  9000.00 |           0.25 |        145 |            80 |
+|         153 | Christopher | Olsen       | COLSEN   | 011.44.1344.498718 | 1987-08-09 | SA_REP     |  8000.00 |           0.20 |        145 |            80 |
+|         154 | Nanette     | Cambrault   | NCAMBRAU | 011.44.1344.987668 | 1987-08-10 | SA_REP     |  7500.00 |           0.20 |        145 |            80 |
+|         155 | Oliver      | Tuvault     | OTUVAULT | 011.44.1344.486508 | 1987-08-11 | SA_REP     |  7000.00 |           0.15 |        145 |            80 |
+|         156 | Janette     | King        | JKING    | 011.44.1345.429268 | 1987-08-12 | SA_REP     | 10000.00 |           0.35 |        146 |            80 |
+|         157 | Patrick     | Sully       | PSULLY   | 011.44.1345.929268 | 1987-08-13 | SA_REP     |  9500.00 |           0.35 |        146 |            80 |
+|         158 | Allan       | McEwen      | AMCEWEN  | 011.44.1345.829268 | 1987-08-14 | SA_REP     |  9000.00 |           0.35 |        146 |            80 |
+|         159 | Lindsey     | Smith       | LSMITH   | 011.44.1345.729268 | 1987-08-15 | SA_REP     |  8000.00 |           0.30 |        146 |            80 |
+|         160 | Louise      | Doran       | LDORAN   | 011.44.1345.629268 | 1987-08-16 | SA_REP     |  7500.00 |           0.30 |        146 |            80 |
+|         161 | Sarath      | Sewall      | SSEWALL  | 011.44.1345.529268 | 1987-08-17 | SA_REP     |  7000.00 |           0.25 |        146 |            80 |
+|         162 | Clara       | Vishney     | CVISHNEY | 011.44.1346.129268 | 1987-08-18 | SA_REP     | 10500.00 |           0.25 |        147 |            80 |
+|         163 | Danielle    | Greene      | DGREENE  | 011.44.1346.229268 | 1987-08-19 | SA_REP     |  9500.00 |           0.15 |        147 |            80 |
+|         164 | Mattea      | Marvins     | MMARVINS | 011.44.1346.329268 | 1987-08-20 | SA_REP     |  7200.00 |           0.10 |        147 |            80 |
+|         165 | David       | Lee         | DLEE     | 011.44.1346.529268 | 1987-08-21 | SA_REP     |  6800.00 |           0.10 |        147 |            80 |
+|         166 | Sundar      | Ande        | SANDE    | 011.44.1346.629268 | 1987-08-22 | SA_REP     |  6400.00 |           0.10 |        147 |            80 |
+|         167 | Amit        | Banda       | ABANDA   | 011.44.1346.729268 | 1987-08-23 | SA_REP     |  6200.00 |           0.10 |        147 |            80 |
+|         168 | Lisa        | Ozer        | LOZER    | 011.44.1343.929268 | 1987-08-24 | SA_REP     | 11500.00 |           0.25 |        148 |            80 |
+|         169 | Harrison    | Bloom       | HBLOOM   | 011.44.1343.829268 | 1987-08-25 | SA_REP     | 10000.00 |           0.20 |        148 |            80 |
+|         170 | Tayler      | Fox         | TFOX     | 011.44.1343.729268 | 1987-08-26 | SA_REP     |  9600.00 |           0.20 |        148 |            80 |
+|         171 | William     | Smith       | WSMITH   | 011.44.1343.629268 | 1987-08-27 | SA_REP     |  7400.00 |           0.15 |        148 |            80 |
+|         172 | Elizabeth   | Bates       | EBATES   | 011.44.1343.529268 | 1987-08-28 | SA_REP     |  7300.00 |           0.15 |        148 |            80 |
+|         173 | Sundita     | Kumar       | SKUMAR   | 011.44.1343.329268 | 1987-08-29 | SA_REP     |  6100.00 |           0.10 |        148 |            80 |
+|         174 | Ellen       | Abel        | EABEL    | 011.44.1644.429267 | 1987-08-30 | SA_REP     | 11000.00 |           0.30 |        149 |            80 |
+|         175 | Alyssa      | Hutton      | AHUTTON  | 011.44.1644.429266 | 1987-08-31 | SA_REP     |  8800.00 |           0.25 |        149 |            80 |
+|         176 | Jonathon    | Taylor      | JTAYLOR  | 011.44.1644.429265 | 1987-09-01 | SA_REP     |  8600.00 |           0.20 |        149 |            80 |
+|         177 | Jack        | Livingston  | JLIVINGS | 011.44.1644.429264 | 1987-09-02 | SA_REP     |  8400.00 |           0.20 |        149 |            80 |
+|         178 | Kimberely   | Grant       | KGRANT   | 011.44.1644.429263 | 1987-09-03 | SA_REP     |  7000.00 |           0.15 |        149 |             0 |
+|         179 | Charles     | Johnson     | CJOHNSON | 011.44.1644.429262 | 1987-09-04 | SA_REP     |  6200.00 |           0.10 |        149 |            80 |
+|         180 | Winston     | Taylor      | WTAYLOR  | 650.507.9876       | 1987-09-05 | SH_CLERK   |  3200.00 |           0.00 |        120 |            50 |
+|         181 | Jean        | Fleaur      | JFLEAUR  | 650.507.9877       | 1987-09-06 | SH_CLERK   |  3100.00 |           0.00 |        120 |            50 |
+|         182 | Martha      | Sullivan    | MSULLIVA | 650.507.9878       | 1987-09-07 | SH_CLERK   |  2500.00 |           0.00 |        120 |            50 |
+|         183 | Girard      | Geoni       | GGEONI   | 650.507.9879       | 1987-09-08 | SH_CLERK   |  2800.00 |           0.00 |        120 |            50 |
+|         184 | Nandita     | Sarchand    | NSARCHAN | 650.509.1876       | 1987-09-09 | SH_CLERK   |  4200.00 |           0.00 |        121 |            50 |
+|         185 | Alexis      | Bull        | ABULL    | 650.509.2876       | 1987-09-10 | SH_CLERK   |  4100.00 |           0.00 |        121 |            50 |
+|         186 | Julia       | Dellinger   | JDELLING | 650.509.3876       | 1987-09-11 | SH_CLERK   |  3400.00 |           0.00 |        121 |            50 |
+|         187 | Anthony     | Cabrio      | ACABRIO  | 650.509.4876       | 1987-09-12 | SH_CLERK   |  3000.00 |           0.00 |        121 |            50 |
+|         188 | Kelly       | Chung       | KCHUNG   | 650.505.1876       | 1987-09-13 | SH_CLERK   |  3800.00 |           0.00 |        122 |            50 |
+|         189 | Jennifer    | Dilly       | JDILLY   | 650.505.2876       | 1987-09-14 | SH_CLERK   |  3600.00 |           0.00 |        122 |            50 |
+|         190 | Timothy     | Gates       | TGATES   | 650.505.3876       | 1987-09-15 | SH_CLERK   |  2900.00 |           0.00 |        122 |            50 |
+|         191 | Randall     | Perkins     | RPERKINS | 650.505.4876       | 1987-09-16 | SH_CLERK   |  2500.00 |           0.00 |        122 |            50 |
+|         192 | Sarah       | Bell        | SBELL    | 650.501.1876       | 1987-09-17 | SH_CLERK   |  4000.00 |           0.00 |        123 |            50 |
+|         193 | Britney     | Everett     | BEVERETT | 650.501.2876       | 1987-09-18 | SH_CLERK   |  3900.00 |           0.00 |        123 |            50 |
+|         194 | Samuel      | McCain      | SMCCAIN  | 650.501.3876       | 1987-09-19 | SH_CLERK   |  3200.00 |           0.00 |        123 |            50 |
+|         195 | Vance       | Jones       | VJONES   | 650.501.4876       | 1987-09-20 | SH_CLERK   |  2800.00 |           0.00 |        123 |            50 |
+|         196 | Alana       | Walsh       | AWALSH   | 650.507.9811       | 1987-09-21 | SH_CLERK   |  3100.00 |           0.00 |        124 |            50 |
+|         197 | Kevin       | Feeney      | KFEENEY  | 650.507.9822       | 1987-09-22 | SH_CLERK   |  3000.00 |           0.00 |        124 |            50 |
+|         198 | Donald      | OConnell    | DOCONNEL | 650.507.9833       | 1987-09-23 | SH_CLERK   |  2600.00 |           0.00 |        124 |            50 |
+|         199 | Douglas     | Grant       | DGRANT   | 650.507.9844       | 1987-09-24 | SH_CLERK   |  2600.00 |           0.00 |        124 |            50 |
+|         200 | Jennifer    | Whalen      | JWHALEN  | 515.123.4444       | 1987-09-25 | AD_ASST    |  4400.00 |           0.00 |        101 |            10 |
+|         201 | Michael     | Hartstein   | MHARTSTE | 515.123.5555       | 1987-09-26 | MK_MAN     | 13000.00 |           0.00 |        100 |            20 |
+|         202 | Pat         | Fay         | PFAY     | 603.123.6666       | 1987-09-27 | MK_REP     |  6000.00 |           0.00 |        201 |            20 |
+|         203 | Susan       | Mavris      | SMAVRIS  | 515.123.7777       | 1987-09-28 | HR_REP     |  6500.00 |           0.00 |        101 |            40 |
+|         204 | Hermann     | Baer        | HBAER    | 515.123.8888       | 1987-09-29 | PR_REP     | 10000.00 |           0.00 |        101 |            70 |
+|         205 | Shelley     | Higgins     | SHIGGINS | 515.123.8080       | 1987-09-30 | AC_MGR     | 12000.00 |           0.00 |        101 |           110 |
+|         206 | William     | Gietz       | WGIETZ   | 515.123.8181       | 1987-10-01 | AC_ACCOUNT |  8300.00 |           0.00 |        205 |           110 |
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+
+107 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> SELECT COUNT(*),p.manufacturer,m.name
+    -> FROM products as p
+    -> inner join manu m
+    -> ON m.code=p.manufacturer
+    -> GROUP BY manufacturer having count(*) = 2;
++----------+--------------+-----------------+
+| COUNT(*) | manufacturer | name            |
++----------+--------------+-----------------+
+|        2 |            3 | Hewlett-Packard |
+|        2 |            6 | Winchester      |
++----------+--------------+-----------------+
+2 rows in set (0.10 sec)
+
+MariaDB [csd2204w2018]> SELECT PRODUCTS.CODE, PRODUCTS.NAME, MANU.NAME
+    -> FROM PRODUCTS
+    -> LEFT JOIN MANU
+    -> ON PRODUCTS.CODE = MANU.CODE
+    -> UNION
+    -> SELECT PRODUCTS.CODE, PRODUCTS.NAME, MANU.NAME
+    -> FROM PRODUCTS
+    -> RIGHT JOIN MANU
+    -> ON PRODUCTS.CODE = MANU.CODE;
++------+-----------------+-------------------+
+| CODE | NAME            | NAME              |
++------+-----------------+-------------------+
+|    1 | Hard drive      | Sony              |
+|    2 | Memory          | Creative Labs     |
+|    3 | ZIP drive       | Hewlett-Packard   |
+|    4 | Floppy disk     | Iomega            |
+|    5 | Monitor         | Fujitsu           |
+|    6 | DVD drive       | Winchester        |
+|    7 | CD drive        | moxDroid Labs Inc |
+|    8 | Printer         | Dell              |
+|    9 | Toner cartridge | Bell Labs         |
+|   10 | DVD burner      | NULL              |
+|   11 | Printer         | NULL              |
+|   12 | Toner cartridge | NULL              |
+|   13 | DVD burner      | NULL              |
++------+-----------------+-------------------+
+13 rows in set (0.07 sec)
+
+MariaDB [csd2204w2018]> SELECT P1.CODE, P1.NAME, P2.NAME
+    -> FROM Products P1, Products P2
+    -> WHERE P1.CODE <> P2.CODE;
++------+-----------------+-----------------+
+| CODE | NAME            | NAME            |
++------+-----------------+-----------------+
+|    2 | Memory          | Hard drive      |
+|    3 | ZIP drive       | Hard drive      |
+|    4 | Floppy disk     | Hard drive      |
+|    5 | Monitor         | Hard drive      |
+|    6 | DVD drive       | Hard drive      |
+|    7 | CD drive        | Hard drive      |
+|    8 | Printer         | Hard drive      |
+|    9 | Toner cartridge | Hard drive      |
+|   10 | DVD burner      | Hard drive      |
+|   11 | Printer         | Hard drive      |
+|   12 | Toner cartridge | Hard drive      |
+|   13 | DVD burner      | Hard drive      |
+|    1 | Hard drive      | Memory          |
+|    3 | ZIP drive       | Memory          |
+|    4 | Floppy disk     | Memory          |
+|    5 | Monitor         | Memory          |
+|    6 | DVD drive       | Memory          |
+|    7 | CD drive        | Memory          |
+|    8 | Printer         | Memory          |
+|    9 | Toner cartridge | Memory          |
+|   10 | DVD burner      | Memory          |
+|   11 | Printer         | Memory          |
+|   12 | Toner cartridge | Memory          |
+|   13 | DVD burner      | Memory          |
+|    1 | Hard drive      | ZIP drive       |
+|    2 | Memory          | ZIP drive       |
+|    4 | Floppy disk     | ZIP drive       |
+|    5 | Monitor         | ZIP drive       |
+|    6 | DVD drive       | ZIP drive       |
+|    7 | CD drive        | ZIP drive       |
+|    8 | Printer         | ZIP drive       |
+|    9 | Toner cartridge | ZIP drive       |
+|   10 | DVD burner      | ZIP drive       |
+|   11 | Printer         | ZIP drive       |
+|   12 | Toner cartridge | ZIP drive       |
+|   13 | DVD burner      | ZIP drive       |
+|    1 | Hard drive      | Floppy disk     |
+|    2 | Memory          | Floppy disk     |
+|    3 | ZIP drive       | Floppy disk     |
+|    5 | Monitor         | Floppy disk     |
+|    6 | DVD drive       | Floppy disk     |
+|    7 | CD drive        | Floppy disk     |
+|    8 | Printer         | Floppy disk     |
+|    9 | Toner cartridge | Floppy disk     |
+|   10 | DVD burner      | Floppy disk     |
+|   11 | Printer         | Floppy disk     |
+|   12 | Toner cartridge | Floppy disk     |
+|   13 | DVD burner      | Floppy disk     |
+|    1 | Hard drive      | Monitor         |
+|    2 | Memory          | Monitor         |
+|    3 | ZIP drive       | Monitor         |
+|    4 | Floppy disk     | Monitor         |
+|    6 | DVD drive       | Monitor         |
+|    7 | CD drive        | Monitor         |
+|    8 | Printer         | Monitor         |
+|    9 | Toner cartridge | Monitor         |
+|   10 | DVD burner      | Monitor         |
+|   11 | Printer         | Monitor         |
+|   12 | Toner cartridge | Monitor         |
+|   13 | DVD burner      | Monitor         |
+|    1 | Hard drive      | DVD drive       |
+|    2 | Memory          | DVD drive       |
+|    3 | ZIP drive       | DVD drive       |
+|    4 | Floppy disk     | DVD drive       |
+|    5 | Monitor         | DVD drive       |
+|    7 | CD drive        | DVD drive       |
+|    8 | Printer         | DVD drive       |
+|    9 | Toner cartridge | DVD drive       |
+|   10 | DVD burner      | DVD drive       |
+|   11 | Printer         | DVD drive       |
+|   12 | Toner cartridge | DVD drive       |
+|   13 | DVD burner      | DVD drive       |
+|    1 | Hard drive      | CD drive        |
+|    2 | Memory          | CD drive        |
+|    3 | ZIP drive       | CD drive        |
+|    4 | Floppy disk     | CD drive        |
+|    5 | Monitor         | CD drive        |
+|    6 | DVD drive       | CD drive        |
+|    8 | Printer         | CD drive        |
+|    9 | Toner cartridge | CD drive        |
+|   10 | DVD burner      | CD drive        |
+|   11 | Printer         | CD drive        |
+|   12 | Toner cartridge | CD drive        |
+|   13 | DVD burner      | CD drive        |
+|    1 | Hard drive      | Printer         |
+|    2 | Memory          | Printer         |
+|    3 | ZIP drive       | Printer         |
+|    4 | Floppy disk     | Printer         |
+|    5 | Monitor         | Printer         |
+|    6 | DVD drive       | Printer         |
+|    7 | CD drive        | Printer         |
+|    9 | Toner cartridge | Printer         |
+|   10 | DVD burner      | Printer         |
+|   11 | Printer         | Printer         |
+|   12 | Toner cartridge | Printer         |
+|   13 | DVD burner      | Printer         |
+|    1 | Hard drive      | Toner cartridge |
+|    2 | Memory          | Toner cartridge |
+|    3 | ZIP drive       | Toner cartridge |
+|    4 | Floppy disk     | Toner cartridge |
+|    5 | Monitor         | Toner cartridge |
+|    6 | DVD drive       | Toner cartridge |
+|    7 | CD drive        | Toner cartridge |
+|    8 | Printer         | Toner cartridge |
+|   10 | DVD burner      | Toner cartridge |
+|   11 | Printer         | Toner cartridge |
+|   12 | Toner cartridge | Toner cartridge |
+|   13 | DVD burner      | Toner cartridge |
+|    1 | Hard drive      | DVD burner      |
+|    2 | Memory          | DVD burner      |
+|    3 | ZIP drive       | DVD burner      |
+|    4 | Floppy disk     | DVD burner      |
+|    5 | Monitor         | DVD burner      |
+|    6 | DVD drive       | DVD burner      |
+|    7 | CD drive        | DVD burner      |
+|    8 | Printer         | DVD burner      |
+|    9 | Toner cartridge | DVD burner      |
+|   11 | Printer         | DVD burner      |
+|   12 | Toner cartridge | DVD burner      |
+|   13 | DVD burner      | DVD burner      |
+|    1 | Hard drive      | Printer         |
+|    2 | Memory          | Printer         |
+|    3 | ZIP drive       | Printer         |
+|    4 | Floppy disk     | Printer         |
+|    5 | Monitor         | Printer         |
+|    6 | DVD drive       | Printer         |
+|    7 | CD drive        | Printer         |
+|    8 | Printer         | Printer         |
+|    9 | Toner cartridge | Printer         |
+|   10 | DVD burner      | Printer         |
+|   12 | Toner cartridge | Printer         |
+|   13 | DVD burner      | Printer         |
+|    1 | Hard drive      | Toner cartridge |
+|    2 | Memory          | Toner cartridge |
+|    3 | ZIP drive       | Toner cartridge |
+|    4 | Floppy disk     | Toner cartridge |
+|    5 | Monitor         | Toner cartridge |
+|    6 | DVD drive       | Toner cartridge |
+|    7 | CD drive        | Toner cartridge |
+|    8 | Printer         | Toner cartridge |
+|    9 | Toner cartridge | Toner cartridge |
+|   10 | DVD burner      | Toner cartridge |
+|   11 | Printer         | Toner cartridge |
+|   13 | DVD burner      | Toner cartridge |
+|    1 | Hard drive      | DVD burner      |
+|    2 | Memory          | DVD burner      |
+|    3 | ZIP drive       | DVD burner      |
+|    4 | Floppy disk     | DVD burner      |
+|    5 | Monitor         | DVD burner      |
+|    6 | DVD drive       | DVD burner      |
+|    7 | CD drive        | DVD burner      |
+|    8 | Printer         | DVD burner      |
+|    9 | Toner cartridge | DVD burner      |
+|   10 | DVD burner      | DVD burner      |
+|   11 | Printer         | DVD burner      |
+|   12 | Toner cartridge | DVD burner      |
++------+-----------------+-----------------+
+156 rows in set (0.02 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY = (SELECT min(SALARY) FROM EMPLOYEES);
++------------+-----------+---------+
+| first_name | last_name | SALARY  |
++------------+-----------+---------+
+| TJ         | Olson     | 2100.00 |
++------------+-----------+---------+
+1 row in set (0.02 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY = (SELECT job_id from jobs where min(SALARY) FROM EMPLOYEES);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM EMPLOYEES)' at line 1
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY = (SELECT job_id from jobs where employee_id in (select min(SALARY) FROM EMPLOYEES));
+Empty set (0.04 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY = (select min(SALARY) FROM jobs where employee.job_id = jobs.job_id);
+ERROR 1054 (42S22): Unknown column 'employee.job_id' in 'where clause'
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY = (select min(SALARY) FROM jobs where employees.job_id = jobs.job_id);
++-------------+-------------+----------+
+| first_name  | last_name   | SALARY   |
++-------------+-------------+----------+
+| Steven      | King        | 24000.00 |
+| Neena       | Kochhar     | 17000.00 |
+| Lex         | De Haan     | 17000.00 |
+| Alexander   | Hunold      |  9000.00 |
+| Bruce       | Ernst       |  6000.00 |
+| David       | Austin      |  4800.00 |
+| Valli       | Pataballa   |  4800.00 |
+| Diana       | Lorentz     |  4200.00 |
+| Nancy       | Greenberg   | 12000.00 |
+| Daniel      | Faviet      |  9000.00 |
+| John        | Chen        |  8200.00 |
+| Ismael      | Sciarra     |  7700.00 |
+| Jose Manuel | Urman       |  7800.00 |
+| Luis        | Popp        |  6900.00 |
+| Den         | Raphaely    | 11000.00 |
+| Alexander   | Khoo        |  3100.00 |
+| Shelli      | Baida       |  2900.00 |
+| Sigal       | Tobias      |  2800.00 |
+| Guy         | Himuro      |  2600.00 |
+| Karen       | Colmenares  |  2500.00 |
+| Matthew     | Weiss       |  8000.00 |
+| Adam        | Fripp       |  8200.00 |
+| Payam       | Kaufling    |  7900.00 |
+| Shanta      | Vollman     |  6500.00 |
+| Kevin       | Mourgos     |  5800.00 |
+| Julia       | Nayer       |  3200.00 |
+| Irene       | Mikkilineni |  2700.00 |
+| James       | Landry      |  2400.00 |
+| Steven      | Markle      |  2200.00 |
+| Laura       | Bissot      |  3300.00 |
+| Mozhe       | Atkinson    |  2800.00 |
+| James       | Marlow      |  2500.00 |
+| TJ          | Olson       |  2100.00 |
+| Jason       | Mallin      |  3300.00 |
+| Michael     | Rogers      |  2900.00 |
+| Ki          | Gee         |  2400.00 |
+| Hazel       | Philtanker  |  2200.00 |
+| Renske      | Ladwig      |  3600.00 |
+| Stephen     | Stiles      |  3200.00 |
+| John        | Seo         |  2700.00 |
+| Joshua      | Patel       |  2500.00 |
+| Trenna      | Rajs        |  3500.00 |
+| Curtis      | Davies      |  3100.00 |
+| Randall     | Matos       |  2600.00 |
+| Peter       | Vargas      |  2500.00 |
+| John        | Russell     | 14000.00 |
+| Karen       | Partners    | 13500.00 |
+| Alberto     | Errazuriz   | 12000.00 |
+| Gerald      | Cambrault   | 11000.00 |
+| Eleni       | Zlotkey     | 10500.00 |
+| Peter       | Tucker      | 10000.00 |
+| David       | Bernstein   |  9500.00 |
+| Peter       | Hall        |  9000.00 |
+| Christopher | Olsen       |  8000.00 |
+| Nanette     | Cambrault   |  7500.00 |
+| Oliver      | Tuvault     |  7000.00 |
+| Janette     | King        | 10000.00 |
+| Patrick     | Sully       |  9500.00 |
+| Allan       | McEwen      |  9000.00 |
+| Lindsey     | Smith       |  8000.00 |
+| Louise      | Doran       |  7500.00 |
+| Sarath      | Sewall      |  7000.00 |
+| Clara       | Vishney     | 10500.00 |
+| Danielle    | Greene      |  9500.00 |
+| Mattea      | Marvins     |  7200.00 |
+| David       | Lee         |  6800.00 |
+| Sundar      | Ande        |  6400.00 |
+| Amit        | Banda       |  6200.00 |
+| Lisa        | Ozer        | 11500.00 |
+| Harrison    | Bloom       | 10000.00 |
+| Tayler      | Fox         |  9600.00 |
+| William     | Smith       |  7400.00 |
+| Elizabeth   | Bates       |  7300.00 |
+| Sundita     | Kumar       |  6100.00 |
+| Ellen       | Abel        | 11000.00 |
+| Alyssa      | Hutton      |  8800.00 |
+| Jonathon    | Taylor      |  8600.00 |
+| Jack        | Livingston  |  8400.00 |
+| Kimberely   | Grant       |  7000.00 |
+| Charles     | Johnson     |  6200.00 |
+| Winston     | Taylor      |  3200.00 |
+| Jean        | Fleaur      |  3100.00 |
+| Martha      | Sullivan    |  2500.00 |
+| Girard      | Geoni       |  2800.00 |
+| Nandita     | Sarchand    |  4200.00 |
+| Alexis      | Bull        |  4100.00 |
+| Julia       | Dellinger   |  3400.00 |
+| Anthony     | Cabrio      |  3000.00 |
+| Kelly       | Chung       |  3800.00 |
+| Jennifer    | Dilly       |  3600.00 |
+| Timothy     | Gates       |  2900.00 |
+| Randall     | Perkins     |  2500.00 |
+| Sarah       | Bell        |  4000.00 |
+| Britney     | Everett     |  3900.00 |
+| Samuel      | McCain      |  3200.00 |
+| Vance       | Jones       |  2800.00 |
+| Alana       | Walsh       |  3100.00 |
+| Kevin       | Feeney      |  3000.00 |
+| Donald      | OConnell    |  2600.00 |
+| Douglas     | Grant       |  2600.00 |
+| Jennifer    | Whalen      |  4400.00 |
+| Michael     | Hartstein   | 13000.00 |
+| Pat         | Fay         |  6000.00 |
+| Susan       | Mavris      |  6500.00 |
+| Hermann     | Baer        | 10000.00 |
+| Shelley     | Higgins     | 12000.00 |
+| William     | Gietz       |  8300.00 |
++-------------+-------------+----------+
+107 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY = (select min_SALARY FROM jobs where employees.job_id = jobs.job_id);
++------------+------------+---------+
+| first_name | last_name  | SALARY  |
++------------+------------+---------+
+| Karen      | Colmenares | 2500.00 |
+| Martha     | Sullivan   | 2500.00 |
+| Randall    | Perkins    | 2500.00 |
++------------+------------+---------+
+3 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY > (select avg(SALARY) FROM jobs where department_id = "IT");
+Empty set, 1 warning (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY > (select avg(SALARY) FROM jobs where employees.department_id = "IT");
+Empty set, 1 warning (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY > (select avg(SALARY) FROM jobs where department_id = "IT");
+Empty set, 1 warning (0.00 sec)
+
+MariaDB [csd2204w2018]> select * from employees where salary > ( select avg(salary) from employees) and department_id in (select department_id from departments where department_name like 'IT%');
++-------------+------------+-----------+---------+--------------+------------+---------+---------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL   | PHONE_NUMBER | HIRE_DATE  | JOB_ID  | SALARY  | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+---------+--------------+------------+---------+---------+----------------+------------+---------------+
+|         103 | Alexander  | Hunold    | AHUNOLD | 590.423.4567 | 1987-06-20 | IT_PROG | 9000.00 |           0.00 |        102 |            60 |
++-------------+------------+-----------+---------+--------------+------------+---------+---------+----------------+------------+---------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY > ( where LAST NAME LIKE  "BELL");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where LAST NAME LIKE  "BELL")' at line 1
+MariaDB [csd2204w2018]> selecT MIN(SALARY) FROM JOBS;
+ERROR 1054 (42S22): Unknown column 'SALARY' in 'field list'
+MariaDB [csd2204w2018]> selecT MIN(MIN_SALARY) FROM JOBS;
++-----------------+
+| MIN(MIN_SALARY) |
++-----------------+
+|            2000 |
++-----------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY = SELECT MIN(MIN_SALARY)+1000 FROM JOBS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT MIN(MIN_SALARY)+1000 FROM JOBS' at line 1
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY = SELECT MIN(MIN_SALARY)+1000 FROM JOBS);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT MIN(MIN_SALARY)+1000 FROM JOBS)' at line 1
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY = (SELECT MIN(MIN_SALARY)+1000 FROM JOBS);
++------------+-----------+---------+
+| first_name | last_name | SALARY  |
++------------+-----------+---------+
+| Anthony    | Cabrio    | 3000.00 |
+| Kevin      | Feeney    | 3000.00 |
++------------+-----------+---------+
+2 rows in set (0.02 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY = (SELECT MIN(MIN_SALARY) FROM JOBS);
+Empty set (0.00 sec)
+
+MariaDB [csd2204w2018]> SELECT * FROM JOBS;
++------------+---------------------------------+------------+------------+
+| JOB_ID     | JOB_TITLE                       | MIN_SALARY | MAX_SALARY |
++------------+---------------------------------+------------+------------+
+| AD_PRES    | President                       |      20000 |      40000 |
+| AD_VP      | Administration Vice President   |      15000 |      30000 |
+| AD_ASST    | Administration Assistant        |       3000 |       6000 |
+| FI_MGR     | Finance Manager                 |       8200 |      16000 |
+| FI_ACCOUNT | Accountant                      |       4200 |       9000 |
+| AC_MGR     | Accounting Manager              |       8200 |      16000 |
+| AC_ACCOUNT | Public Accountant               |       4200 |       9000 |
+| SA_MAN     | Sales Manager                   |      10000 |      20000 |
+| SA_REP     | Sales Representative            |       6000 |      12000 |
+| PU_MAN     | Purchasing Manager              |       8000 |      15000 |
+| PU_CLERK   | Purchasing Clerk                |       2500 |       5500 |
+| ST_MAN     | Stock Manager                   |       5500 |       8500 |
+| ST_CLERK   | Stock Clerk                     |       2000 |       5000 |
+| SH_CLERK   | Shipping Clerk                  |       2500 |       5500 |
+| IT_PROG    | Programmer                      |       4000 |      10000 |
+| MK_MAN     | Marketing Manager               |       9000 |      15000 |
+| MK_REP     | Marketing Representative        |       4000 |       9000 |
+| HR_REP     | Human Resources Representative  |       4000 |       9000 |
+| PR_REP     | Public Relations Representative |       4500 |      10500 |
++------------+---------------------------------+------------+------------+
+19 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,SALARY from employees where SALARY > (SELECT MAX(SALARY) FROM EMPLOYEES WHERE JOB_ID = "SH_CLERK") ORDER BY SALARY ASC;;
++-------------+------------+----------+
+| first_name  | last_name  | SALARY   |
++-------------+------------+----------+
+| Jennifer    | Whalen     |  4400.00 |
+| David       | Austin     |  4800.00 |
+| Valli       | Pataballa  |  4800.00 |
+| Kevin       | Mourgos    |  5800.00 |
+| Bruce       | Ernst      |  6000.00 |
+| Pat         | Fay        |  6000.00 |
+| Sundita     | Kumar      |  6100.00 |
+| Amit        | Banda      |  6200.00 |
+| Charles     | Johnson    |  6200.00 |
+| Sundar      | Ande       |  6400.00 |
+| Susan       | Mavris     |  6500.00 |
+| Shanta      | Vollman    |  6500.00 |
+| David       | Lee        |  6800.00 |
+| Luis        | Popp       |  6900.00 |
+| Sarath      | Sewall     |  7000.00 |
+| Oliver      | Tuvault    |  7000.00 |
+| Kimberely   | Grant      |  7000.00 |
+| Mattea      | Marvins    |  7200.00 |
+| Elizabeth   | Bates      |  7300.00 |
+| William     | Smith      |  7400.00 |
+| Nanette     | Cambrault  |  7500.00 |
+| Louise      | Doran      |  7500.00 |
+| Ismael      | Sciarra    |  7700.00 |
+| Jose Manuel | Urman      |  7800.00 |
+| Payam       | Kaufling   |  7900.00 |
+| Lindsey     | Smith      |  8000.00 |
+| Matthew     | Weiss      |  8000.00 |
+| Christopher | Olsen      |  8000.00 |
+| Adam        | Fripp      |  8200.00 |
+| John        | Chen       |  8200.00 |
+| William     | Gietz      |  8300.00 |
+| Jack        | Livingston |  8400.00 |
+| Jonathon    | Taylor     |  8600.00 |
+| Alyssa      | Hutton     |  8800.00 |
+| Allan       | McEwen     |  9000.00 |
+| Peter       | Hall       |  9000.00 |
+| Alexander   | Hunold     |  9000.00 |
+| Daniel      | Faviet     |  9000.00 |
+| Patrick     | Sully      |  9500.00 |
+| Danielle    | Greene     |  9500.00 |
+| David       | Bernstein  |  9500.00 |
+| Tayler      | Fox        |  9600.00 |
+| Hermann     | Baer       | 10000.00 |
+| Harrison    | Bloom      | 10000.00 |
+| Janette     | King       | 10000.00 |
+| Peter       | Tucker     | 10000.00 |
+| Eleni       | Zlotkey    | 10500.00 |
+| Clara       | Vishney    | 10500.00 |
+| Gerald      | Cambrault  | 11000.00 |
+| Ellen       | Abel       | 11000.00 |
+| Den         | Raphaely   | 11000.00 |
+| Lisa        | Ozer       | 11500.00 |
+| Alberto     | Errazuriz  | 12000.00 |
+| Shelley     | Higgins    | 12000.00 |
+| Nancy       | Greenberg  | 12000.00 |
+| Michael     | Hartstein  | 13000.00 |
+| Karen       | Partners   | 13500.00 |
+| John        | Russell    | 14000.00 |
+| Lex         | De Haan    | 17000.00 |
+| Neena       | Kochhar    | 17000.00 |
+| Steven      | King       | 24000.00 |
++-------------+------------+----------+
+61 rows in set (0.02 sec)
+
+ERROR: No query specified
+
+MariaDB [csd2204w2018]> select first_name,last_name,JOB_ID,SALARY from employees where SALARY > (SELECT SALARY FROM EMPLOYEES WHERE JOB_ID = "SH_CLERK") ORDER BY SALARY ASC;
+ERROR 1242 (21000): Subquery returns more than 1 row
+MariaDB [csd2204w2018]> select first_name,last_name,JOB_ID,SALARY from employees where SALARY > ALL(SELECT SALARY FROM EMPLOYEES WHERE JOB_ID = 'SH_CLERK') ORDER BY SALARY ASC;
++-------------+------------+------------+----------+
+| first_name  | last_name  | JOB_ID     | SALARY   |
++-------------+------------+------------+----------+
+| Jennifer    | Whalen     | AD_ASST    |  4400.00 |
+| David       | Austin     | IT_PROG    |  4800.00 |
+| Valli       | Pataballa  | IT_PROG    |  4800.00 |
+| Kevin       | Mourgos    | ST_MAN     |  5800.00 |
+| Bruce       | Ernst      | IT_PROG    |  6000.00 |
+| Pat         | Fay        | MK_REP     |  6000.00 |
+| Sundita     | Kumar      | SA_REP     |  6100.00 |
+| Amit        | Banda      | SA_REP     |  6200.00 |
+| Charles     | Johnson    | SA_REP     |  6200.00 |
+| Sundar      | Ande       | SA_REP     |  6400.00 |
+| Susan       | Mavris     | HR_REP     |  6500.00 |
+| Shanta      | Vollman    | ST_MAN     |  6500.00 |
+| David       | Lee        | SA_REP     |  6800.00 |
+| Luis        | Popp       | FI_ACCOUNT |  6900.00 |
+| Sarath      | Sewall     | SA_REP     |  7000.00 |
+| Oliver      | Tuvault    | SA_REP     |  7000.00 |
+| Kimberely   | Grant      | SA_REP     |  7000.00 |
+| Mattea      | Marvins    | SA_REP     |  7200.00 |
+| Elizabeth   | Bates      | SA_REP     |  7300.00 |
+| William     | Smith      | SA_REP     |  7400.00 |
+| Nanette     | Cambrault  | SA_REP     |  7500.00 |
+| Louise      | Doran      | SA_REP     |  7500.00 |
+| Ismael      | Sciarra    | FI_ACCOUNT |  7700.00 |
+| Jose Manuel | Urman      | FI_ACCOUNT |  7800.00 |
+| Payam       | Kaufling   | ST_MAN     |  7900.00 |
+| Lindsey     | Smith      | SA_REP     |  8000.00 |
+| Matthew     | Weiss      | ST_MAN     |  8000.00 |
+| Christopher | Olsen      | SA_REP     |  8000.00 |
+| Adam        | Fripp      | ST_MAN     |  8200.00 |
+| John        | Chen       | FI_ACCOUNT |  8200.00 |
+| William     | Gietz      | AC_ACCOUNT |  8300.00 |
+| Jack        | Livingston | SA_REP     |  8400.00 |
+| Jonathon    | Taylor     | SA_REP     |  8600.00 |
+| Alyssa      | Hutton     | SA_REP     |  8800.00 |
+| Allan       | McEwen     | SA_REP     |  9000.00 |
+| Peter       | Hall       | SA_REP     |  9000.00 |
+| Alexander   | Hunold     | IT_PROG    |  9000.00 |
+| Daniel      | Faviet     | FI_ACCOUNT |  9000.00 |
+| Patrick     | Sully      | SA_REP     |  9500.00 |
+| Danielle    | Greene     | SA_REP     |  9500.00 |
+| David       | Bernstein  | SA_REP     |  9500.00 |
+| Tayler      | Fox        | SA_REP     |  9600.00 |
+| Hermann     | Baer       | PR_REP     | 10000.00 |
+| Harrison    | Bloom      | SA_REP     | 10000.00 |
+| Janette     | King       | SA_REP     | 10000.00 |
+| Peter       | Tucker     | SA_REP     | 10000.00 |
+| Eleni       | Zlotkey    | SA_MAN     | 10500.00 |
+| Clara       | Vishney    | SA_REP     | 10500.00 |
+| Gerald      | Cambrault  | SA_MAN     | 11000.00 |
+| Ellen       | Abel       | SA_REP     | 11000.00 |
+| Den         | Raphaely   | PU_MAN     | 11000.00 |
+| Lisa        | Ozer       | SA_REP     | 11500.00 |
+| Alberto     | Errazuriz  | SA_MAN     | 12000.00 |
+| Shelley     | Higgins    | AC_MGR     | 12000.00 |
+| Nancy       | Greenberg  | FI_MGR     | 12000.00 |
+| Michael     | Hartstein  | MK_MAN     | 13000.00 |
+| Karen       | Partners   | SA_MAN     | 13500.00 |
+| John        | Russell    | SA_MAN     | 14000.00 |
+| Lex         | De Haan    | AD_VP      | 17000.00 |
+| Neena       | Kochhar    | AD_VP      | 17000.00 |
+| Steven      | King       | AD_PRES    | 24000.00 |
++-------------+------------+------------+----------+
+61 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,JOB_ID,SALARY from employees where SALARY > ALL(SELECT MAX(SALARY) FROM EMPLOYEES WHERE JOB_ID = 'SH_CLERK') ORDER BY SALARY ASC;
++-------------+------------+------------+----------+
+| first_name  | last_name  | JOB_ID     | SALARY   |
++-------------+------------+------------+----------+
+| Jennifer    | Whalen     | AD_ASST    |  4400.00 |
+| David       | Austin     | IT_PROG    |  4800.00 |
+| Valli       | Pataballa  | IT_PROG    |  4800.00 |
+| Kevin       | Mourgos    | ST_MAN     |  5800.00 |
+| Bruce       | Ernst      | IT_PROG    |  6000.00 |
+| Pat         | Fay        | MK_REP     |  6000.00 |
+| Sundita     | Kumar      | SA_REP     |  6100.00 |
+| Amit        | Banda      | SA_REP     |  6200.00 |
+| Charles     | Johnson    | SA_REP     |  6200.00 |
+| Sundar      | Ande       | SA_REP     |  6400.00 |
+| Susan       | Mavris     | HR_REP     |  6500.00 |
+| Shanta      | Vollman    | ST_MAN     |  6500.00 |
+| David       | Lee        | SA_REP     |  6800.00 |
+| Luis        | Popp       | FI_ACCOUNT |  6900.00 |
+| Sarath      | Sewall     | SA_REP     |  7000.00 |
+| Oliver      | Tuvault    | SA_REP     |  7000.00 |
+| Kimberely   | Grant      | SA_REP     |  7000.00 |
+| Mattea      | Marvins    | SA_REP     |  7200.00 |
+| Elizabeth   | Bates      | SA_REP     |  7300.00 |
+| William     | Smith      | SA_REP     |  7400.00 |
+| Nanette     | Cambrault  | SA_REP     |  7500.00 |
+| Louise      | Doran      | SA_REP     |  7500.00 |
+| Ismael      | Sciarra    | FI_ACCOUNT |  7700.00 |
+| Jose Manuel | Urman      | FI_ACCOUNT |  7800.00 |
+| Payam       | Kaufling   | ST_MAN     |  7900.00 |
+| Lindsey     | Smith      | SA_REP     |  8000.00 |
+| Matthew     | Weiss      | ST_MAN     |  8000.00 |
+| Christopher | Olsen      | SA_REP     |  8000.00 |
+| Adam        | Fripp      | ST_MAN     |  8200.00 |
+| John        | Chen       | FI_ACCOUNT |  8200.00 |
+| William     | Gietz      | AC_ACCOUNT |  8300.00 |
+| Jack        | Livingston | SA_REP     |  8400.00 |
+| Jonathon    | Taylor     | SA_REP     |  8600.00 |
+| Alyssa      | Hutton     | SA_REP     |  8800.00 |
+| Allan       | McEwen     | SA_REP     |  9000.00 |
+| Peter       | Hall       | SA_REP     |  9000.00 |
+| Alexander   | Hunold     | IT_PROG    |  9000.00 |
+| Daniel      | Faviet     | FI_ACCOUNT |  9000.00 |
+| Patrick     | Sully      | SA_REP     |  9500.00 |
+| Danielle    | Greene     | SA_REP     |  9500.00 |
+| David       | Bernstein  | SA_REP     |  9500.00 |
+| Tayler      | Fox        | SA_REP     |  9600.00 |
+| Hermann     | Baer       | PR_REP     | 10000.00 |
+| Harrison    | Bloom      | SA_REP     | 10000.00 |
+| Janette     | King       | SA_REP     | 10000.00 |
+| Peter       | Tucker     | SA_REP     | 10000.00 |
+| Eleni       | Zlotkey    | SA_MAN     | 10500.00 |
+| Clara       | Vishney    | SA_REP     | 10500.00 |
+| Gerald      | Cambrault  | SA_MAN     | 11000.00 |
+| Ellen       | Abel       | SA_REP     | 11000.00 |
+| Den         | Raphaely   | PU_MAN     | 11000.00 |
+| Lisa        | Ozer       | SA_REP     | 11500.00 |
+| Alberto     | Errazuriz  | SA_MAN     | 12000.00 |
+| Shelley     | Higgins    | AC_MGR     | 12000.00 |
+| Nancy       | Greenberg  | FI_MGR     | 12000.00 |
+| Michael     | Hartstein  | MK_MAN     | 13000.00 |
+| Karen       | Partners   | SA_MAN     | 13500.00 |
+| John        | Russell    | SA_MAN     | 14000.00 |
+| Lex         | De Haan    | AD_VP      | 17000.00 |
+| Neena       | Kochhar    | AD_VP      | 17000.00 |
+| Steven      | King       | AD_PRES    | 24000.00 |
++-------------+------------+------------+----------+
+61 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,JOB_ID,SALARY from employees where SALARY > ALL(SELECT MIN(SALARY) FROM EMPLOYEES WHERE JOB_ID = 'SH_CLERK') ORDER BY SALARY ASC;
++-------------+-------------+------------+----------+
+| first_name  | last_name   | JOB_ID     | SALARY   |
++-------------+-------------+------------+----------+
+| Donald      | OConnell    | SH_CLERK   |  2600.00 |
+| Douglas     | Grant       | SH_CLERK   |  2600.00 |
+| Randall     | Matos       | ST_CLERK   |  2600.00 |
+| Guy         | Himuro      | PU_CLERK   |  2600.00 |
+| Irene       | Mikkilineni | ST_CLERK   |  2700.00 |
+| John        | Seo         | ST_CLERK   |  2700.00 |
+| Sigal       | Tobias      | PU_CLERK   |  2800.00 |
+| Girard      | Geoni       | SH_CLERK   |  2800.00 |
+| Vance       | Jones       | SH_CLERK   |  2800.00 |
+| Mozhe       | Atkinson    | ST_CLERK   |  2800.00 |
+| Michael     | Rogers      | ST_CLERK   |  2900.00 |
+| Timothy     | Gates       | SH_CLERK   |  2900.00 |
+| Shelli      | Baida       | PU_CLERK   |  2900.00 |
+| Kevin       | Feeney      | SH_CLERK   |  3000.00 |
+| Anthony     | Cabrio      | SH_CLERK   |  3000.00 |
+| Alexander   | Khoo        | PU_CLERK   |  3100.00 |
+| Alana       | Walsh       | SH_CLERK   |  3100.00 |
+| Jean        | Fleaur      | SH_CLERK   |  3100.00 |
+| Curtis      | Davies      | ST_CLERK   |  3100.00 |
+| Winston     | Taylor      | SH_CLERK   |  3200.00 |
+| Julia       | Nayer       | ST_CLERK   |  3200.00 |
+| Stephen     | Stiles      | ST_CLERK   |  3200.00 |
+| Samuel      | McCain      | SH_CLERK   |  3200.00 |
+| Laura       | Bissot      | ST_CLERK   |  3300.00 |
+| Jason       | Mallin      | ST_CLERK   |  3300.00 |
+| Julia       | Dellinger   | SH_CLERK   |  3400.00 |
+| Trenna      | Rajs        | ST_CLERK   |  3500.00 |
+| Renske      | Ladwig      | ST_CLERK   |  3600.00 |
+| Jennifer    | Dilly       | SH_CLERK   |  3600.00 |
+| Kelly       | Chung       | SH_CLERK   |  3800.00 |
+| Britney     | Everett     | SH_CLERK   |  3900.00 |
+| Sarah       | Bell        | SH_CLERK   |  4000.00 |
+| Alexis      | Bull        | SH_CLERK   |  4100.00 |
+| Diana       | Lorentz     | IT_PROG    |  4200.00 |
+| Nandita     | Sarchand    | SH_CLERK   |  4200.00 |
+| Jennifer    | Whalen      | AD_ASST    |  4400.00 |
+| Valli       | Pataballa   | IT_PROG    |  4800.00 |
+| David       | Austin      | IT_PROG    |  4800.00 |
+| Kevin       | Mourgos     | ST_MAN     |  5800.00 |
+| Pat         | Fay         | MK_REP     |  6000.00 |
+| Bruce       | Ernst       | IT_PROG    |  6000.00 |
+| Sundita     | Kumar       | SA_REP     |  6100.00 |
+| Charles     | Johnson     | SA_REP     |  6200.00 |
+| Amit        | Banda       | SA_REP     |  6200.00 |
+| Sundar      | Ande        | SA_REP     |  6400.00 |
+| Susan       | Mavris      | HR_REP     |  6500.00 |
+| Shanta      | Vollman     | ST_MAN     |  6500.00 |
+| David       | Lee         | SA_REP     |  6800.00 |
+| Luis        | Popp        | FI_ACCOUNT |  6900.00 |
+| Oliver      | Tuvault     | SA_REP     |  7000.00 |
+| Kimberely   | Grant       | SA_REP     |  7000.00 |
+| Sarath      | Sewall      | SA_REP     |  7000.00 |
+| Mattea      | Marvins     | SA_REP     |  7200.00 |
+| Elizabeth   | Bates       | SA_REP     |  7300.00 |
+| William     | Smith       | SA_REP     |  7400.00 |
+| Louise      | Doran       | SA_REP     |  7500.00 |
+| Nanette     | Cambrault   | SA_REP     |  7500.00 |
+| Ismael      | Sciarra     | FI_ACCOUNT |  7700.00 |
+| Jose Manuel | Urman       | FI_ACCOUNT |  7800.00 |
+| Payam       | Kaufling    | ST_MAN     |  7900.00 |
+| Lindsey     | Smith       | SA_REP     |  8000.00 |
+| Christopher | Olsen       | SA_REP     |  8000.00 |
+| Matthew     | Weiss       | ST_MAN     |  8000.00 |
+| John        | Chen        | FI_ACCOUNT |  8200.00 |
+| Adam        | Fripp       | ST_MAN     |  8200.00 |
+| William     | Gietz       | AC_ACCOUNT |  8300.00 |
+| Jack        | Livingston  | SA_REP     |  8400.00 |
+| Jonathon    | Taylor      | SA_REP     |  8600.00 |
+| Alyssa      | Hutton      | SA_REP     |  8800.00 |
+| Allan       | McEwen      | SA_REP     |  9000.00 |
+| Daniel      | Faviet      | FI_ACCOUNT |  9000.00 |
+| Alexander   | Hunold      | IT_PROG    |  9000.00 |
+| Peter       | Hall        | SA_REP     |  9000.00 |
+| Patrick     | Sully       | SA_REP     |  9500.00 |
+| Danielle    | Greene      | SA_REP     |  9500.00 |
+| David       | Bernstein   | SA_REP     |  9500.00 |
+| Tayler      | Fox         | SA_REP     |  9600.00 |
+| Hermann     | Baer        | PR_REP     | 10000.00 |
+| Peter       | Tucker      | SA_REP     | 10000.00 |
+| Janette     | King        | SA_REP     | 10000.00 |
+| Harrison    | Bloom       | SA_REP     | 10000.00 |
+| Eleni       | Zlotkey     | SA_MAN     | 10500.00 |
+| Clara       | Vishney     | SA_REP     | 10500.00 |
+| Den         | Raphaely    | PU_MAN     | 11000.00 |
+| Ellen       | Abel        | SA_REP     | 11000.00 |
+| Gerald      | Cambrault   | SA_MAN     | 11000.00 |
+| Lisa        | Ozer        | SA_REP     | 11500.00 |
+| Shelley     | Higgins     | AC_MGR     | 12000.00 |
+| Alberto     | Errazuriz   | SA_MAN     | 12000.00 |
+| Nancy       | Greenberg   | FI_MGR     | 12000.00 |
+| Michael     | Hartstein   | MK_MAN     | 13000.00 |
+| Karen       | Partners    | SA_MAN     | 13500.00 |
+| John        | Russell     | SA_MAN     | 14000.00 |
+| Lex         | De Haan     | AD_VP      | 17000.00 |
+| Neena       | Kochhar     | AD_VP      | 17000.00 |
+| Steven      | King        | AD_PRES    | 24000.00 |
++-------------+-------------+------------+----------+
+96 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select first_name,last_name,JOB_ID,SALARY from employees where SALARY > ALL(SELECT SUM(SALARY) FROM EMPLOYEES WHERE JOB_ID = 'SH_CLERK') ORDER BY SALARY ASC;
+Empty set (0.00 sec)
+
+MariaDB [csd2204w2018]> select K.first_name,K.last_name FROM EMPLOYEES K WHERE NOT EXISTS (ELECT 'X' FROM EMPLOYEES a where a.manager_id = k.employee_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ELECT 'X' FROM EMPLOYEES a where a.manager_id = k.employee_id' at line 1
+MariaDB [csd2204w2018]> select K.first_name,K.last_name FROM EMPLOYEES K WHERE NOT EXISTS (sELECT 'X' FROM EMPLOYEES a where a.manager_id = k.employee_id);
++-------------+-------------+
+| first_name  | last_name   |
++-------------+-------------+
+| Bruce       | Ernst       |
+| David       | Austin      |
+| Valli       | Pataballa   |
+| Diana       | Lorentz     |
+| Daniel      | Faviet      |
+| John        | Chen        |
+| Ismael      | Sciarra     |
+| Jose Manuel | Urman       |
+| Luis        | Popp        |
+| Alexander   | Khoo        |
+| Shelli      | Baida       |
+| Sigal       | Tobias      |
+| Guy         | Himuro      |
+| Karen       | Colmenares  |
+| Julia       | Nayer       |
+| Irene       | Mikkilineni |
+| James       | Landry      |
+| Steven      | Markle      |
+| Laura       | Bissot      |
+| Mozhe       | Atkinson    |
+| James       | Marlow      |
+| TJ          | Olson       |
+| Jason       | Mallin      |
+| Michael     | Rogers      |
+| Ki          | Gee         |
+| Hazel       | Philtanker  |
+| Renske      | Ladwig      |
+| Stephen     | Stiles      |
+| John        | Seo         |
+| Joshua      | Patel       |
+| Trenna      | Rajs        |
+| Curtis      | Davies      |
+| Randall     | Matos       |
+| Peter       | Vargas      |
+| Peter       | Tucker      |
+| David       | Bernstein   |
+| Peter       | Hall        |
+| Christopher | Olsen       |
+| Nanette     | Cambrault   |
+| Oliver      | Tuvault     |
+| Janette     | King        |
+| Patrick     | Sully       |
+| Allan       | McEwen      |
+| Lindsey     | Smith       |
+| Louise      | Doran       |
+| Sarath      | Sewall      |
+| Clara       | Vishney     |
+| Danielle    | Greene      |
+| Mattea      | Marvins     |
+| David       | Lee         |
+| Sundar      | Ande        |
+| Amit        | Banda       |
+| Lisa        | Ozer        |
+| Harrison    | Bloom       |
+| Tayler      | Fox         |
+| William     | Smith       |
+| Elizabeth   | Bates       |
+| Sundita     | Kumar       |
+| Ellen       | Abel        |
+| Alyssa      | Hutton      |
+| Jonathon    | Taylor      |
+| Jack        | Livingston  |
+| Kimberely   | Grant       |
+| Charles     | Johnson     |
+| Winston     | Taylor      |
+| Jean        | Fleaur      |
+| Martha      | Sullivan    |
+| Girard      | Geoni       |
+| Nandita     | Sarchand    |
+| Alexis      | Bull        |
+| Julia       | Dellinger   |
+| Anthony     | Cabrio      |
+| Kelly       | Chung       |
+| Jennifer    | Dilly       |
+| Timothy     | Gates       |
+| Randall     | Perkins     |
+| Sarah       | Bell        |
+| Britney     | Everett     |
+| Samuel      | McCain      |
+| Vance       | Jones       |
+| Alana       | Walsh       |
+| Kevin       | Feeney      |
+| Donald      | OConnell    |
+| Douglas     | Grant       |
+| Jennifer    | Whalen      |
+| Pat         | Fay         |
+| Susan       | Mavris      |
+| Hermann     | Baer        |
+| William     | Gietz       |
++-------------+-------------+
+89 rows in set (0.02 sec)
+
+MariaDB [csd2204w2018]> select K.first_name,K.last_name FROM EMPLOYEES K WHERE NOT EXISTS (sELECT 'X' FROM EMPLOYEES a where a.manager_id = k.employee_id);
++-------------+-------------+
+| first_name  | last_name   |
++-------------+-------------+
+| Bruce       | Ernst       |
+| David       | Austin      |
+| Valli       | Pataballa   |
+| Diana       | Lorentz     |
+| Daniel      | Faviet      |
+| John        | Chen        |
+| Ismael      | Sciarra     |
+| Jose Manuel | Urman       |
+| Luis        | Popp        |
+| Alexander   | Khoo        |
+| Shelli      | Baida       |
+| Sigal       | Tobias      |
+| Guy         | Himuro      |
+| Karen       | Colmenares  |
+| Julia       | Nayer       |
+| Irene       | Mikkilineni |
+| James       | Landry      |
+| Steven      | Markle      |
+| Laura       | Bissot      |
+| Mozhe       | Atkinson    |
+| James       | Marlow      |
+| TJ          | Olson       |
+| Jason       | Mallin      |
+| Michael     | Rogers      |
+| Ki          | Gee         |
+| Hazel       | Philtanker  |
+| Renske      | Ladwig      |
+| Stephen     | Stiles      |
+| John        | Seo         |
+| Joshua      | Patel       |
+| Trenna      | Rajs        |
+| Curtis      | Davies      |
+| Randall     | Matos       |
+| Peter       | Vargas      |
+| Peter       | Tucker      |
+| David       | Bernstein   |
+| Peter       | Hall        |
+| Christopher | Olsen       |
+| Nanette     | Cambrault   |
+| Oliver      | Tuvault     |
+| Janette     | King        |
+| Patrick     | Sully       |
+| Allan       | McEwen      |
+| Lindsey     | Smith       |
+| Louise      | Doran       |
+| Sarath      | Sewall      |
+| Clara       | Vishney     |
+| Danielle    | Greene      |
+| Mattea      | Marvins     |
+| David       | Lee         |
+| Sundar      | Ande        |
+| Amit        | Banda       |
+| Lisa        | Ozer        |
+| Harrison    | Bloom       |
+| Tayler      | Fox         |
+| William     | Smith       |
+| Elizabeth   | Bates       |
+| Sundita     | Kumar       |
+| Ellen       | Abel        |
+| Alyssa      | Hutton      |
+| Jonathon    | Taylor      |
+| Jack        | Livingston  |
+| Kimberely   | Grant       |
+| Charles     | Johnson     |
+| Winston     | Taylor      |
+| Jean        | Fleaur      |
+| Martha      | Sullivan    |
+| Girard      | Geoni       |
+| Nandita     | Sarchand    |
+| Alexis      | Bull        |
+| Julia       | Dellinger   |
+| Anthony     | Cabrio      |
+| Kelly       | Chung       |
+| Jennifer    | Dilly       |
+| Timothy     | Gates       |
+| Randall     | Perkins     |
+| Sarah       | Bell        |
+| Britney     | Everett     |
+| Samuel      | McCain      |
+| Vance       | Jones       |
+| Alana       | Walsh       |
+| Kevin       | Feeney      |
+| Donald      | OConnell    |
+| Douglas     | Grant       |
+| Jennifer    | Whalen      |
+| Pat         | Fay         |
+| Susan       | Mavris      |
+| Hermann     | Baer        |
+| William     | Gietz       |
++-------------+-------------+
+89 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> SELECT EMPLOYEE_ID,FIRST_NAME,LAST_NAME,DEPARTMENT_NAME FROM EMPLOYEES;
+ERROR 1054 (42S22): Unknown column 'DEPARTMENT_NAME' in 'field list'
+MariaDB [csd2204w2018]> select K.EMPLOYEE_ID,K.first_name,K.last_name FROM EMPLOYEES K WHERE NOT EXISTS (sELECT 'X' FROM DEPARTMENTS a where a.DEPARTMENT_id = k.employee_id);
++-------------+-------------+-------------+
+| EMPLOYEE_ID | first_name  | last_name   |
++-------------+-------------+-------------+
+|         101 | Neena       | Kochhar     |
+|         102 | Lex         | De Haan     |
+|         103 | Alexander   | Hunold      |
+|         104 | Bruce       | Ernst       |
+|         105 | David       | Austin      |
+|         106 | Valli       | Pataballa   |
+|         107 | Diana       | Lorentz     |
+|         108 | Nancy       | Greenberg   |
+|         109 | Daniel      | Faviet      |
+|         111 | Ismael      | Sciarra     |
+|         112 | Jose Manuel | Urman       |
+|         113 | Luis        | Popp        |
+|         114 | Den         | Raphaely    |
+|         115 | Alexander   | Khoo        |
+|         116 | Shelli      | Baida       |
+|         117 | Sigal       | Tobias      |
+|         118 | Guy         | Himuro      |
+|         119 | Karen       | Colmenares  |
+|         121 | Adam        | Fripp       |
+|         122 | Payam       | Kaufling    |
+|         123 | Shanta      | Vollman     |
+|         124 | Kevin       | Mourgos     |
+|         125 | Julia       | Nayer       |
+|         126 | Irene       | Mikkilineni |
+|         127 | James       | Landry      |
+|         128 | Steven      | Markle      |
+|         129 | Laura       | Bissot      |
+|         131 | James       | Marlow      |
+|         132 | TJ          | Olson       |
+|         133 | Jason       | Mallin      |
+|         134 | Michael     | Rogers      |
+|         135 | Ki          | Gee         |
+|         136 | Hazel       | Philtanker  |
+|         137 | Renske      | Ladwig      |
+|         138 | Stephen     | Stiles      |
+|         139 | John        | Seo         |
+|         141 | Trenna      | Rajs        |
+|         142 | Curtis      | Davies      |
+|         143 | Randall     | Matos       |
+|         144 | Peter       | Vargas      |
+|         145 | John        | Russell     |
+|         146 | Karen       | Partners    |
+|         147 | Alberto     | Errazuriz   |
+|         148 | Gerald      | Cambrault   |
+|         149 | Eleni       | Zlotkey     |
+|         151 | David       | Bernstein   |
+|         152 | Peter       | Hall        |
+|         153 | Christopher | Olsen       |
+|         154 | Nanette     | Cambrault   |
+|         155 | Oliver      | Tuvault     |
+|         156 | Janette     | King        |
+|         157 | Patrick     | Sully       |
+|         158 | Allan       | McEwen      |
+|         159 | Lindsey     | Smith       |
+|         161 | Sarath      | Sewall      |
+|         162 | Clara       | Vishney     |
+|         163 | Danielle    | Greene      |
+|         164 | Mattea      | Marvins     |
+|         165 | David       | Lee         |
+|         166 | Sundar      | Ande        |
+|         167 | Amit        | Banda       |
+|         168 | Lisa        | Ozer        |
+|         169 | Harrison    | Bloom       |
+|         171 | William     | Smith       |
+|         172 | Elizabeth   | Bates       |
+|         173 | Sundita     | Kumar       |
+|         174 | Ellen       | Abel        |
+|         175 | Alyssa      | Hutton      |
+|         176 | Jonathon    | Taylor      |
+|         177 | Jack        | Livingston  |
+|         178 | Kimberely   | Grant       |
+|         179 | Charles     | Johnson     |
+|         181 | Jean        | Fleaur      |
+|         182 | Martha      | Sullivan    |
+|         183 | Girard      | Geoni       |
+|         184 | Nandita     | Sarchand    |
+|         185 | Alexis      | Bull        |
+|         186 | Julia       | Dellinger   |
+|         187 | Anthony     | Cabrio      |
+|         188 | Kelly       | Chung       |
+|         189 | Jennifer    | Dilly       |
+|         191 | Randall     | Perkins     |
+|         192 | Sarah       | Bell        |
+|         193 | Britney     | Everett     |
+|         194 | Samuel      | McCain      |
+|         195 | Vance       | Jones       |
+|         196 | Alana       | Walsh       |
+|         197 | Kevin       | Feeney      |
+|         198 | Donald      | OConnell    |
+|         199 | Douglas     | Grant       |
+|         201 | Michael     | Hartstein   |
+|         202 | Pat         | Fay         |
+|         203 | Susan       | Mavris      |
+|         204 | Hermann     | Baer        |
+|         205 | Shelley     | Higgins     |
+|         206 | William     | Gietz       |
++-------------+-------------+-------------+
+96 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> select K.EMPLOYEE_ID,K.first_name,K.last_name,A.DEPARTMENT_NAME FROM EMPLOYEES,DEPARTMENT K WHERE NOT EXISTS (sELECT 'X' FROM DEPARTMENTS a where a.DEPARTMENT_id = k.employee_id);
+ERROR 1146 (42S02): Table 'csd2204w2018.department' doesn't exist
+MariaDB [csd2204w2018]> select K.EMPLOYEE_ID,K.first_name,K.last_name,A.DEPARTMENT_NAME FROM EMPLOYEES,DEPARTMENTS K WHERE NOT EXISTS (sELECT 'X' FROM DEPARTMENTS a where a.DEPARTMENT_id = k.employee_id);
+ERROR 1054 (42S22): Unknown column 'K.EMPLOYEE_ID' in 'field list'
+MariaDB [csd2204w2018]> select K.EMPLOYEE_ID,K.first_name,K.last_name,A.DEPARTMENT_NAME FROM EMPLOYEES,DEPARTMENTS K WHERE NOT EXISTS (sELECT 'X' FROM DEPARTMENTS a where a.DEPARTMENT_id = k.employee_id);
+ERROR 1054 (42S22): Unknown column 'K.EMPLOYEE_ID' in 'field list'
+MariaDB [csd2204w2018]> select K.EMPLOYEE_ID,K.first_name,K.last_name,(SELECT DEPARTMENT_NAME FROM DEPARTMENTS D WHERE E.DEPARTMENT_ID = D.DEPARTMENT_ID) DEPARTMENT FROM EMPLOYEES;
+ERROR 1054 (42S22): Unknown column 'K.EMPLOYEE_ID' in 'field list'
+MariaDB [csd2204w2018]> select EMPLOYEE_ID,first_name,last_name,(SELECT DEPARTMENT_NAME FROM DEPARTMENTS D WHERE E.DEPARTMENT_ID = D.DEPARTMENT_ID) DEPARTMENT FROM EMPLOYEES;
+ERROR 1054 (42S22): Unknown column 'E.DEPARTMENT_ID' in 'where clause'
+MariaDB [csd2204w2018]> EXIT
