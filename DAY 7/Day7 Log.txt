@@ -1,0 +1,1340 @@
+MariaDB [csd2204w18]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| CSD2204W18         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
++--------------------+
+5 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> show tables;
++----------------------+
+| Tables_in_csd2204w18 |
++----------------------+
+| Movies               |
+| Products             |
+| citymaster           |
+| customers            |
+| manu                 |
+| pet                  |
++----------------------+
+6 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> MariaDB [csd2204w18]> show tables;
++----------------------+
+| Tables_in_csd2204w18 |
++----------------------+
+| Movies               |
+| Products             |
+| citymaster           |
+| customers            |
+| manu                 |
+| pet                  |
++----------------------+
+6 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> desc products;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| Code         | int(3)        | NO   | PRI | NULL    | auto_increment |
+| Name         | varchar(255)  | NO   |     | NULL    |                |
+| Price        | decimal(10,0) | NO   |     | NULL    |                |
+| Manufacturer | int(3)        | YES  | MUL | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> desc manu;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| Code  | int(3)      | NO   | PRI | NULL    | auto_increment |
+| Name  | varchar(50) | NO   |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> select * from Products;
++------+-----------------+-------+--------------+
+| Code | Name            | Price | Manufacturer |
++------+-----------------+-------+--------------+
+|    1 | Hard drive      |   240 |            5 |
+|    2 | Memory          |   120 |            6 |
+|    3 | ZIP drive       |   150 |            4 |
+|    4 | Floppy disk     |     5 |            6 |
+|    5 | Monitor         |   240 |            1 |
+|    6 | DVD drive       |   180 |            2 |
+|    7 | CD drive        |    90 |            2 |
+|    8 | Printer         |   270 |            3 |
+|    9 | Toner cartridge |    66 |            3 |
+|   10 | DVD burner      |   180 |            2 |
+|   11 | Printer         |    40 |            7 |
+|   12 | Toner cartridge |    54 |            7 |
+|   13 | DVD burner      |    78 |            7 |
++------+-----------------+-------+--------------+
+13 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from manu;
++------+-------------------+
+| Code | Name              |
++------+-------------------+
+|    1 | Sony              |
+|    2 | Creative Labs     |
+|    3 | Hewlett-Packard   |
+|    4 | Iomega            |
+|    5 | Fujitsu           |
+|    6 | Winchester        |
+|    7 | moxDroid Labs Inc |
+|    8 | Dell              |
+|    9 | BEll Labs         |
++------+-------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> select products.code, products.name, manu.name from manu INNER JOIN products ON manu.code = products.code;
++------+-----------------+-------------------+
+| code | name            | name              |
++------+-----------------+-------------------+
+|    1 | Hard drive      | Sony              |
+|    2 | Memory          | Creative Labs     |
+|    3 | ZIP drive       | Hewlett-Packard   |
+|    4 | Floppy disk     | Iomega            |
+|    5 | Monitor         | Fujitsu           |
+|    6 | DVD drive       | Winchester        |
+|    7 | CD drive        | moxDroid Labs Inc |
+|    8 | Printer         | Dell              |
+|    9 | Toner cartridge | BEll Labs         |
++------+-----------------+-------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT COUNT(*),manufacturer
+    -> FROM products as p 
+    -> INNER JOIN manu m 
+    -> ON m.code=p.manufacturer  
+    -> GROUP BY manufacturer;
++----------+--------------+
+| COUNT(*) | manufacturer |
++----------+--------------+
+|        1 |            1 |
+|        3 |            2 |
+|        2 |            3 |
+|        1 |            4 |
+|        1 |            5 |
+|        2 |            6 |
+|        3 |            7 |
++----------+--------------+
+7 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT COUNT(*),manufacturer,m.name FROM products as p  INNER JOIN manu m  ON m.code=p.manufacturer   GROUP BY manufacturer;
++----------+--------------+-------------------+
+| COUNT(*) | manufacturer | name              |
++----------+--------------+-------------------+
+|        1 |            1 | Sony              |
+|        3 |            2 | Creative Labs     |
+|        2 |            3 | Hewlett-Packard   |
+|        1 |            4 | Iomega            |
+|        1 |            5 | Fujitsu           |
+|        2 |            6 | Winchester        |
+|        3 |            7 | moxDroid Labs Inc |
++----------+--------------+-------------------+
+7 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT COUNT(*),manufacturer,m.name FROM products as p  INNER JOIN manu m  ON m.code=p.manufacturer   GROUP BY manufacturer having manufacturer <> 4;
++----------+--------------+-------------------+
+| COUNT(*) | manufacturer | name              |
++----------+--------------+-------------------+
+|        1 |            1 | Sony              |
+|        3 |            2 | Creative Labs     |
+|        2 |            3 | Hewlett-Packard   |
+|        1 |            5 | Fujitsu           |
+|        2 |            6 | Winchester        |
+|        3 |            7 | moxDroid Labs Inc |
++----------+--------------+-------------------+
+6 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT COUNT(*),manufacturer,m.name FROM products as p  INNER JOIN manu m  ON m.code=p.manufacturer   GROUP BY manufacturer having count(*) = 1;
++----------+--------------+---------+
+| COUNT(*) | manufacturer | name    |
++----------+--------------+---------+
+|        1 |            1 | Sony    |
+|        1 |            4 | Iomega  |
+|        1 |            5 | Fujitsu |
++----------+--------------+---------+
+3 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT COUNT(*),manufacturer,m.name FROM products as p  INNER JOIN manu m  ON m.code=p.manufacturer   GROUP BY manufacturer having count(*) = 2;
++----------+--------------+-----------------+
+| COUNT(*) | manufacturer | name            |
++----------+--------------+-----------------+
+|        2 |            3 | Hewlett-Packard |
+|        2 |            6 | Winchester      |
++----------+--------------+-----------------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT COUNT(*),manufacturer,m.name FROM products as p  INNER JOIN manu m  ON m.code=p.manufacturer   GROUP BY manufacturer having m.code in (2,3);
+ERROR 1054 (42S22): Unknown column 'm.code' in 'having clause'
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> select products.code, products.name, manu.name from manu LEFT JOIN products ON manu.code = products.code;
++------+-----------------+-------------------+
+| code | name            | name              |
++------+-----------------+-------------------+
+|    1 | Hard drive      | Sony              |
+|    2 | Memory          | Creative Labs     |
+|    3 | ZIP drive       | Hewlett-Packard   |
+|    4 | Floppy disk     | Iomega            |
+|    5 | Monitor         | Fujitsu           |
+|    6 | DVD drive       | Winchester        |
+|    7 | CD drive        | moxDroid Labs Inc |
+|    8 | Printer         | Dell              |
+|    9 | Toner cartridge | BEll Labs         |
++------+-----------------+-------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from products;
++------+-----------------+-------+--------------+
+| Code | Name            | Price | Manufacturer |
++------+-----------------+-------+--------------+
+|    1 | Hard drive      |   240 |            5 |
+|    2 | Memory          |   120 |            6 |
+|    3 | ZIP drive       |   150 |            4 |
+|    4 | Floppy disk     |     5 |            6 |
+|    5 | Monitor         |   240 |            1 |
+|    6 | DVD drive       |   180 |            2 |
+|    7 | CD drive        |    90 |            2 |
+|    8 | Printer         |   270 |            3 |
+|    9 | Toner cartridge |    66 |            3 |
+|   10 | DVD burner      |   180 |            2 |
+|   11 | Printer         |    40 |            7 |
+|   12 | Toner cartridge |    54 |            7 |
+|   13 | DVD burner      |    78 |            7 |
++------+-----------------+-------+--------------+
+13 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from manu;
++------+-------------------+
+| Code | Name              |
++------+-------------------+
+|    1 | Sony              |
+|    2 | Creative Labs     |
+|    3 | Hewlett-Packard   |
+|    4 | Iomega            |
+|    5 | Fujitsu           |
+|    6 | Winchester        |
+|    7 | moxDroid Labs Inc |
+|    8 | Dell              |
+|    9 | BEll Labs         |
++------+-------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select products.code, products.name, manu.name from products LEFT JOIN manu ON manu.code = products.code;
++------+-----------------+-------------------+
+| code | name            | name              |
++------+-----------------+-------------------+
+|    1 | Hard drive      | Sony              |
+|    2 | Memory          | Creative Labs     |
+|    3 | ZIP drive       | Hewlett-Packard   |
+|    4 | Floppy disk     | Iomega            |
+|    5 | Monitor         | Fujitsu           |
+|    6 | DVD drive       | Winchester        |
+|    7 | CD drive        | moxDroid Labs Inc |
+|    8 | Printer         | Dell              |
+|    9 | Toner cartridge | BEll Labs         |
+|   10 | DVD burner      | NULL              |
+|   11 | Printer         | NULL              |
+|   12 | Toner cartridge | NULL              |
+|   13 | DVD burner      | NULL              |
++------+-----------------+-------------------+
+13 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select products.code, products.name, manu.name from products LEFT JOIN manu ON manu.code = products.manufacturer;
++------+-----------------+-------------------+
+| code | name            | name              |
++------+-----------------+-------------------+
+|    1 | Hard drive      | Fujitsu           |
+|    2 | Memory          | Winchester        |
+|    3 | ZIP drive       | Iomega            |
+|    4 | Floppy disk     | Winchester        |
+|    5 | Monitor         | Sony              |
+|    6 | DVD drive       | Creative Labs     |
+|    7 | CD drive        | Creative Labs     |
+|    8 | Printer         | Hewlett-Packard   |
+|    9 | Toner cartridge | Hewlett-Packard   |
+|   10 | DVD burner      | Creative Labs     |
+|   11 | Printer         | moxDroid Labs Inc |
+|   12 | Toner cartridge | moxDroid Labs Inc |
+|   13 | DVD burner      | moxDroid Labs Inc |
++------+-----------------+-------------------+
+13 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select products.code, products.name, manu.name from manu LEFT JOIN products ON manu.code = products.manufacturer;
++------+-----------------+-------------------+
+| code | name            | name              |
++------+-----------------+-------------------+
+|    5 | Monitor         | Sony              |
+|    6 | DVD drive       | Creative Labs     |
+|    7 | CD drive        | Creative Labs     |
+|   10 | DVD burner      | Creative Labs     |
+|    8 | Printer         | Hewlett-Packard   |
+|    9 | Toner cartridge | Hewlett-Packard   |
+|    3 | ZIP drive       | Iomega            |
+|    1 | Hard drive      | Fujitsu           |
+|    2 | Memory          | Winchester        |
+|    4 | Floppy disk     | Winchester        |
+|   11 | Printer         | moxDroid Labs Inc |
+|   12 | Toner cartridge | moxDroid Labs Inc |
+|   13 | DVD burner      | moxDroid Labs Inc |
+| NULL | NULL            | Dell              |
+| NULL | NULL            | BEll Labs         |
++------+-----------------+-------------------+
+15 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> select * from manu;
++------+-------------------+
+| Code | Name              |
++------+-------------------+
+|    1 | Sony              |
+|    2 | Creative Labs     |
+|    3 | Hewlett-Packard   |
+|    4 | Iomega            |
+|    5 | Fujitsu           |
+|    6 | Winchester        |
+|    7 | moxDroid Labs Inc |
+|    8 | Dell              |
+|    9 | BEll Labs         |
++------+-------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from products;
++------+-----------------+-------+--------------+
+| Code | Name            | Price | Manufacturer |
++------+-----------------+-------+--------------+
+|    1 | Hard drive      |   240 |            5 |
+|    2 | Memory          |   120 |            6 |
+|    3 | ZIP drive       |   150 |            4 |
+|    4 | Floppy disk     |     5 |            6 |
+|    5 | Monitor         |   240 |            1 |
+|    6 | DVD drive       |   180 |            2 |
+|    7 | CD drive        |    90 |            2 |
+|    8 | Printer         |   270 |            3 |
+|    9 | Toner cartridge |    66 |            3 |
+|   10 | DVD burner      |   180 |            2 |
+|   11 | Printer         |    40 |            7 |
+|   12 | Toner cartridge |    54 |            7 |
+|   13 | DVD burner      |    78 |            7 |
++------+-----------------+-------+--------------+
+13 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from products;
++------+-----------------+-------+--------------+
+| Code | Name            | Price | Manufacturer |
++------+-----------------+-------+--------------+
+|    1 | Hard drive      |   240 |            5 |
+|    2 | Memory          |   120 |            6 |
+|    3 | ZIP drive       |   150 |            4 |
+|    4 | Floppy disk     |     5 |            6 |
+|    5 | Monitor         |   240 |            1 |
+|    6 | DVD drive       |   180 |            2 |
+|    7 | CD drive        |    90 |            2 |
+|    8 | Printer         |   270 |            3 |
+|    9 | Toner cartridge |    66 |            3 |
+|   10 | DVD burner      |   180 |            2 |
+|   11 | Printer         |    40 |            7 |
+|   12 | Toner cartridge |    54 |            7 |
+|   13 | DVD burner      |    78 |            7 |
++------+-----------------+-------+--------------+
+13 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> select products.code, products.name, manu.name from products RIGHT JOIN manu ON manu.code = products.code;
++------+-----------------+-------------------+
+| code | name            | name              |
++------+-----------------+-------------------+
+|    1 | Hard drive      | Sony              |
+|    2 | Memory          | Creative Labs     |
+|    3 | ZIP drive       | Hewlett-Packard   |
+|    4 | Floppy disk     | Iomega            |
+|    5 | Monitor         | Fujitsu           |
+|    6 | DVD drive       | Winchester        |
+|    7 | CD drive        | moxDroid Labs Inc |
+|    8 | Printer         | Dell              |
+|    9 | Toner cartridge | BEll Labs         |
++------+-----------------+-------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select products.code, products.name, manu.name from manu RIGHT JOIN products ON manu.code = products.code;
++------+-----------------+-------------------+
+| code | name            | name              |
++------+-----------------+-------------------+
+|    1 | Hard drive      | Sony              |
+|    2 | Memory          | Creative Labs     |
+|    3 | ZIP drive       | Hewlett-Packard   |
+|    4 | Floppy disk     | Iomega            |
+|    5 | Monitor         | Fujitsu           |
+|    6 | DVD drive       | Winchester        |
+|    7 | CD drive        | moxDroid Labs Inc |
+|    8 | Printer         | Dell              |
+|    9 | Toner cartridge | BEll Labs         |
+|   10 | DVD burner      | NULL              |
+|   11 | Printer         | NULL              |
+|   12 | Toner cartridge | NULL              |
+|   13 | DVD burner      | NULL              |
++------+-----------------+-------------------+
+13 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select products.code, products.name, manu.name from manu RIGHT JOIN products ON manu.code = products.manufacturer;
++------+-----------------+-------------------+
+| code | name            | name              |
++------+-----------------+-------------------+
+|    1 | Hard drive      | Fujitsu           |
+|    2 | Memory          | Winchester        |
+|    3 | ZIP drive       | Iomega            |
+|    4 | Floppy disk     | Winchester        |
+|    5 | Monitor         | Sony              |
+|    6 | DVD drive       | Creative Labs     |
+|    7 | CD drive        | Creative Labs     |
+|    8 | Printer         | Hewlett-Packard   |
+|    9 | Toner cartridge | Hewlett-Packard   |
+|   10 | DVD burner      | Creative Labs     |
+|   11 | Printer         | moxDroid Labs Inc |
+|   12 | Toner cartridge | moxDroid Labs Inc |
+|   13 | DVD burner      | moxDroid Labs Inc |
++------+-----------------+-------------------+
+13 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select products.code, products.name, manu.name from products RIGHT JOIN manu ON manu.code = products.manufacturer;
++------+-----------------+-------------------+
+| code | name            | name              |
++------+-----------------+-------------------+
+|    5 | Monitor         | Sony              |
+|    6 | DVD drive       | Creative Labs     |
+|    7 | CD drive        | Creative Labs     |
+|   10 | DVD burner      | Creative Labs     |
+|    8 | Printer         | Hewlett-Packard   |
+|    9 | Toner cartridge | Hewlett-Packard   |
+|    3 | ZIP drive       | Iomega            |
+|    1 | Hard drive      | Fujitsu           |
+|    2 | Memory          | Winchester        |
+|    4 | Floppy disk     | Winchester        |
+|   11 | Printer         | moxDroid Labs Inc |
+|   12 | Toner cartridge | moxDroid Labs Inc |
+|   13 | DVD burner      | moxDroid Labs Inc |
+| NULL | NULL            | Dell              |
+| NULL | NULL            | BEll Labs         |
++------+-----------------+-------------------+
+15 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select products.code, products.name, manu.name from manu LEFT JOIN products ON manu.code = products.manufacturer;
++------+-----------------+-------------------+
+| code | name            | name              |
++------+-----------------+-------------------+
+|    5 | Monitor         | Sony              |
+|    6 | DVD drive       | Creative Labs     |
+|    7 | CD drive        | Creative Labs     |
+|   10 | DVD burner      | Creative Labs     |
+|    8 | Printer         | Hewlett-Packard   |
+|    9 | Toner cartridge | Hewlett-Packard   |
+|    3 | ZIP drive       | Iomega            |
+|    1 | Hard drive      | Fujitsu           |
+|    2 | Memory          | Winchester        |
+|    4 | Floppy disk     | Winchester        |
+|   11 | Printer         | moxDroid Labs Inc |
+|   12 | Toner cartridge | moxDroid Labs Inc |
+|   13 | DVD burner      | moxDroid Labs Inc |
+| NULL | NULL            | Dell              |
+| NULL | NULL            | BEll Labs         |
++------+-----------------+-------------------+
+15 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> select products.code, products.name, manu.name from manu RIGHT JOIN products ON manu.code = products.code;
++------+-----------------+-------------------+
+| code | name            | name              |
++------+-----------------+-------------------+
+|    1 | Hard drive      | Sony              |
+|    2 | Memory          | Creative Labs     |
+|    3 | ZIP drive       | Hewlett-Packard   |
+|    4 | Floppy disk     | Iomega            |
+|    5 | Monitor         | Fujitsu           |
+|    6 | DVD drive       | Winchester        |
+|    7 | CD drive        | moxDroid Labs Inc |
+|    8 | Printer         | Dell              |
+|    9 | Toner cartridge | BEll Labs         |
+|   10 | DVD burner      | NULL              |
+|   11 | Printer         | NULL              |
+|   12 | Toner cartridge | NULL              |
+|   13 | DVD burner      | NULL              |
++------+-----------------+-------------------+
+13 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select products.code, products.name, manu.name from products RIGHT JOIN manu ON manu.code = products.code;
++------+-----------------+-------------------+
+| code | name            | name              |
++------+-----------------+-------------------+
+|    1 | Hard drive      | Sony              |
+|    2 | Memory          | Creative Labs     |
+|    3 | ZIP drive       | Hewlett-Packard   |
+|    4 | Floppy disk     | Iomega            |
+|    5 | Monitor         | Fujitsu           |
+|    6 | DVD drive       | Winchester        |
+|    7 | CD drive        | moxDroid Labs Inc |
+|    8 | Printer         | Dell              |
+|    9 | Toner cartridge | BEll Labs         |
++------+-----------------+-------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT PRODUCTS.CODE, PRODUCTS.NAME, MANU.NAME FROM PRODUCTS 
+    -> LEFT JOIN MANU 
+    -> ON PRODUCTS.CODE = MANU.CODE
+    -> UNION
+    -> SELECT PRODUCTS.CODE, PRODUCTS.NAME, MANU.NAME FROM PRODUCTS 
+    -> RIGHT JOIN MANU 
+    -> ON PRODUCTS.CODE = MANU.CODE;
++------+-----------------+-------------------+
+| CODE | NAME            | NAME              |
++------+-----------------+-------------------+
+|    1 | Hard drive      | Sony              |
+|    2 | Memory          | Creative Labs     |
+|    3 | ZIP drive       | Hewlett-Packard   |
+|    4 | Floppy disk     | Iomega            |
+|    5 | Monitor         | Fujitsu           |
+|    6 | DVD drive       | Winchester        |
+|    7 | CD drive        | moxDroid Labs Inc |
+|    8 | Printer         | Dell              |
+|    9 | Toner cartridge | BEll Labs         |
+|   10 | DVD burner      | NULL              |
+|   11 | Printer         | NULL              |
+|   12 | Toner cartridge | NULL              |
+|   13 | DVD burner      | NULL              |
++------+-----------------+-------------------+
+13 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> SELECT PRODUCTS.CODE, PRODUCTS.NAME, MANU.NAME FROM PRODUCTS 
+    -> LEFT JOIN MANU 
+    -> ON PRODUCTS.CODE = MANU.CODE
+    -> UNION
+    -> SELECT PRODUCTS.CODE, PRODUCTS.NAME, MANU.NAME FROM PRODUCTS 
+    -> RIGHT JOIN MANU 
+    -> ON PRODUCTS.CODE = MANU.CODE;
++------+-----------------+-------------------+
+| CODE | NAME            | NAME              |
++------+-----------------+-------------------+
+|    1 | Hard drive      | Sony              |
+|    2 | Memory          | Creative Labs     |
+|    3 | ZIP drive       | Hewlett-Packard   |
+|    4 | Floppy disk     | Iomega            |
+|    5 | Monitor         | Fujitsu           |
+|    6 | DVD drive       | Winchester        |
+|    7 | CD drive        | moxDroid Labs Inc |
+|    8 | Printer         | Dell              |
+|    9 | Toner cartridge | BEll Labs         |
+|   10 | DVD burner      | NULL              |
+|   11 | Printer         | NULL              |
+|   12 | Toner cartridge | NULL              |
+|   13 | DVD burner      | NULL              |
++------+-----------------+-------------------+
+13 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> SELECT PRODUCTS.CODE, PRODUCTS.NAME, MANU.NAME FROM PRODUCTS 
+    -> LEFT JOIN MANU 
+    -> ON PRODUCTS.CODE = MANU.CODE
+    -> UNION
+    -> SELECT PRODUCTS.CODE, PRODUCTS.NAME, MANU.NAME FROM PRODUCTS 
+    -> RIGHT JOIN MANU 
+    -> ON PRODUCTS.CODE = MANU.CODE;
++------+-----------------+-------------------+
+| CODE | NAME            | NAME              |
++------+-----------------+-------------------+
+|    1 | Hard drive      | Sony              |
+|    2 | Memory          | Creative Labs     |
+|    3 | ZIP drive       | Hewlett-Packard   |
+|    4 | Floppy disk     | Iomega            |
+|    5 | Monitor         | Fujitsu           |
+|    6 | DVD drive       | Winchester        |
+|    7 | CD drive        | moxDroid Labs Inc |
+|    8 | Printer         | Dell              |
+|    9 | Toner cartridge | BEll Labs         |
+|   10 | DVD burner      | NULL              |
+|   11 | Printer         | NULL              |
+|   12 | Toner cartridge | NULL              |
+|   13 | DVD burner      | NULL              |
++------+-----------------+-------------------+
+13 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> SELECT P1.CODE, P1.NAME, P2.NAME 
+    -> FROM Products P1, Products P2
+    -> WHERE P1.CODE <> P2.CODE;
++------+-----------------+-----------------+
+| CODE | NAME            | NAME            |
++------+-----------------+-----------------+
+|    2 | Memory          | Hard drive      |
+|    3 | ZIP drive       | Hard drive      |
+|    4 | Floppy disk     | Hard drive      |
+|    5 | Monitor         | Hard drive      |
+|    6 | DVD drive       | Hard drive      |
+|    7 | CD drive        | Hard drive      |
+|    8 | Printer         | Hard drive      |
+|    9 | Toner cartridge | Hard drive      |
+|   10 | DVD burner      | Hard drive      |
+|   11 | Printer         | Hard drive      |
+|   12 | Toner cartridge | Hard drive      |
+|   13 | DVD burner      | Hard drive      |
+|    1 | Hard drive      | Memory          |
+|    3 | ZIP drive       | Memory          |
+|    4 | Floppy disk     | Memory          |
+|    5 | Monitor         | Memory          |
+|    6 | DVD drive       | Memory          |
+|    7 | CD drive        | Memory          |
+|    8 | Printer         | Memory          |
+|    9 | Toner cartridge | Memory          |
+|   10 | DVD burner      | Memory          |
+|   11 | Printer         | Memory          |
+|   12 | Toner cartridge | Memory          |
+|   13 | DVD burner      | Memory          |
+|    1 | Hard drive      | ZIP drive       |
+|    2 | Memory          | ZIP drive       |
+|    4 | Floppy disk     | ZIP drive       |
+|    5 | Monitor         | ZIP drive       |
+|    6 | DVD drive       | ZIP drive       |
+|    7 | CD drive        | ZIP drive       |
+|    8 | Printer         | ZIP drive       |
+|    9 | Toner cartridge | ZIP drive       |
+|   10 | DVD burner      | ZIP drive       |
+|   11 | Printer         | ZIP drive       |
+|   12 | Toner cartridge | ZIP drive       |
+|   13 | DVD burner      | ZIP drive       |
+|    1 | Hard drive      | Floppy disk     |
+|    2 | Memory          | Floppy disk     |
+|    3 | ZIP drive       | Floppy disk     |
+|    5 | Monitor         | Floppy disk     |
+|    6 | DVD drive       | Floppy disk     |
+|    7 | CD drive        | Floppy disk     |
+|    8 | Printer         | Floppy disk     |
+|    9 | Toner cartridge | Floppy disk     |
+|   10 | DVD burner      | Floppy disk     |
+|   11 | Printer         | Floppy disk     |
+|   12 | Toner cartridge | Floppy disk     |
+|   13 | DVD burner      | Floppy disk     |
+|    1 | Hard drive      | Monitor         |
+|    2 | Memory          | Monitor         |
+|    3 | ZIP drive       | Monitor         |
+|    4 | Floppy disk     | Monitor         |
+|    6 | DVD drive       | Monitor         |
+|    7 | CD drive        | Monitor         |
+|    8 | Printer         | Monitor         |
+|    9 | Toner cartridge | Monitor         |
+|   10 | DVD burner      | Monitor         |
+|   11 | Printer         | Monitor         |
+|   12 | Toner cartridge | Monitor         |
+|   13 | DVD burner      | Monitor         |
+|    1 | Hard drive      | DVD drive       |
+|    2 | Memory          | DVD drive       |
+|    3 | ZIP drive       | DVD drive       |
+|    4 | Floppy disk     | DVD drive       |
+|    5 | Monitor         | DVD drive       |
+|    7 | CD drive        | DVD drive       |
+|    8 | Printer         | DVD drive       |
+|    9 | Toner cartridge | DVD drive       |
+|   10 | DVD burner      | DVD drive       |
+|   11 | Printer         | DVD drive       |
+|   12 | Toner cartridge | DVD drive       |
+|   13 | DVD burner      | DVD drive       |
+|    1 | Hard drive      | CD drive        |
+|    2 | Memory          | CD drive        |
+|    3 | ZIP drive       | CD drive        |
+|    4 | Floppy disk     | CD drive        |
+|    5 | Monitor         | CD drive        |
+|    6 | DVD drive       | CD drive        |
+|    8 | Printer         | CD drive        |
+|    9 | Toner cartridge | CD drive        |
+|   10 | DVD burner      | CD drive        |
+|   11 | Printer         | CD drive        |
+|   12 | Toner cartridge | CD drive        |
+|   13 | DVD burner      | CD drive        |
+|    1 | Hard drive      | Printer         |
+|    2 | Memory          | Printer         |
+|    3 | ZIP drive       | Printer         |
+|    4 | Floppy disk     | Printer         |
+|    5 | Monitor         | Printer         |
+|    6 | DVD drive       | Printer         |
+|    7 | CD drive        | Printer         |
+|    9 | Toner cartridge | Printer         |
+|   10 | DVD burner      | Printer         |
+|   11 | Printer         | Printer         |
+|   12 | Toner cartridge | Printer         |
+|   13 | DVD burner      | Printer         |
+|    1 | Hard drive      | Toner cartridge |
+|    2 | Memory          | Toner cartridge |
+|    3 | ZIP drive       | Toner cartridge |
+|    4 | Floppy disk     | Toner cartridge |
+|    5 | Monitor         | Toner cartridge |
+|    6 | DVD drive       | Toner cartridge |
+|    7 | CD drive        | Toner cartridge |
+|    8 | Printer         | Toner cartridge |
+|   10 | DVD burner      | Toner cartridge |
+|   11 | Printer         | Toner cartridge |
+|   12 | Toner cartridge | Toner cartridge |
+|   13 | DVD burner      | Toner cartridge |
+|    1 | Hard drive      | DVD burner      |
+|    2 | Memory          | DVD burner      |
+|    3 | ZIP drive       | DVD burner      |
+|    4 | Floppy disk     | DVD burner      |
+|    5 | Monitor         | DVD burner      |
+|    6 | DVD drive       | DVD burner      |
+|    7 | CD drive        | DVD burner      |
+|    8 | Printer         | DVD burner      |
+|    9 | Toner cartridge | DVD burner      |
+|   11 | Printer         | DVD burner      |
+|   12 | Toner cartridge | DVD burner      |
+|   13 | DVD burner      | DVD burner      |
+|    1 | Hard drive      | Printer         |
+|    2 | Memory          | Printer         |
+|    3 | ZIP drive       | Printer         |
+|    4 | Floppy disk     | Printer         |
+|    5 | Monitor         | Printer         |
+|    6 | DVD drive       | Printer         |
+|    7 | CD drive        | Printer         |
+|    8 | Printer         | Printer         |
+|    9 | Toner cartridge | Printer         |
+|   10 | DVD burner      | Printer         |
+|   12 | Toner cartridge | Printer         |
+|   13 | DVD burner      | Printer         |
+|    1 | Hard drive      | Toner cartridge |
+|    2 | Memory          | Toner cartridge |
+|    3 | ZIP drive       | Toner cartridge |
+|    4 | Floppy disk     | Toner cartridge |
+|    5 | Monitor         | Toner cartridge |
+|    6 | DVD drive       | Toner cartridge |
+|    7 | CD drive        | Toner cartridge |
+|    8 | Printer         | Toner cartridge |
+|    9 | Toner cartridge | Toner cartridge |
+|   10 | DVD burner      | Toner cartridge |
+|   11 | Printer         | Toner cartridge |
+|   13 | DVD burner      | Toner cartridge |
+|    1 | Hard drive      | DVD burner      |
+|    2 | Memory          | DVD burner      |
+|    3 | ZIP drive       | DVD burner      |
+|    4 | Floppy disk     | DVD burner      |
+|    5 | Monitor         | DVD burner      |
+|    6 | DVD drive       | DVD burner      |
+|    7 | CD drive        | DVD burner      |
+|    8 | Printer         | DVD burner      |
+|    9 | Toner cartridge | DVD burner      |
+|   10 | DVD burner      | DVD burner      |
+|   11 | Printer         | DVD burner      |
+|   12 | Toner cartridge | DVD burner      |
++------+-----------------+-----------------+
+156 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet;
+Empty set (0.00 sec)
+
+MariaDB [csd2204w18]> load data infile '/Applications/XAMPP/bin/pet.txt' into table pet;
+Query OK, 8 rows affected, 7 warnings (0.01 sec)
+Records: 8  Deleted: 0  Skipped: 0  Warnings: 7
+
+MariaDB [csd2204w18]> select * from pet;
++----------+--------+---------+------+------------+------------+
+| name     | owner  | species | sex  | birth      | death      |
++----------+--------+---------+------+------------+------------+
+| Fluffy   | Harold | cat     | f    | 1993-02-04 | 0000-00-00 |
+| Claws    | Gwen   | cat     | m    | 1994-03-17 | 0000-00-00 |
+| Buffy    | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
+| Fang     | Benny  | dog     | m    | 1990-08-27 | 0000-00-00 |
+| Bowser   | Diane  | dog     | m    | 1979-08-31 | 1995-07-29 |
+| Chirpy   | Gwen   | bird    | f    | 1998-09-11 | 0000-00-00 |
+| Whistler | Gwen   | bird    |      | 1997-12-09 | 0000-00-00 |
+| Slim     | Benny  | snake   | m    | 1996-04-29 | 0000-00-00 |
++----------+--------+---------+------+------------+------------+
+8 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2018-01-16 |
++------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2018-01-16 10:16:00 |
++---------------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select name,birth from pet;
++----------+------------+
+| name     | birth      |
++----------+------------+
+| Fluffy   | 1993-02-04 |
+| Claws    | 1994-03-17 |
+| Buffy    | 1989-05-13 |
+| Fang     | 1990-08-27 |
+| Bowser   | 1979-08-31 |
+| Chirpy   | 1998-09-11 |
+| Whistler | 1997-12-09 |
+| Slim     | 1996-04-29 |
++----------+------------+
+8 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select name,TIMESTAMPDIFF(Year,birth,CURDATE()) AS Age from pet;
++----------+------+
+| name     | Age  |
++----------+------+
+| Fluffy   |   24 |
+| Claws    |   23 |
+| Buffy    |   28 |
+| Fang     |   27 |
+| Bowser   |   38 |
+| Chirpy   |   19 |
+| Whistler |   20 |
+| Slim     |   21 |
++----------+------+
+8 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT * FROM pet WHERE name REGEXP '^b';
++--------+--------+---------+------+------------+------------+
+| name   | owner  | species | sex  | birth      | death      |
++--------+--------+---------+------+------------+------------+
+| Buffy  | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
+| Bowser | Diane  | dog     | m    | 1979-08-31 | 1995-07-29 |
++--------+--------+---------+------+------------+------------+
+2 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> SELECT * FROM pet WHERE name LIKE 'b%';
++--------+--------+---------+------+------------+------------+
+| name   | owner  | species | sex  | birth      | death      |
++--------+--------+---------+------+------------+------------+
+| Buffy  | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
+| Bowser | Diane  | dog     | m    | 1979-08-31 | 1995-07-29 |
++--------+--------+---------+------+------------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> SELECT * FROM pet WHERE name REGEXP 'b';
++--------+--------+---------+------+------------+------------+
+| name   | owner  | species | sex  | birth      | death      |
++--------+--------+---------+------+------------+------------+
+| Buffy  | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
+| Bowser | Diane  | dog     | m    | 1979-08-31 | 1995-07-29 |
++--------+--------+---------+------+------------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> SELECT * FROM pet WHERE name rLIKE 'b';
++--------+--------+---------+------+------------+------------+
+| name   | owner  | species | sex  | birth      | death      |
++--------+--------+---------+------+------------+------------+
+| Buffy  | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
+| Bowser | Diane  | dog     | m    | 1979-08-31 | 1995-07-29 |
++--------+--------+---------+------+------------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> SELECT * FROM pet WHERE name rLIKE '^b';
++--------+--------+---------+------+------------+------------+
+| name   | owner  | species | sex  | birth      | death      |
++--------+--------+---------+------+------------+------------+
+| Buffy  | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
+| Bowser | Diane  | dog     | m    | 1979-08-31 | 1995-07-29 |
++--------+--------+---------+------+------------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> SELECT * FROM pet WHERE name REGEXP 'fy$';
++--------+--------+---------+------+------------+------------+
+| name   | owner  | species | sex  | birth      | death      |
++--------+--------+---------+------+------------+------------+
+| Fluffy | Harold | cat     | f    | 1993-02-04 | 0000-00-00 |
+| Buffy  | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
++--------+--------+---------+------+------------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> SELECT * FROM pet WHERE name REGEXP '^.....$';
++-------+--------+---------+------+------------+------------+
+| name  | owner  | species | sex  | birth      | death      |
++-------+--------+---------+------+------------+------------+
+| Claws | Gwen   | cat     | m    | 1994-03-17 | 0000-00-00 |
+| Buffy | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
++-------+--------+---------+------+------------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> SELECT * FROM pet WHERE name REGEXP '^.{5}$';
++-------+--------+---------+------+------------+------------+
+| name  | owner  | species | sex  | birth      | death      |
++-------+--------+---------+------+------------+------------+
+| Claws | Gwen   | cat     | m    | 1994-03-17 | 0000-00-00 |
+| Buffy | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
++-------+--------+---------+------+------------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> SELECT 'Hello World'  REGEXP '^H.*d$';
++--------------------------------+
+| 'Hello World'  REGEXP '^H.*d$' |
++--------------------------------+
+|                              1 |
++--------------------------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> INSERT INTO PET (NAME) VALUES ("123"); 
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w18]> INSERT INTO PET (NAME) VALUES ("ABC123");
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT * FROM PET;
++----------+--------+---------+------+------------+------------+
+| name     | owner  | species | sex  | birth      | death      |
++----------+--------+---------+------+------------+------------+
+| Fluffy   | Harold | cat     | f    | 1993-02-04 | 0000-00-00 |
+| Claws    | Gwen   | cat     | m    | 1994-03-17 | 0000-00-00 |
+| Buffy    | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
+| Fang     | Benny  | dog     | m    | 1990-08-27 | 0000-00-00 |
+| Bowser   | Diane  | dog     | m    | 1979-08-31 | 1995-07-29 |
+| Chirpy   | Gwen   | bird    | f    | 1998-09-11 | 0000-00-00 |
+| Whistler | Gwen   | bird    |      | 1997-12-09 | 0000-00-00 |
+| Slim     | Benny  | snake   | m    | 1996-04-29 | 0000-00-00 |
+| 123      | NULL   | NULL    | NULL | NULL       | NULL       |
+| ABC123   | NULL   | NULL    | NULL | NULL       | NULL       |
++----------+--------+---------+------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT * FROM PET WHERE NAME REGEXP '^[A-Z]*';
++----------+--------+---------+------+------------+------------+
+| name     | owner  | species | sex  | birth      | death      |
++----------+--------+---------+------+------------+------------+
+| Fluffy   | Harold | cat     | f    | 1993-02-04 | 0000-00-00 |
+| Claws    | Gwen   | cat     | m    | 1994-03-17 | 0000-00-00 |
+| Buffy    | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
+| Fang     | Benny  | dog     | m    | 1990-08-27 | 0000-00-00 |
+| Bowser   | Diane  | dog     | m    | 1979-08-31 | 1995-07-29 |
+| Chirpy   | Gwen   | bird    | f    | 1998-09-11 | 0000-00-00 |
+| Whistler | Gwen   | bird    |      | 1997-12-09 | 0000-00-00 |
+| Slim     | Benny  | snake   | m    | 1996-04-29 | 0000-00-00 |
+| 123      | NULL   | NULL    | NULL | NULL       | NULL       |
+| ABC123   | NULL   | NULL    | NULL | NULL       | NULL       |
++----------+--------+---------+------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT * FROM PET WHERE NAME REGEXP '^[A-Z]+';
++----------+--------+---------+------+------------+------------+
+| name     | owner  | species | sex  | birth      | death      |
++----------+--------+---------+------+------------+------------+
+| Fluffy   | Harold | cat     | f    | 1993-02-04 | 0000-00-00 |
+| Claws    | Gwen   | cat     | m    | 1994-03-17 | 0000-00-00 |
+| Buffy    | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
+| Fang     | Benny  | dog     | m    | 1990-08-27 | 0000-00-00 |
+| Bowser   | Diane  | dog     | m    | 1979-08-31 | 1995-07-29 |
+| Chirpy   | Gwen   | bird    | f    | 1998-09-11 | 0000-00-00 |
+| Whistler | Gwen   | bird    |      | 1997-12-09 | 0000-00-00 |
+| Slim     | Benny  | snake   | m    | 1996-04-29 | 0000-00-00 |
+| ABC123   | NULL   | NULL    | NULL | NULL       | NULL       |
++----------+--------+---------+------+------------+------------+
+9 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT * FROM PET WHERE NAME REGEXP '^[0-9]+';
++------+-------+---------+------+-------+-------+
+| name | owner | species | sex  | birth | death |
++------+-------+---------+------+-------+-------+
+| 123  | NULL  | NULL    | NULL | NULL  | NULL  |
++------+-------+---------+------+-------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT * FROM PET WHERE NAME REGEXP '^[0-9]{2}';
++------+-------+---------+------+-------+-------+
+| name | owner | species | sex  | birth | death |
++------+-------+---------+------+-------+-------+
+| 123  | NULL  | NULL    | NULL | NULL  | NULL  |
++------+-------+---------+------+-------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT * FROM PET WHERE NAME REGEXP '^[0-9]{2}$';
+Empty set (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT * FROM PET WHERE NAME REGEXP '^[0-9]{3}$';
++------+-------+---------+------+-------+-------+
+| name | owner | species | sex  | birth | death |
++------+-------+---------+------+-------+-------+
+| 123  | NULL  | NULL    | NULL | NULL  | NULL  |
++------+-------+---------+------+-------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> SET @a =10;
+Query OK, 0 rows affected (0.01 sec)
+
+MariaDB [csd2204w18]> SELECT @a;
++------+
+| @a   |
++------+
+|   10 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> SELECT name FROM products WHERE name = 'monitor' INTO @v;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT @v;
++---------+
+| @v      |
++---------+
+| Monitor |
++---------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> SELECT @n := name FROM products WHERE name = 'monitor' ;
++------------+
+| @n := name |
++------------+
+| Monitor    |
++------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> SELECT name,@tprice := price  FROM products WHERE name = 'monitor' ;
++---------+------------------+
+| name    | @tprice := price |
++---------+------------------+
+| Monitor |              240 |
++---------+------------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT name,@tprice := price  FROM products WHERE name = 'monitor' INTO OUTFILE '/Applications/XAMPP/bin/MONITORDATA.txt';
+ERROR 1 (HY000): Can't create/write to file '/Applications/XAMPP/bin/MONITORDATA.txt' (Errcode: 13 "Permission denied")
+MariaDB [csd2204w18]> SELCT * FROM PET;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELCT * FROM PET' at line 1
+MariaDB [csd2204w18]> SELeCT * FROM PET;
++----------+--------+---------+------+------------+------------+
+| name     | owner  | species | sex  | birth      | death      |
++----------+--------+---------+------+------------+------------+
+| Fluffy   | Harold | cat     | f    | 1993-02-04 | 0000-00-00 |
+| Claws    | Gwen   | cat     | m    | 1994-03-17 | 0000-00-00 |
+| Buffy    | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
+| Fang     | Benny  | dog     | m    | 1990-08-27 | 0000-00-00 |
+| Bowser   | Diane  | dog     | m    | 1979-08-31 | 1995-07-29 |
+| Chirpy   | Gwen   | bird    | f    | 1998-09-11 | 0000-00-00 |
+| Whistler | Gwen   | bird    |      | 1997-12-09 | 0000-00-00 |
+| Slim     | Benny  | snake   | m    | 1996-04-29 | 0000-00-00 |
+| 123      | NULL   | NULL    | NULL | NULL       | NULL       |
+| ABC123   | NULL   | NULL    | NULL | NULL       | NULL       |
++----------+--------+---------+------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^F';
++--------+--------+---------+------+------------+------------+
+| name   | owner  | species | sex  | birth      | death      |
++--------+--------+---------+------+------------+------------+
+| Fluffy | Harold | cat     | f    | 1993-02-04 | 0000-00-00 |
+| Fang   | Benny  | dog     | m    | 1990-08-27 | 0000-00-00 |
++--------+--------+---------+------+------------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP 'y$';
++--------+--------+---------+------+------------+------------+
+| name   | owner  | species | sex  | birth      | death      |
++--------+--------+---------+------+------------+------------+
+| Fluffy | Harold | cat     | f    | 1993-02-04 | 0000-00-00 |
+| Buffy  | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
+| Chirpy | Gwen   | bird    | f    | 1998-09-11 | 0000-00-00 |
++--------+--------+---------+------+------------+------------+
+3 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name rLIKE 'y$';
++--------+--------+---------+------+------------+------------+
+| name   | owner  | species | sex  | birth      | death      |
++--------+--------+---------+------+------------+------------+
+| Fluffy | Harold | cat     | f    | 1993-02-04 | 0000-00-00 |
+| Buffy  | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
+| Chirpy | Gwen   | bird    | f    | 1998-09-11 | 0000-00-00 |
++--------+--------+---------+------+------------+------------+
+3 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^Fy$';
+Empty set (0.01 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^F.*y$';
++--------+--------+---------+------+------------+------------+
+| name   | owner  | species | sex  | birth      | death      |
++--------+--------+---------+------+------------+------------+
+| Fluffy | Harold | cat     | f    | 1993-02-04 | 0000-00-00 |
++--------+--------+---------+------+------------+------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^F.y$';
+Empty set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^F.+y$';
++--------+--------+---------+------+------------+------------+
+| name   | owner  | species | sex  | birth      | death      |
++--------+--------+---------+------+------------+------------+
+| Fluffy | Harold | cat     | f    | 1993-02-04 | 0000-00-00 |
++--------+--------+---------+------+------------+------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet;
++----------+--------+---------+------+------------+------------+
+| name     | owner  | species | sex  | birth      | death      |
++----------+--------+---------+------+------------+------------+
+| Fluffy   | Harold | cat     | f    | 1993-02-04 | 0000-00-00 |
+| Claws    | Gwen   | cat     | m    | 1994-03-17 | 0000-00-00 |
+| Buffy    | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
+| Fang     | Benny  | dog     | m    | 1990-08-27 | 0000-00-00 |
+| Bowser   | Diane  | dog     | m    | 1979-08-31 | 1995-07-29 |
+| Chirpy   | Gwen   | bird    | f    | 1998-09-11 | 0000-00-00 |
+| Whistler | Gwen   | bird    |      | 1997-12-09 | 0000-00-00 |
+| Slim     | Benny  | snake   | m    | 1996-04-29 | 0000-00-00 |
+| 123      | NULL   | NULL    | NULL | NULL       | NULL       |
+| ABC123   | NULL   | NULL    | NULL | NULL       | NULL       |
++----------+--------+---------+------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '[0-9]';
++--------+-------+---------+------+-------+-------+
+| name   | owner | species | sex  | birth | death |
++--------+-------+---------+------+-------+-------+
+| 123    | NULL  | NULL    | NULL | NULL  | NULL  |
+| ABC123 | NULL  | NULL    | NULL | NULL  | NULL  |
++--------+-------+---------+------+-------+-------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^[0-9]$';
+Empty set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^[0-9]+$';
++------+-------+---------+------+-------+-------+
+| name | owner | species | sex  | birth | death |
++------+-------+---------+------+-------+-------+
+| 123  | NULL  | NULL    | NULL | NULL  | NULL  |
++------+-------+---------+------+-------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^[0-9]*$';
++------+-------+---------+------+-------+-------+
+| name | owner | species | sex  | birth | death |
++------+-------+---------+------+-------+-------+
+| 123  | NULL  | NULL    | NULL | NULL  | NULL  |
++------+-------+---------+------+-------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet;
++----------+--------+---------+------+------------+------------+
+| name     | owner  | species | sex  | birth      | death      |
++----------+--------+---------+------+------------+------------+
+| Fluffy   | Harold | cat     | f    | 1993-02-04 | 0000-00-00 |
+| Claws    | Gwen   | cat     | m    | 1994-03-17 | 0000-00-00 |
+| Buffy    | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
+| Fang     | Benny  | dog     | m    | 1990-08-27 | 0000-00-00 |
+| Bowser   | Diane  | dog     | m    | 1979-08-31 | 1995-07-29 |
+| Chirpy   | Gwen   | bird    | f    | 1998-09-11 | 0000-00-00 |
+| Whistler | Gwen   | bird    |      | 1997-12-09 | 0000-00-00 |
+| Slim     | Benny  | snake   | m    | 1996-04-29 | 0000-00-00 |
+| 123      | NULL   | NULL    | NULL | NULL       | NULL       |
+| ABC123   | NULL   | NULL    | NULL | NULL       | NULL       |
++----------+--------+---------+------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> insert into pet (name) values ('nh123');
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet;
++----------+--------+---------+------+------------+------------+
+| name     | owner  | species | sex  | birth      | death      |
++----------+--------+---------+------+------------+------------+
+| Fluffy   | Harold | cat     | f    | 1993-02-04 | 0000-00-00 |
+| Claws    | Gwen   | cat     | m    | 1994-03-17 | 0000-00-00 |
+| Buffy    | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
+| Fang     | Benny  | dog     | m    | 1990-08-27 | 0000-00-00 |
+| Bowser   | Diane  | dog     | m    | 1979-08-31 | 1995-07-29 |
+| Chirpy   | Gwen   | bird    | f    | 1998-09-11 | 0000-00-00 |
+| Whistler | Gwen   | bird    |      | 1997-12-09 | 0000-00-00 |
+| Slim     | Benny  | snake   | m    | 1996-04-29 | 0000-00-00 |
+| 123      | NULL   | NULL    | NULL | NULL       | NULL       |
+| ABC123   | NULL   | NULL    | NULL | NULL       | NULL       |
+| nh123    | NULL   | NULL    | NULL | NULL       | NULL       |
++----------+--------+---------+------+------------+------------+
+11 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '.h';
++----------+-------+---------+------+------------+------------+
+| name     | owner | species | sex  | birth      | death      |
++----------+-------+---------+------+------------+------------+
+| Chirpy   | Gwen  | bird    | f    | 1998-09-11 | 0000-00-00 |
+| Whistler | Gwen  | bird    |      | 1997-12-09 | 0000-00-00 |
+| nh123    | NULL  | NULL    | NULL | NULL       | NULL       |
++----------+-------+---------+------+------------+------------+
+3 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '.h[a-z]';
++----------+-------+---------+------+------------+------------+
+| name     | owner | species | sex  | birth      | death      |
++----------+-------+---------+------+------------+------------+
+| Chirpy   | Gwen  | bird    | f    | 1998-09-11 | 0000-00-00 |
+| Whistler | Gwen  | bird    |      | 1997-12-09 | 0000-00-00 |
++----------+-------+---------+------+------------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '.h[a-z]*';
++----------+-------+---------+------+------------+------------+
+| name     | owner | species | sex  | birth      | death      |
++----------+-------+---------+------+------------+------------+
+| Chirpy   | Gwen  | bird    | f    | 1998-09-11 | 0000-00-00 |
+| Whistler | Gwen  | bird    |      | 1997-12-09 | 0000-00-00 |
+| nh123    | NULL  | NULL    | NULL | NULL       | NULL       |
++----------+-------+---------+------+------------+------------+
+3 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '.h[a-z]+';
++----------+-------+---------+------+------------+------------+
+| name     | owner | species | sex  | birth      | death      |
++----------+-------+---------+------+------------+------------+
+| Chirpy   | Gwen  | bird    | f    | 1998-09-11 | 0000-00-00 |
+| Whistler | Gwen  | bird    |      | 1997-12-09 | 0000-00-00 |
++----------+-------+---------+------+------------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '.h[0-9]';
++-------+-------+---------+------+-------+-------+
+| name  | owner | species | sex  | birth | death |
++-------+-------+---------+------+-------+-------+
+| nh123 | NULL  | NULL    | NULL | NULL  | NULL  |
++-------+-------+---------+------+-------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '.h[^0-9]';
++----------+-------+---------+------+------------+------------+
+| name     | owner | species | sex  | birth      | death      |
++----------+-------+---------+------+------------+------------+
+| Chirpy   | Gwen  | bird    | f    | 1998-09-11 | 0000-00-00 |
+| Whistler | Gwen  | bird    |      | 1997-12-09 | 0000-00-00 |
++----------+-------+---------+------+------------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '.h[^a-z]';
++-------+-------+---------+------+-------+-------+
+| name  | owner | species | sex  | birth | death |
++-------+-------+---------+------+-------+-------+
+| nh123 | NULL  | NULL    | NULL | NULL  | NULL  |
++-------+-------+---------+------+-------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '.h[a-z]';
++----------+-------+---------+------+------------+------------+
+| name     | owner | species | sex  | birth      | death      |
++----------+-------+---------+------+------------+------------+
+| Chirpy   | Gwen  | bird    | f    | 1998-09-11 | 0000-00-00 |
+| Whistler | Gwen  | bird    |      | 1997-12-09 | 0000-00-00 |
++----------+-------+---------+------+------------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '.h[^a-z]';
++-------+-------+---------+------+-------+-------+
+| name  | owner | species | sex  | birth | death |
++-------+-------+---------+------+-------+-------+
+| nh123 | NULL  | NULL    | NULL | NULL  | NULL  |
++-------+-------+---------+------+-------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet;
++----------+--------+---------+------+------------+------------+
+| name     | owner  | species | sex  | birth      | death      |
++----------+--------+---------+------+------------+------------+
+| Fluffy   | Harold | cat     | f    | 1993-02-04 | 0000-00-00 |
+| Claws    | Gwen   | cat     | m    | 1994-03-17 | 0000-00-00 |
+| Buffy    | Harold | dog     | f    | 1989-05-13 | 0000-00-00 |
+| Fang     | Benny  | dog     | m    | 1990-08-27 | 0000-00-00 |
+| Bowser   | Diane  | dog     | m    | 1979-08-31 | 1995-07-29 |
+| Chirpy   | Gwen   | bird    | f    | 1998-09-11 | 0000-00-00 |
+| Whistler | Gwen   | bird    |      | 1997-12-09 | 0000-00-00 |
+| Slim     | Benny  | snake   | m    | 1996-04-29 | 0000-00-00 |
+| 123      | NULL   | NULL    | NULL | NULL       | NULL       |
+| ABC123   | NULL   | NULL    | NULL | NULL       | NULL       |
+| nh123    | NULL   | NULL    | NULL | NULL       | NULL       |
++----------+--------+---------+------+------------+------------+
+11 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '[0-9]';
++--------+-------+---------+------+-------+-------+
+| name   | owner | species | sex  | birth | death |
++--------+-------+---------+------+-------+-------+
+| 123    | NULL  | NULL    | NULL | NULL  | NULL  |
+| ABC123 | NULL  | NULL    | NULL | NULL  | NULL  |
+| nh123  | NULL  | NULL    | NULL | NULL  | NULL  |
++--------+-------+---------+------+-------+-------+
+3 rows in set (0.01 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^[0-9]';
++------+-------+---------+------+-------+-------+
+| name | owner | species | sex  | birth | death |
++------+-------+---------+------+-------+-------+
+| 123  | NULL  | NULL    | NULL | NULL  | NULL  |
++------+-------+---------+------+-------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^[0-9]{3}';
++------+-------+---------+------+-------+-------+
+| name | owner | species | sex  | birth | death |
++------+-------+---------+------+-------+-------+
+| 123  | NULL  | NULL    | NULL | NULL  | NULL  |
++------+-------+---------+------+-------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^[0-9]{2}';
++------+-------+---------+------+-------+-------+
+| name | owner | species | sex  | birth | death |
++------+-------+---------+------+-------+-------+
+| 123  | NULL  | NULL    | NULL | NULL  | NULL  |
++------+-------+---------+------+-------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^[0-9]{2}$';
+Empty set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^[0-9]{3}';
++------+-------+---------+------+-------+-------+
+| name | owner | species | sex  | birth | death |
++------+-------+---------+------+-------+-------+
+| 123  | NULL  | NULL    | NULL | NULL  | NULL  |
++------+-------+---------+------+-------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^[0-9]{2}';
++------+-------+---------+------+-------+-------+
+| name | owner | species | sex  | birth | death |
++------+-------+---------+------+-------+-------+
+| 123  | NULL  | NULL    | NULL | NULL  | NULL  |
++------+-------+---------+------+-------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^[0-9]{2}$';
+Empty set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^[0-9]{3}$';
++------+-------+---------+------+-------+-------+
+| name | owner | species | sex  | birth | death |
++------+-------+---------+------+-------+-------+
+| 123  | NULL  | NULL    | NULL | NULL  | NULL  |
++------+-------+---------+------+-------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^[0-9]{2}$';
+Empty set (0.00 sec)
+
+MariaDB [csd2204w18]> select * from pet where name REGEXP '^[0-9]{2}';
++------+-------+---------+------+-------+-------+
+| name | owner | species | sex  | birth | death |
++------+-------+---------+------+-------+-------+
+| 123  | NULL  | NULL    | NULL | NULL  | NULL  |
++------+-------+---------+------+-------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> exit
