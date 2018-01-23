@@ -1,0 +1,185 @@
+MariaDB [(none)]> use csd2204w2018;
+Database changed
+MariaDB [csd2204w2018]> delimiter $$
+MariaDB [csd2204w2018]> CREATE PROCEDURE proc_Case (INOUT no_employees INT, IN salary INT) BEGIN CASE WHEN(salary>10000) THEN (SELECT COUNT(job_id) INTO no_employees FROM jobs WHERE min_salary > 10000); WHEN(salary<10000) THEN (SELECT COUNT(job_id) INTO no_employees FROM jobs WHERE min_salary < 10000); ELSE (SELECT COUNT(job_id) INTO no_employees FROM jobs WHERE min_salary = 10000); END CASE; END$$
+ERROR 1304 (42000): PROCEDURE proc_Case already exists
+MariaDB [csd2204w2018]> CALL proc_Case(@C,10001)$$ 
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w2018]> SELECT@C$$
++------+
+| @C   |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w2018]> CALLproc_Case(@C,10001);
+    -> \c
+MariaDB [csd2204w2018]> CALL proc_Case(@C,10001);
+    -> CALLproc_Case(@C,9999);
+    -> CALLproc_Case(@C,10000);
+    -> \c
+MariaDB [csd2204w2018]> CALL proc_Case(@C,10001)$$
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w2018]> CALLproc_Case(@C,9999)$$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'CALLproc_Case(@C,9999)' at line 1
+MariaDB [csd2204w2018]> CALL proc_Case(@C,10001)$$  CALL proc_Case(@C,9999)$$ CALL proc_Case(@C,10000)$$
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w2018]> select @c$$
++------+
+| @c   |
++------+
+|    1 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w2018]> CALL proc_Case(@C,10001)$$
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w2018]> select @c$$
++------+
+| @c   |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w2018]>  CALL proc_Case(@C,9999)$$  
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w2018]> select @c$$
++------+
+| @c   |
++------+
+|   16 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w2018]> CALL proc_Case(@C,10000)$$
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w2018]> select @c$$
++------+
+| @c   |
++------+
+|    1 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w2018]>  CREATE PROCEDURE proc_LOOP(IN num INT) BEGIN DECLARE x INT; SET x=0; loop_label: LOOP INSERT INTO number VALUES(rand()); SET x = x + 1; IF x >= num THEN LEAVE loop_label; END IF; END LOOP; END$$ 
+Query OK, 0 rows affected (0.11 sec)
+
+MariaDB [csd2204w2018]> CALLproc_LOOP(3)$$ 
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'CALLproc_LOOP(3)' at line 1
+MariaDB [csd2204w2018]> CALL proc_LOOP(3)$$ 
+ERROR 1146 (42S02): Table 'csd2204w2018.number' doesn't exist
+MariaDB [csd2204w2018]>  CREATE PROCEDURE proc_LOOP(IN num INT) BEGIN DECLARE x INT; SET x=0; loop_label: LOOP INSERT INTO jobs VALUES(rand()); SET x = x + 1; IF x >= num THEN LEAVE loop_label; END IF; END LOOP; END$$ 
+ERROR 1304 (42000): PROCEDURE proc_LOOP already exists
+MariaDB [csd2204w2018]>  CREATE PROCEDURE proc_LOOP1(IN num INT) BEGIN DECLARE x INT; SET x=0; loop_label: LOOP INSERT INTO jobs VALUES(rand()); SET x = x + 1; IF x >= num THEN LEAVE loop_label; END IF; END LOOP; END$$ 
+Query OK, 0 rows affected (0.16 sec)
+
+MariaDB [csd2204w2018]> CALL proc_LOOP1(3)$$ 
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [csd2204w2018]> CREATETABLE numbers(n1real(3,2));
+    -> 
+    -> CREATE TABLE numbers(n1 real(3,2) );
+    -> 
+    -> \c
+MariaDB [csd2204w2018]> CREATE TABLE numbers(n1 real(3,2));
+    -> CREATE TABLE numbers(n1 real(3,2))$$
+Query OK, 0 rows affected (0.22 sec)
+
+ERROR 1050 (42S01): Table 'numbers' already exists
+MariaDB [csd2204w2018]> select * from number$$
+ERROR 1146 (42S02): Table 'csd2204w2018.number' doesn't exist
+MariaDB [csd2204w2018]> select * from numbers$$
+Empty set (0.00 sec)
+
+MariaDB [csd2204w2018]>  CREATE PROCEDURE proc_LOOP1(IN num INT) BEGIN DECLARE x INT; SET x=0; loop_label: LOOP INSERT INTO jobs VALUES(rand()); SET x = x + 1; IF x >= num THEN LEAVE loop_label; END IF; END LOOP; END$$ 
+ERROR 1304 (42000): PROCEDURE proc_LOOP1 already exists
+MariaDB [csd2204w2018]> CALL proc_LOOP1(3)$$ 
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [csd2204w2018]>  CREATE PROCEDURE proc_LOOP(IN num INT) BEGIN DECLARE x INT; SET x=0; loop_label: LOOP INSERT INTO jobs VALUES(rand()); SET x = x + 1; IF x >= num THEN LEAVE loop_label; END IF; END LOOP; END$$ 
+ERROR 1304 (42000): PROCEDURE proc_LOOP already exists
+MariaDB [csd2204w2018]> CALL proc_LOOP(3)$$ 
+ERROR 1146 (42S02): Table 'csd2204w2018.number' doesn't exist
+MariaDB [csd2204w2018]> select * from number$$
+ERROR 1146 (42S02): Table 'csd2204w2018.number' doesn't exist
+MariaDB [csd2204w2018]> select * from numbers$$
+Empty set (0.00 sec)
+
+MariaDB [csd2204w2018]> CALL proc_LOOP(3)$$ 
+ERROR 1146 (42S02): Table 'csd2204w2018.number' doesn't exist
+MariaDB [csd2204w2018]> CREATE TABLE number(n1 real(3,2) );
+    -> CREATE TABLE numbers(n1 real(3,2))$$\c
+Query OK, 0 rows affected (0.27 sec)
+
+ERROR 1050 (42S01): Table 'numbers' already exists
+MariaDB [csd2204w2018]> CREATE TABLE number(n1 real(3,2) )$$
+ERROR 1050 (42S01): Table 'number' already exists
+MariaDB [csd2204w2018]> CALL proc_LOOP(3)$$ 
+Query OK, 1 row affected (0.17 sec)
+
+MariaDB [csd2204w2018]> select * from number$$
++------+
+| n1   |
++------+
+| 0.34 |
+| 0.90 |
+| 0.47 |
++------+
+3 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> CREATE PROCEDURE proc_REPEAT(IN n INT) BEGIN SET @sum = 0; SET @x = 1; REPEAT IF mod(@x,2) = 0 THEN SET @sum = @sum + @x; END IF; SET @x = @x + 1; UNTIL @x > n END REPEAT; END $$ 
+Query OK, 0 rows affected (0.09 sec)
+
+MariaDB [csd2204w2018]> CALLproc_REPEAT(5)$$ 
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'CALLproc_REPEAT(5)' at line 1
+MariaDB [csd2204w2018]> CALL proc_REPEAT(5)$$ 
+Query OK, 0 rows affected (0.02 sec)
+
+MariaDB [csd2204w2018]> SELECT@sum$$
++------+
+| @sum |
++------+
+|    6 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w2018]>  CREATE PROCEDURE proc_WHILE(IN n INT) BEGIN SET @sum = 0; SET @x = 1; WHILE @x < n DO IF mod(@x, 2) <> 0 THEN SET @sum = @sum + @x; END IF; SET @x = @x + 1; END WHILE; END$$
+Query OK, 0 rows affected (0.08 sec)
+
+MariaDB [csd2204w2018]> CALL proc_WHILE(5)$$ 
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [csd2204w2018]> SELECT @sum$$
++------+
+| @sum |
++------+
+|    4 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w2018]> CALLmy_proc_WHILE(10)$$ 
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'CALLmy_proc_WHILE(10)' at line 1
+MariaDB [csd2204w2018]> CALL my_proc_WHILE(10)$$ 
+ERROR 1305 (42000): PROCEDURE csd2204w2018.my_proc_WHILE does not exist
+MariaDB [csd2204w2018]> CALL proc_WHILE(10)$$ 
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [csd2204w2018]> SELECT@sum$$
++------+
+| @sum |
++------+
+|   25 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w2018]> 
