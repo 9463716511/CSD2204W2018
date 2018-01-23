@@ -1,0 +1,528 @@
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> CREATE PROCEDURE job_data()
+    -> SELECT * FROM jobs;
+    -> $$
+Query OK, 0 rows affected (0.01 sec)
+
+MariaDB [csd2204w18]> CALL job_data$$
++------------+---------------------------------+------------+------------+
+| JOB_ID     | JOB_TITLE                       | MIN_SALARY | MAX_SALARY |
++------------+---------------------------------+------------+------------+
+| AD_PRES    | President                       |      20000 |      40000 |
+| AD_VP      | Administration Vice President   |      15000 |      30000 |
+| AD_ASST    | Administration Assistant        |       3000 |       6000 |
+| FI_MGR     | Finance Manager                 |       8200 |      16000 |
+| FI_ACCOUNT | Accountant                      |       4200 |       9000 |
+| AC_MGR     | Accounting Manager              |       8200 |      16000 |
+| AC_ACCOUNT | Public Accountant               |       4200 |       9000 |
+| SA_MAN     | Sales Manager                   |      10000 |      20000 |
+| SA_REP     | Sales Representative            |       6000 |      12000 |
+| PU_MAN     | Purchasing Manager              |       8000 |      15000 |
+| PU_CLERK   | Purchasing Clerk                |       2500 |       5500 |
+| ST_MAN     | Stock Manager                   |       5500 |       8500 |
+| ST_CLERK   | Stock Clerk                     |       2000 |       5000 |
+| SH_CLERK   | Shipping Clerk                  |       2500 |       5500 |
+| IT_PROG    | Programmer                      |       4000 |      10000 |
+| MK_MAN     | Marketing Manager               |       9000 |      15000 |
+| MK_REP     | Marketing Representative        |       4000 |       9000 |
+| HR_REP     | Human Resources Representative  |       4000 |       9000 |
+| PR_REP     | Public Relations Representative |       4500 |      10500 |
++------------+---------------------------------+------------+------------+
+19 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+MariaDB [csd2204w18]> show create procedure job_data$$
++-----------+--------------------------------------------+-----------------------------------------------------------------------------+----------------------+----------------------+--------------------+
+| Procedure | sql_mode                                   | Create Procedure                                                            | character_set_client | collation_connection | Database Collation |
++-----------+--------------------------------------------+-----------------------------------------------------------------------------+----------------------+----------------------+--------------------+
+| job_data  | NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION | CREATE DEFINER=`root`@`localhost` PROCEDURE `job_data`()
+SELECT * FROM jobs | utf8                 | utf8_general_ci      | latin1_swedish_ci  |
++-----------+--------------------------------------------+-----------------------------------------------------------------------------+----------------------+----------------------+--------------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> CREATE PROCEDURE proc_Variables()
+    -> BEGIN 
+    ->     DECLARE a INT DEFAULT 10;
+    ->    DECLARE b, c INT;
+    -> SET a = a + 100; 
+    ->   SET b = 2;
+    ->    SET c = a + b; 
+    ->       BEGIN
+    -> DECLARE c INT;
+    ->              SET c = 5;
+    ->              SELECT a, b, c; 
+    ->   END; 
+    ->     SELECT a, b, c;
+    -> END$$
+Query OK, 0 rows affected (0.02 sec)
+
+MariaDB [csd2204w18]> CALL proc_Variables()$$
++------+------+------+
+| a    | b    | c    |
++------+------+------+
+|  110 |    2 |    5 |
++------+------+------+
+1 row in set (0.00 sec)
+
++------+------+------+
+| a    | b    | c    |
++------+------+------+
+|  110 |    2 |  112 |
++------+------+------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [csd2204w18]> CREATE PROCEDURE proc_User_Variables()
+    -> BEGIN
+    ->    SET @x = 15;
+    ->        SET @y = 10;
+    ->        SELECT @x, @y, @x-@y;
+    ->    END$$
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [csd2204w18]> CALL proc_User_Variables();
+    -> $$
++------+------+-------+
+| @x   | @y   | @x-@y |
++------+------+-------+
+|   15 |   10 |     5 |
++------+------+-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT @X;
+    -> $$
++------+
+| @X   |
++------+
+|   15 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> CREATE PROCEDURE proc_IN(IN var1 INT)
+    -> BEGIN
+    -> SELECT * FROM jobs LIMIT var1;
+    -> END$$
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [csd2204w18]> CALL proc_in(2)$$
++---------+-------------------------------+------------+------------+
+| JOB_ID  | JOB_TITLE                     | MIN_SALARY | MAX_SALARY |
++---------+-------------------------------+------------+------------+
+| AD_PRES | President                     |      20000 |      40000 |
+| AD_VP   | Administration Vice President |      15000 |      30000 |
++---------+-------------------------------+------------+------------+
+2 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [csd2204w18]> CALL proc_in(7)$$
++------------+-------------------------------+------------+------------+
+| JOB_ID     | JOB_TITLE                     | MIN_SALARY | MAX_SALARY |
++------------+-------------------------------+------------+------------+
+| AD_PRES    | President                     |      20000 |      40000 |
+| AD_VP      | Administration Vice President |      15000 |      30000 |
+| AD_ASST    | Administration Assistant      |       3000 |       6000 |
+| FI_MGR     | Finance Manager               |       8200 |      16000 |
+| FI_ACCOUNT | Accountant                    |       4200 |       9000 |
+| AC_MGR     | Accounting Manager            |       8200 |      16000 |
+| AC_ACCOUNT | Public Accountant             |       4200 |       9000 |
++------------+-------------------------------+------------+------------+
+7 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> CREATE PROCEDURE my_proc_OUT (OUT highest_salary INT)
+    -> BEGIN
+    -> SELECT MAX(MAX_SALARY) INTO highest_salary FROM JOBS;
+    -> END$$
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> CALL my_proc_OUT(@M)$$SELECT @M$$
+Query OK, 1 row affected (0.00 sec)
+
++-------+
+| @M    |
++-------+
+| 40000 |
++-------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> CREATE PROCEDURE job_search(IN salary INT)
+    -> BEGIN
+    -> SELECT * FROM jobs WHERE MIN_SALARY > SALARY;
+    -> END$$
+Query OK, 0 rows affected (0.02 sec)
+
+MariaDB [csd2204w18]> CALL job_search(1000)$$
++------------+---------------------------------+------------+------------+
+| JOB_ID     | JOB_TITLE                       | MIN_SALARY | MAX_SALARY |
++------------+---------------------------------+------------+------------+
+| AD_PRES    | President                       |      20000 |      40000 |
+| AD_VP      | Administration Vice President   |      15000 |      30000 |
+| AD_ASST    | Administration Assistant        |       3000 |       6000 |
+| FI_MGR     | Finance Manager                 |       8200 |      16000 |
+| FI_ACCOUNT | Accountant                      |       4200 |       9000 |
+| AC_MGR     | Accounting Manager              |       8200 |      16000 |
+| AC_ACCOUNT | Public Accountant               |       4200 |       9000 |
+| SA_MAN     | Sales Manager                   |      10000 |      20000 |
+| SA_REP     | Sales Representative            |       6000 |      12000 |
+| PU_MAN     | Purchasing Manager              |       8000 |      15000 |
+| PU_CLERK   | Purchasing Clerk                |       2500 |       5500 |
+| ST_MAN     | Stock Manager                   |       5500 |       8500 |
+| ST_CLERK   | Stock Clerk                     |       2000 |       5000 |
+| SH_CLERK   | Shipping Clerk                  |       2500 |       5500 |
+| IT_PROG    | Programmer                      |       4000 |      10000 |
+| MK_MAN     | Marketing Manager               |       9000 |      15000 |
+| MK_REP     | Marketing Representative        |       4000 |       9000 |
+| HR_REP     | Human Resources Representative  |       4000 |       9000 |
+| PR_REP     | Public Relations Representative |       4500 |      10500 |
++------------+---------------------------------+------------+------------+
+19 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+MariaDB [csd2204w18]> CALL job_search(10000)$$
++---------+-------------------------------+------------+------------+
+| JOB_ID  | JOB_TITLE                     | MIN_SALARY | MAX_SALARY |
++---------+-------------------------------+------------+------------+
+| AD_PRES | President                     |      20000 |      40000 |
+| AD_VP   | Administration Vice President |      15000 |      30000 |
++---------+-------------------------------+------------+------------+
+2 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [csd2204w18]> CREATE PROCEDURE job_search(IN salary INT, OUT CNTEMP INT) BEGIN SELECT COUNT(*) INTO CNTEMP FROM jobs WHERE Max_SALARY > SALARY; END$$
+ERROR 1304 (42000): PROCEDURE job_search already exists
+MariaDB [csd2204w18]> CREATE PROCEDURE job_search1(IN salary INT, OUT CNTEMP INT) BEGIN SELECT COUNT(*) INTO CNTEMP FROM jobs WHERE Max_SALARY > SALARY; END$$
+Query OK, 0 rows affected (0.02 sec)
+
+MariaDB [csd2204w18]> CALL job_search1(5000)$$
+ERROR 1318 (42000): Incorrect number of arguments for PROCEDURE csd2204w18.job_search1; expected 2, got 1
+MariaDB [csd2204w18]> CALL job_search1(5000,@E)$$
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT @E;
+    -> $$
++------+
+| @E   |
++------+
+|   18 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> CREATE PROCEDURE proc_INOUT (INOUT maxsalary INT, IN desig CHAR(30))
+    -> BEGIN
+    -> SELECT MAX_SALARY INTO maxsalary FROM jobs WHERE JOB_TITLE = desig;
+    -> END$$
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [csd2204w18]> CALL proc_INOUT(@C,'Stock Clerk')$$
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT @C$$
++------+
+| @C   |
++------+
+| 5000 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> 
+MariaDB [csd2204w18]> CREATE PROCEDURE proc_INOUT (INOUT maxsalary INT, IN desig CHAR(30))
+    -> BEGIN
+    -> SELECT MAX_SALARY INTO maxsalary FROM jobs WHERE JOB_TITLE = desig;
+    -> END$$
+ERROR 1304 (42000): PROCEDURE proc_INOUT already exists
+MariaDB [csd2204w18]> CALL proc_INOUT(@C,'Stock Clerk')$$
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT @C$$
++------+
+| @C   |
++------+
+| 5000 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> CREATE PROCEDURE proc_Compare_Salary(IN desig CHAR(30))
+    -> BEGIN
+    -> DECLARE progSal INT;
+    ->     DECLARE presSal INT;
+    ->     SELECT MIN_SALARY INTO progSal FROM jobs WHERE JOB_TITLE = desig;
+    ->     SELECT MIN_SALARY INTO presSal FROM jobs WHERE JOB_TITLE = 'president';
+    ->     SET presSal = presSal /2;
+    ->     SELECT presSal;
+    ->     SELECT progSal;
+    ->     IF (progSal < presSal)
+    ->     THEN
+    ->     SELECT 'You need an increment.';
+    ->     ELSEIF (progSal = presSal)
+    ->     THEN
+    ->     SELECT 'Salary is moderate';
+    ->     ELSE
+    ->     SELECT 'You are earning good';
+    ->     END IF;
+    -> END$$
+Query OK, 0 rows affected (0.02 sec)
+
+MariaDB [csd2204w18]> CALL proc_Compare_Salary('Programmer')$$
++---------+
+| presSal |
++---------+
+|   10000 |
++---------+
+1 row in set (0.00 sec)
+
++---------+
+| progSal |
++---------+
+|    4000 |
++---------+
+1 row in set (0.00 sec)
+
++------------------------+
+| You need an increment. |
++------------------------+
+| You need an increment. |
++------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [csd2204w18]> CREATE PROCEDURE proc_Case (INOUT no_employees INT, IN salary INT)
+    -> BEGIN
+    -> CASE
+    -> WHEN (salary>10000)
+    ->  THEN (SELECT COUNT(job_id) INTO no_employees FROM jobs WHERE min_salary>10000);
+    -> WHEN (salary<10000) 
+    -> THEN (SELECT COUNT(job_id) INTO no_employees FROM jobs WHERE min_salary<10000);
+    -> ELSE (SELECT COUNT(job_id) INTO no_employees FROM jobs WHERE min_salary=10000);
+    -> END CASE;
+    -> END$$
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [csd2204w18]> CALL proc_Case(@C,10001)$$
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT @C$$
++------+
+| @C   |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> CALL proc_Case(@C,1000)$$
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT @C$$
++------+
+| @C   |
++------+
+|   16 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> CALL proc_Case(@C,10000)$$
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT @C$$
++------+
+| @C   |
++------+
+|    1 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> CREATE TABLE NUMBERS (
+    -> N1 FLOAT(5,2));
+    -> $$
+Query OK, 0 rows affected (0.02 sec)
+
+MariaDB [csd2204w18]> DESC NUMBERS;
+    -> $$
++-------+------------+------+-----+---------+-------+
+| Field | Type       | Null | Key | Default | Extra |
++-------+------------+------+-----+---------+-------+
+| N1    | float(5,2) | YES  |     | NULL    |       |
++-------+------------+------+-----+---------+-------+
+1 row in set (0.01 sec)
+
+MariaDB [csd2204w18]> CREATE PROCEDURE proc_LOOP (IN num INT)
+    ->  BEGIN
+    ->  DECLARE x INT;
+    ->  SET x = 0;
+    ->  loop_label: LOOP
+    ->  INSERT INTO number VALUES (rand());
+    ->  SET x = x + 1;
+    ->  IF x >= num
+    ->  THEN LEAVE loop_label;
+    ->  END IF;
+    ->  END LOOP;
+    ->  END$$
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [csd2204w18]> CALL proc_LOOP(3)$$
+ERROR 1146 (42S02): Table 'csd2204w18.number' doesn't exist
+MariaDB [csd2204w18]> Select * from number$$
+ERROR 1146 (42S02): Table 'csd2204w18.number' doesn't exist
+MariaDB [csd2204w18]> CREATE TABLE NUMBER LIKE NUMBERS;
+    -> $$
+Query OK, 0 rows affected (0.02 sec)
+
+MariaDB [csd2204w18]> DROP NUMBERS$$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'NUMBERS' at line 1
+MariaDB [csd2204w18]> DROP TABLE NUMBERS$$
+Query OK, 0 rows affected (0.01 sec)
+
+MariaDB [csd2204w18]> SHOW TABLES$$
++----------------------+
+| Tables_in_csd2204w18 |
++----------------------+
+| Movies               |
+| Products             |
+| animals              |
+| citymaster           |
+| countries            |
+| customers            |
+| d10_v1               |
+| d10_v2               |
+| d10_v3               |
+| d10_v4               |
+| d10_v5               |
+| d10_v6               |
+| d10_v7               |
+| d10_v8               |
+| d10_v9               |
+| departments          |
+| employees            |
+| job_history          |
+| jobs                 |
+| locations            |
+| manu                 |
+| number               |
+| pet                  |
+| regions              |
++----------------------+
+24 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> CALL proc_LOOP(3)$$
+Query OK, 1 row affected (0.01 sec)
+
+MariaDB [csd2204w18]> Select * from number$$
++------+
+| N1   |
++------+
+| 0.86 |
+| 0.74 |
+| 0.13 |
++------+
+3 rows in set (0.00 sec)
+
+MariaDB [csd2204w18]> CREATE PROCEDURE proc_REPEAT (IN n INT)
+    ->  BEGIN
+    -> SET @sum = 0; 
+    -> SET @x = 1; 
+    -> REPEAT 
+    -> IF mod(@x, 2) = 0 
+    -> THEN SET @sum = @sum + @x; 
+    -> END IF; 
+    -> SET @x = @x + 1; 
+    -> UNTIL @x > n 
+    -> END REPEAT; 
+    -> END $$
+Query OK, 0 rows affected (0.02 sec)
+
+MariaDB [csd2204w18]> CALL proc_REPEAT(5)$$
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT @sum$$
++------+
+| @sum |
++------+
+|    6 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> CREATE PROCEDURE proc_WHILE(IN n INT)
+    -> BEGIN 
+    -> SET @sum = 0;
+    -> SET @x = 1;
+    -> WHILE @x<n 
+    -> DOIF mod(@x, 2) <> 0 
+    -> THEN SET @sum = @sum + @x; 
+    -> END IF; 
+    -> SET @x = @x + 1; 
+    -> END WHILE; 
+    -> END$$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'DOIF mod(@x, 2) <> 0 
+THEN SET @sum = @sum + @x; 
+END IF; 
+SET @x = @x + 1; 
+END' at line 6
+MariaDB [csd2204w18]> CALL proc_WHILE(5)$$
+ERROR 1305 (42000): PROCEDURE csd2204w18.proc_WHILE does not exist
+MariaDB [csd2204w18]> SELECT @sum$$
++------+
+| @sum |
++------+
+|    6 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> CALL proc_WHILE(10)$$
+ERROR 1305 (42000): PROCEDURE csd2204w18.proc_WHILE does not exist
+MariaDB [csd2204w18]> SELECT @sum$$
++------+
+| @sum |
++------+
+|    6 |
++------+
+1 row in set (0.00 sec)
+
+
+MariaDB [csd2204w18]> CREATE PROCEDURE proc_WHILE(IN n INT)
+    -> BEGIN 
+    -> SET @sum = 0;
+    -> SET @x = 1;
+    -> WHILE @x<n 
+    -> DO
+    -> IF mod(@x, 2) <> 0 
+    -> THEN SET @sum = @sum + @x; 
+    -> END IF; 
+    -> SET @x = @x + 1; 
+    -> END WHILE; 
+    -> END$$
+Query OK, 0 rows affected (0.02 sec)
+
+MariaDB [csd2204w18]> CALL proc_WHILE(5)$$
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT @sum$$
++------+
+| @sum |
++------+
+|    4 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> CALL proc_WHILE(10)$$
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [csd2204w18]> SELECT @sum$$
++------+
+| @sum |
++------+
+|   25 |
++------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w18]> EXIT
