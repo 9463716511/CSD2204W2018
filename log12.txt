@@ -1,0 +1,129 @@
+MariaDB [csd2204w2018]> tee c:\xampp\log12.txt
+MariaDB [csd2204w2018]> select version();
++-----------------+
+| version()       |
++-----------------+
+| 10.1.21-MariaDB |
++-----------------+
+1 row in set (0.00 sec)
+
+MariaDB [csd2204w2018]> show privileges;
++-------------------------+---------------------------------------+-------------------------------------------------------+
+| Privilege               | Context                               | Comment                                               |
++-------------------------+---------------------------------------+-------------------------------------------------------+
+| Alter                   | Tables                                | To alter the table                                    |
+| Alter routine           | Functions,Procedures                  | To alter or drop stored functions/procedures          |
+| Create                  | Databases,Tables,Indexes              | To create new databases and tables                    |
+| Create routine          | Databases                             | To use CREATE FUNCTION/PROCEDURE                      |
+| Create temporary tables | Databases                             | To use CREATE TEMPORARY TABLE                         |
+| Create view             | Tables                                | To create new views                                   |
+| Create user             | Server Admin                          | To create new users                                   |
+| Delete                  | Tables                                | To delete existing rows                               |
+| Drop                    | Databases,Tables                      | To drop databases, tables, and views                  |
+| Event                   | Server Admin                          | To create, alter, drop and execute events             |
+| Execute                 | Functions,Procedures                  | To execute stored routines                            |
+| File                    | File access on server                 | To read and write files on the server                 |
+| Grant option            | Databases,Tables,Functions,Procedures | To give to other users those privileges you possess   |
+| Index                   | Tables                                | To create or drop indexes                             |
+| Insert                  | Tables                                | To insert data into tables                            |
+| Lock tables             | Databases                             | To use LOCK TABLES (together with SELECT privilege)   |
+| Process                 | Server Admin                          | To view the plain text of currently executing queries |
+| Proxy                   | Server Admin                          | To make proxy user possible                           |
+| References              | Databases,Tables                      | To have references on tables                          |
+| Reload                  | Server Admin                          | To reload or refresh tables, logs and privileges      |
+| Replication client      | Server Admin                          | To ask where the slave or master servers are          |
+| Replication slave       | Server Admin                          | To read binary log events from the master             |
+| Select                  | Tables                                | To retrieve rows from table                           |
+| Show databases          | Server Admin                          | To see all databases with SHOW DATABASES              |
+| Show view               | Tables                                | To see views with SHOW CREATE VIEW                    |
+| Shutdown                | Server Admin                          | To shut down the server                               |
+| Super                   | Server Admin                          | To use KILL thread, SET GLOBAL, CHANGE MASTER, etc.   |
+| Trigger                 | Tables                                | To use triggers                                       |
+| Create tablespace       | Server Admin                          | To create/alter/drop tablespaces                      |
+| Update                  | Tables                                | To update existing rows                               |
+| Usage                   | Server Admin                          | No privileges - allow connect only                    |
++-------------------------+---------------------------------------+-------------------------------------------------------+
+31 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> delimiter $$;
+MariaDB [csd2204w2018]> select * from jobs $$;
++------------+---------------------------------+------------+------------+
+| JOB_ID     | JOB_TITLE                       | MIN_SALARY | MAX_SALARY |
++------------+---------------------------------+------------+------------+
+| AD_PRES    | President                       |      20000 |      40000 |
+| AD_VP      | Administration Vice President   |      15000 |      30000 |
+| AD_ASST    | Administration Assistant        |       3000 |       6000 |
+| FI_MGR     | Finance Manager                 |       8200 |      16000 |
+| FI_ACCOUNT | Accountant                      |       4200 |       9000 |
+| AC_MGR     | Accounting Manager              |       8200 |      16000 |
+| AC_ACCOUNT | Public Accountant               |       4200 |       9000 |
+| SA_MAN     | Sales Manager                   |      10000 |      20000 |
+| SA_REP     | Sales Representative            |       6000 |      12000 |
+| PU_MAN     | Purchasing Manager              |       8000 |      15000 |
+| PU_CLERK   | Purchasing Clerk                |       2500 |       5500 |
+| ST_MAN     | Stock Manager                   |       5500 |       8500 |
+| ST_CLERK   | Stock Clerk                     |       2000 |       5000 |
+| SH_CLERK   | Shipping Clerk                  |       2500 |       5500 |
+| IT_PROG    | Programmer                      |       4000 |      10000 |
+| MK_MAN     | Marketing Manager               |       9000 |      15000 |
+| MK_REP     | Marketing Representative        |       4000 |       9000 |
+| HR_REP     | Human Resources Representative  |       4000 |       9000 |
+| PR_REP     | Public Relations Representative |       4500 |      10500 |
++------------+---------------------------------+------------+------------+
+19 rows in set (0.00 sec)
+
+MariaDB [csd2204w2018]> delimiter; $$
+    -> 
+    -> \c
+MariaDB [csd2204w2018]> delimiter $$;
+MariaDB [csd2204w2018]> CREATE PROCEDURE proc_Variables() BEGIN DECLARE aINTDEFAULT 10; DECLARE b, cINT; SET a = a + 100; SET b = 2; SET c = a + b; BEGIN DECLARE cINT; SET c = 5; SELECT a, b, c; END; SELECT a, b, c; END$$ 
+    -> \c
+MariaDB [csd2204w2018]> CREATE PROCEDURE proc_Variables() BEGIN DECLARE a INT DEFAULT 10; DECLARE b, c INT; SET a = a + 100; SET b = 2; SET c = a + b; BEGIN DECLARE c INT; SET c = 5; SELECT a, b, c; END; SELECT a, b, c; END$$ 
+    -> \c
+MariaDB [csd2204w2018]> delimiter $$
+MariaDB [csd2204w2018]> CREATE PROCEDURE proc_Variables() BEGIN DECLARE a INT DEFAULT 10; DECLARE b, c INT; SET a = a + 100; SET b = 2; SET c = a + b; BEGIN DECLARE c INT; SET c = 5; SELECT a, b, c; END; SELECT a, b, c; END$$ 
+Query OK, 0 rows affected (0.08 sec)
+
+MariaDB [csd2204w2018]> CREATE PROCEDURE proc_User_Variables() BEGIN SET @x=15; SET @y=10; SELECT @x,@y,@x-@y; END$$ 
+Query OK, 0 rows affected (0.28 sec)
+
+MariaDB [csd2204w2018]> CREATE PROCEDURE proc_Compare_Salary(IN desig CHAR(30)) BEGIN DECLARE progSal INT; DECLARE presSal INT; SELECT MIN_SALARY INTO progSal FROM jobs WHERE JOB_TITLE = desig; SELECT MIN_SALARY INTO presSal FROM jobs WHERE JOB_TITLE = 'president'; SET presSal = presSal /2; SELECT presSal; SELECT progSal; IF(progSal<presSal) THEN SELECT'You need an increment.'; ELSEIF(progSal=presSal) THEN SELECT'Salary is moderate'; ELSE SELECT'You are earning good'; ENDIF; END$$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '; END' at line 1
+MariaDB [csd2204w2018]> CREATE PROCEDURE proc_Compare_Salary(IN desig CHAR(30)) BEGIN DECLARE progSal INT; DECLARE presSal INT; SELECT MIN_SALARY INTO progSal FROM jobs WHERE JOB_TITLE = desig; SELECT MIN_SALARY INTO presSal FROM jobs WHERE JOB_TITLE = 'president'; SET presSal = presSal /2; SELECT presSal; SELECT progSal; IF(progSal<presSal) THEN SELECT'You need an increment.'; ELSEIF(progSal=presSal) THEN SELECT'Salary is moderate'; ELSE SELECT'You are earning good'; END IF; END$$
+Query OK, 0 rows affected (0.06 sec)
+
+MariaDB [csd2204w2018]> CALLproc_Compare_Salary('Programmer')$$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'CALLproc_Compare_Salary('Programmer')' at line 1
+MariaDB [csd2204w2018]> CALL proc_Compare_Salary('Programmer')$$ 
++---------+
+| presSal |
++---------+
+|   10000 |
++---------+
+1 row in set (0.00 sec)
+
++---------+
+| progSal |
++---------+
+|    4000 |
++---------+
+1 row in set (0.01 sec)
+
++------------------------+
+| You need an increment. |
++------------------------+
+| You need an increment. |
++------------------------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [csd2204w2018]> CREATE PROCEDURE proc_Case (INOUT no_employees INT, IN salary INT) BEGIN CASE WHEN(salary>10000) THEN (SELECT COUNT(job_id) INTO no_employees FROM jobs WHERE min_salary > 10000); WHEN(salary<10000) THEN (SELECT COUNT(job_id) INTO no_employees FROM jobs WHERE min_salary < 10000); ELSE (SELECT COUNT(job_id) INTO no_employees FROM jobs WHERE min_salary = 10000); ENDCASE; END$$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '; END' at line 1
+MariaDB [csd2204w2018]> CREATE PROCEDURE proc_Case (INOUT no_employees INT, IN salary INT) BEGIN CASE WHEN(salary>10000) THEN (SELECT COUNT(job_id) INTO no_employees FROM jobs WHERE min_salary > 10000); WHEN(salary<10000) THEN (SELECT COUNT(job_id) INTO no_employees FROM jobs WHERE min_salary < 10000); ELSE (SELECT COUNT(job_id) INTO no_employees FROM jobs WHERE min_salary = 10000); END CASE; END$$
+Query OK, 0 rows affected (0.14 sec)
+
+MariaDB [csd2204w2018]> CALL proc_Case(@C,10001)$$ 
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [csd2204w2018]> 
